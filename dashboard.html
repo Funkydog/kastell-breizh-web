@@ -1,0 +1,723 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tableau de Bord | Kastell Breizh</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+
+    <style>
+        body {
+            background-color: var(--slate-light);
+        }
+
+        .dashboard-layout {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Styles */
+        .sidebar {
+            width: 280px;
+            background-color: var(--navy-blue);
+            color: var(--white);
+            display: flex;
+            flex-direction: column;
+            position: fixed;
+            height: 100vh;
+            left: 0;
+            top: 0;
+            z-index: 100;
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .sidebar-logo {
+            height: 40px;
+            margin-bottom: 1rem;
+        }
+
+        .owner-profile {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .owner-avatar {
+            width: 40px;
+            height: 40px;
+            background-color: var(--gold);
+            color: var(--navy-blue-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 1.1rem;
+        }
+
+        .owner-info h3 {
+            color: var(--white);
+            margin: 0;
+            font-size: 1rem;
+            font-family: var(--font-body);
+        }
+
+        .owner-info span {
+            font-size: 0.8rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .sidebar-nav {
+            padding: 1.5rem 0;
+            flex-grow: 1;
+        }
+
+        .sidebar-nav ul {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .sidebar-nav li a {
+            display: flex;
+            align-items: center;
+            padding: 1rem 1.5rem;
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            gap: 1rem;
+            transition: var(--transition-fast);
+            border-left: 3px solid transparent;
+        }
+
+        .sidebar-nav li a:hover,
+        .sidebar-nav li a.active {
+            background-color: rgba(255, 255, 255, 0.05);
+            color: var(--gold);
+            border-left-color: var(--gold);
+        }
+
+        .sidebar-nav li a i {
+            width: 20px;
+            text-align: center;
+        }
+
+        .sidebar-footer {
+            padding: 1.5rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .logout-btn {
+            color: rgba(255, 255, 255, 0.7);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            transition: var(--transition-fast);
+        }
+
+        .logout-btn:hover {
+            color: #ff6b6b;
+        }
+
+        /* Main Content Styles */
+        .main-content {
+            flex-grow: 1;
+            margin-left: 280px;
+            padding: 2rem 3rem;
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-title {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+
+        .property-selector {
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-sm);
+            border: 1px solid var(--slate-grey);
+            font-family: var(--font-body);
+            background: white;
+            outline: none;
+        }
+
+        /* KPI Cards */
+        .kpi-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .kpi-card {
+            background: var(--white);
+            padding: 1.5rem;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.5rem;
+        }
+
+        .kpi-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+        }
+
+        .kpi-icon.blue {
+            background-color: rgba(26, 43, 76, 0.1);
+            color: var(--navy-blue);
+        }
+
+        .kpi-icon.green {
+            background-color: rgba(46, 204, 113, 0.1);
+            color: #2ecc71;
+        }
+
+        .kpi-icon.gold {
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--gold-dark);
+        }
+
+        .kpi-details h4 {
+            color: var(--text-muted);
+            font-family: var(--font-body);
+            font-weight: 500;
+            font-size: 0.9rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-value {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--navy-blue);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .kpi-trend {
+            font-size: 0.85rem;
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+        }
+
+        .trend-up {
+            color: #2ecc71;
+        }
+
+        .trend-down {
+            color: #e74c3c;
+        }
+
+        /* Dashboard Layout Grid */
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+        }
+
+        /* Calendar Card */
+        .dashboard-card {
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-sm);
+            padding: 1.5rem;
+        }
+
+        .card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--slate-light);
+        }
+
+        .card-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        /* Mock Calendar Grid */
+        .calendar-header {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            text-align: center;
+            font-weight: 600;
+            color: var(--text-muted);
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 4px;
+        }
+
+        .cal-day {
+            aspect-ratio: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border-radius: var(--border-radius-sm);
+            font-size: 0.9rem;
+            background-color: var(--off-white);
+            cursor: pointer;
+            transition: var(--transition-fast);
+            position: relative;
+        }
+
+        .cal-day:hover {
+            background-color: var(--slate-light);
+        }
+
+        .cal-empty {
+            background-color: transparent;
+            cursor: default;
+        }
+
+        /* Statuses */
+        .cal-booked {
+            background-color: rgba(26, 43, 76, 0.8);
+            color: white;
+            font-weight: 600;
+        }
+
+        .cal-blocked {
+            background-color: var(--slate-grey);
+            color: white;
+            opacity: 0.7;
+            background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 10px);
+        }
+
+        .cal-price {
+            font-size: 0.65rem;
+            color: var(--text-muted);
+            margin-top: 2px;
+        }
+
+        .cal-booked .cal-price {
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        /* Recent Activity List */
+        .activity-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+        }
+
+        .activity-item {
+            display: flex;
+            gap: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--slate-light);
+        }
+
+        .activity-item:last-child {
+            border-bottom: none;
+            padding-bottom: 0;
+        }
+
+        .activity-icon {
+            width: 36px;
+            height: 36px;
+            background-color: rgba(212, 175, 55, 0.1);
+            color: var(--gold-dark);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .activity-content h4 {
+            margin: 0 0 0.25rem 0;
+            font-size: 0.95rem;
+            font-family: var(--font-body);
+            color: var(--navy-blue);
+        }
+
+        .activity-content p {
+            margin: 0;
+            font-size: 0.85rem;
+            color: var(--text-muted);
+        }
+
+        .activity-time {
+            font-size: 0.75rem;
+            color: var(--slate-grey);
+            margin-top: 0.25rem;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="dashboard-layout">
+
+        <!-- Sidebar -->
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="sidebar-logo">
+                <div class="owner-profile">
+                    <div class="owner-avatar">YB</div>
+                    <div class="owner-info">
+                        <h3>Yannick B.</h3>
+                        <span>Propriétaire Partenaire</span>
+                    </div>
+                </div>
+            </div>
+
+            <nav class="sidebar-nav">
+                <ul>
+                    <li><a href="#" class="active"><i class="fas fa-chart-pie"></i> Vue d'ensemble</a></li>
+                    <li><a href="#"><i class="far fa-calendar-alt"></i> Calendrier & Tarifs</a></li>
+                    <li><a href="#"><i class="fas fa-users"></i> Réservations</a></li>
+                    <li><a href="#"><i class="fas fa-file-invoice-dollar"></i> Finance & Factures</a></li>
+                    <li><a href="#"><i class="fas fa-home"></i> Mes Propriétés</a></li>
+                    <li><a href="#"><i class="far fa-envelope"></i> Messagerie <span
+                                style="background: var(--gold); color: var(--navy-blue); padding: 2px 6px; border-radius: 10px; font-size: 0.7rem; font-weight: bold; margin-left: auto;">2</span></a>
+                    </li>
+                </ul>
+            </nav>
+
+            <div class="sidebar-footer">
+                <a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+            </div>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <div class="topbar">
+                <h1 class="page-title">Tableau de Bord</h1>
+                <select class="property-selector">
+                    <option>Global (Tous les biens)</option>
+                    <option>Manoir de Kerollivier</option>
+                    <option>Le Gîte de Saint Guy</option>
+                </select>
+            </div>
+
+            <!-- KPIs -->
+            <div class="kpi-grid">
+                <div class="kpi-card">
+                    <div class="kpi-icon blue"><i class="fas fa-bed"></i></div>
+                    <div class="kpi-details">
+                        <h4>Taux d'occupation (Mois)</h4>
+                        <div class="kpi-value">78%</div>
+                        <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +5% vs mois dernier</div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon green"><i class="fas fa-euro-sign"></i></div>
+                    <div class="kpi-details">
+                        <h4>Revenus Générés (YTD)</h4>
+                        <div class="kpi-value">24 500 €</div>
+                        <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +12% vs année dernière</div>
+                    </div>
+                </div>
+
+                <div class="kpi-card">
+                    <div class="kpi-icon gold"><i class="fas fa-chart-line"></i></div>
+                    <div class="kpi-details">
+                        <h4>Revenus Prévisionnels (Année)</h4>
+                        <div class="kpi-value">38 200 €</div>
+                        <div class="kpi-trend"><span style="color: var(--text-muted)">Basé sur réserv. actuelles</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dashboard-grid">
+                <!-- Calendar Section -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <div style="display: flex; align-items: center; gap: 1rem;">
+                            <h3>Calendrier des Réservations</h3>
+                            <span id="sync-status"
+                                style="font-size: 0.8rem; color: var(--text-muted); padding: 2px 8px; border-radius: 12px; background: var(--off-white);"><i
+                                    class="fas fa-sync fa-spin"></i> Synchronisation...</span>
+                        </div>
+                        <div style="display: flex; gap: 1rem; align-items: center;">
+                            <span id="calendar-month-label" style="font-weight: 600;"></span>
+                            <div style="display: flex; gap: 0.5rem;">
+                                <button class="btn btn-outline" style="padding: 0.25rem 0.75rem;"><i
+                                        class="fas fa-chevron-left"></i></button>
+                                <button class="btn btn-outline" style="padding: 0.25rem 0.75rem;"><i
+                                        class="fas fa-chevron-right"></i></button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="calendar-container">
+                        <div class="calendar-header">
+                            <div>Lun</div>
+                            <div>Mar</div>
+                            <div>Mer</div>
+                            <div>Jeu</div>
+                            <div>Ven</div>
+                            <div>Sam</div>
+                            <div>Dim</div>
+                        </div>
+                        <div class="calendar-grid" id="dashboard-calendar-grid">
+                            <!-- Dynamic days injected by JS -->
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Activity Center -->
+                <div class="dashboard-card">
+                    <div class="card-header">
+                        <h3>Activité Récente</h3>
+                    </div>
+
+                    <div class="activity-list">
+                        <div class="activity-item">
+                            <div class="activity-icon"><i class="fas fa-star" style="color: #f1c40f;"></i></div>
+                            <div class="activity-content">
+                                <h4>Nouvel Avis - 5/5</h4>
+                                <p>"Séjour incroyable, service parfait de la conciergerie !" - <em>Manoir de
+                                        Kerollivier</em></p>
+                                <div class="activity-time">Il y a 2 heures</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon"
+                                style="background-color: rgba(46, 204, 113, 0.1); color: #2ecc71;"><i
+                                    class="fas fa-check"></i></div>
+                            <div class="activity-content">
+                                <h4>Nouvelle Réservation</h4>
+                                <p>Airbnb : 4 nuits (14-18 Juil). Revenu net : 860€</p>
+                                <div class="activity-time">Aujourd'hui à 09:14</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon"
+                                style="background-color: rgba(52, 152, 219, 0.1); color: #3498db;"><i
+                                    class="fas fa-broom"></i></div>
+                            <div class="activity-content">
+                                <h4>Ménage & Logistique</h4>
+                                <p>Intervention terminée et compte-rendu disponible - <em>Le Gîte de Saint Guy</em></p>
+                                <div class="activity-time">Hier à 14:30</div>
+                            </div>
+                        </div>
+
+                        <div class="activity-item">
+                            <div class="activity-icon"
+                                style="background-color: rgba(155, 89, 182, 0.1); color: #9b59b6;"><i
+                                    class="fas fa-euro-sign"></i></div>
+                            <div class="activity-content">
+                                <h4>Virement Mensuel Effectué</h4>
+                                <p>Virement de 3 450€ initié pour la période de Juin.</p>
+                                <div class="activity-time">01 Juillet 2026</div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <button class="btn btn-outline" style="width: 100%; margin-top: 1.5rem;">Voir tout
+                        l'historique</button>
+                </div>
+            </div>
+
+        </main>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const calendarGrid = document.getElementById('dashboard-calendar-grid');
+            const monthLabel = document.getElementById('calendar-month-label');
+            const prevMonthBtn = document.querySelectorAll('.card-header button.btn-outline')[0];
+            const nextMonthBtn = document.querySelectorAll('.card-header button.btn-outline')[1];
+
+            let currentDate = new Date();
+            let bookedDates = []; // Will hold {start, end, summary} objects
+
+            const ICS_URL = "https://calendar.google.com/calendar/ical/08247f509af91516fb0a544e3a99238ad711275f739fe7ce21035a5726c029d5%40group.calendar.google.com/public/basic.ics";
+            // Using a free CORS proxy to fetch the ICS file since we're in the browser
+            const PROXY_URL = "https://corsproxy.io/?" + encodeURIComponent(ICS_URL);
+
+            const syncStatusEl = document.getElementById('sync-status');
+
+            // Basic parsing of ICS format
+            function parseICS(icsText) {
+                const lines = icsText.split(/\r\n|\n|\r/);
+                const events = [];
+                let currentEvent = null;
+
+                for (let i = 0; i < lines.length; i++) {
+                    const line = lines[i];
+                    if (line === 'BEGIN:VEVENT') {
+                        currentEvent = {};
+                    } else if (line === 'END:VEVENT') {
+                        if (currentEvent && currentEvent.DTSTART && currentEvent.DTEND) {
+                            events.push(currentEvent);
+                        }
+                        currentEvent = null;
+                    } else if (currentEvent) {
+                        if (line.startsWith('DTSTART')) {
+                            const val = line.split(':')[1];
+                            currentEvent.DTSTART = parseICalDate(val);
+                        } else if (line.startsWith('DTEND')) {
+                            const val = line.split(':')[1];
+                            currentEvent.DTEND = parseICalDate(val);
+                        } else if (line.startsWith('SUMMARY')) {
+                            currentEvent.SUMMARY = line.substring(line.indexOf(':') + 1);
+                        }
+                    }
+                }
+                return events;
+            }
+
+            function parseICalDate(dateStr) {
+                // Handling formats like 20260714T000000Z or basic 20260714
+                if (!dateStr) return new Date();
+                const year = parseInt(dateStr.substring(0, 4));
+                const month = parseInt(dateStr.substring(4, 6)) - 1;
+                const day = parseInt(dateStr.substring(6, 8));
+                return new Date(year, month, day);
+            }
+
+            async function fetchCalendarData() {
+                try {
+                    const response = await fetch(PROXY_URL);
+                    if (!response.ok) throw new Error("Failed to fetch ICS");
+                    const data = await response.text();
+
+                    const events = parseICS(data);
+
+                    // Convert events to intervals
+                    // If start and end are the same day, it's a 1-night
+                    // If end is next day, the checkout day is the end
+                    bookedDates = events.map(e => ({
+                        start: e.DTSTART,
+                        end: e.DTEND, // Exclusive check-out date typically
+                        summary: e.SUMMARY || "Réservé"
+                    }));
+
+                    syncStatusEl.innerHTML = '<i class="fas fa-check-circle" style="color: #2ecc71;"></i> Synchronisé';
+                    if (bookedDates.length === 0) {
+                        syncStatusEl.innerHTML += ' (0 évènement)';
+                    }
+
+                    renderCalendar(currentDate);
+                } catch (error) {
+                    console.error("Calendar Sync Error:", error);
+                    syncStatusEl.innerHTML = '<i class="fas fa-exclamation-circle" style="color: #e74c3c;"></i> Erreur de Sync';
+                    renderCalendar(currentDate); // Render empty if failed
+                }
+            }
+
+            function isDateBooked(date) {
+                // Return status: false, 'booked', or 'checkout'
+                for (const booking of bookedDates) {
+                    // Normalize dates to midnight for comparison
+                    const d = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
+                    const bStart = new Date(booking.start.getFullYear(), booking.start.getMonth(), booking.start.getDate()).getTime();
+                    const bEnd = new Date(booking.end.getFullYear(), booking.end.getMonth(), booking.end.getDate()).getTime();
+
+                    if (d === bEnd) {
+                        return { status: 'checkout' };
+                    }
+                    if (d >= bStart && d < bEnd) {
+                        return { status: 'booked', label: booking.summary };
+                    }
+                }
+                return { status: false };
+            }
+
+            function renderCalendar(date) {
+                calendarGrid.innerHTML = '';
+
+                const year = date.getFullYear();
+                const month = date.getMonth();
+                const startDay = new Date(year, month, 1);
+                // 0 is Sunday, 1 is Monday... Adjusting logic for Monday start:
+                let firstDayIndex = startDay.getDay() - 1;
+                if (firstDayIndex === -1) firstDayIndex = 6;
+
+                const daysInMonth = new Date(year, month + 1, 0).getDate();
+
+                const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
+                monthLabel.textContent = `${monthNames[month]} ${year}`;
+
+                // Padding empty days
+                for (let i = 0; i < firstDayIndex; i++) {
+                    const emptyDiv = document.createElement('div');
+                    emptyDiv.className = 'cal-day cal-empty';
+                    calendarGrid.appendChild(emptyDiv);
+                }
+
+                // Days
+                for (let i = 1; i <= daysInMonth; i++) {
+                    const d = new Date(year, month, i);
+                    const bookingStatus = isDateBooked(d);
+
+                    const dayDiv = document.createElement('div');
+                    let className = 'cal-day';
+                    let priceLabel = '240€';
+
+                    if (bookingStatus.status === 'checkout') {
+                        // For checkout days, we do NOT strictly color it booked per user request.
+                        // We leave the class alone so it looks like a normal unbooked day, 
+                        // but you could add checking out logic here if needed.
+                        priceLabel = 'Checkout';
+                    } else if (bookingStatus.status === 'booked') {
+                        className += ' cal-booked';
+                        priceLabel = bookingStatus.label || 'Réservé';
+                    }
+
+                    dayDiv.className = className;
+                    dayDiv.innerHTML = `${i}<span class="cal-price">${priceLabel}</span>`;
+                    calendarGrid.appendChild(dayDiv);
+                }
+            }
+
+            // Events
+            prevMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() - 1);
+                renderCalendar(currentDate);
+            });
+
+            nextMonthBtn.addEventListener('click', () => {
+                currentDate.setMonth(currentDate.getMonth() + 1);
+                renderCalendar(currentDate);
+            });
+
+            // Initial render
+            renderCalendar(currentDate);
+
+            // Fetch ICS data in background
+            fetchCalendarData();
+        });
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Espace Propriétaire | Kastell Breizh</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .login-page {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-image: url('images/hero_breizh_manor_1772298469242.png');
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .login-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(26, 43, 76, 0.9) 0%, rgba(26, 43, 76, 0.7) 100%);
+        }
+
+        .login-container {
+            position: relative;
+            z-index: 10;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            padding: 3rem;
+            border-radius: var(--border-radius-md);
+            box-shadow: var(--shadow-lg);
+            width: 100%;
+            max-width: 450px;
+            text-align: center;
+        }
+
+        .login-logo {
+            height: 60px;
+            margin-bottom: 2rem;
+        }
+
+        .login-title {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+            color: var(--navy-blue);
+        }
+
+        .login-subtitle {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+            font-size: 0.9rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+            text-align: left;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: var(--text-main);
+            font-size: 0.9rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.8rem 1rem;
+            border: 1px solid var(--slate-light);
+            border-radius: var(--border-radius-sm);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background-color: var(--off-white);
+            transition: var(--transition-fast);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--gold);
+            background-color: var(--white);
+            box-shadow: 0 0 0 3px rgba(212, 175, 55, 0.1);
+        }
+
+        .login-btn {
+            width: 100%;
+            margin-top: 1rem;
+            padding: 1rem;
+        }
+
+        .login-links {
+            margin-top: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            font-size: 0.85rem;
+        }
+
+        .login-links a {
+            color: var(--navy-blue);
+        }
+
+        .login-links a:hover {
+            color: var(--gold-dark);
+        }
+
+        .back-to-home {
+            position: absolute;
+            top: 2rem;
+            left: 2rem;
+            z-index: 20;
+            color: var(--white);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-weight: 500;
+        }
+
+        .back-to-home i {
+            transition: transform 0.2s;
+        }
+
+        .back-to-home:hover i {
+            transform: translateX(-5px);
+        }
+
+        .back-to-home:hover {
+            color: var(--gold);
+        }
+    </style>
+</head>
+
+<body>
+    <div class="login-page">
+        <div class="login-overlay"></div>
+
+        <a href="index.html" class="back-to-home">
+            <i class="fas fa-arrow-left"></i> Retour au site
+        </a>
+
+        <div class="login-container">
+            <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="login-logo">
+            <h1 class="login-title">Espace Propriétaire</h1>
+            <p class="login-subtitle">Connectez-vous pour accéder à votre tableau de bord et suivre l'activité de vos
+                biens.</p>
+
+            <form id="owner-login-form">
+                <div class="form-group">
+                    <label for="email">Adresse E-mail</label>
+                    <input type="email" id="email" class="form-control" placeholder="votre@email.com" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="password">Mot de passe</label>
+                    <input type="password" id="password" class="form-control" placeholder="••••••••" required>
+                </div>
+
+                <button type="submit" class="btn btn-primary login-btn">Se Connecter <i class="fas fa-sign-in-alt"
+                        style="margin-left: 0.5rem;"></i></button>
+
+                <div class="login-links">
+                    <label
+                        style="display: flex; align-items: center; gap: 0.5rem; cursor: pointer; color: var(--text-muted);">
+                        <input type="checkbox"> Se souvenir de moi
+                    </label>
+                    <a href="#">Mot de passe oublié ?</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('owner-login-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            // Simulate Authentication
+            const btn = document.querySelector('.login-btn');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Connexion...';
+            btn.disabled = true;
+
+            setTimeout(() => {
+                // Redirect to the dashboard
+                window.location.href = 'dashboard.html';
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>
