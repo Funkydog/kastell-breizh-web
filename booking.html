@@ -1,0 +1,625 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Réserver votre séjour | Kastell Breizh</title>
+    <meta name="description" content="Réservez votre séjour dans une demeure d'exception en Bretagne. Paiement sécurisé directement au propriétaire.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Flatpickr date picker -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+    <!-- Leaflet map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="booking.css">
+</head>
+
+<body class="booking-page">
+
+    <!-- Navbar -->
+    <header class="navbar scrolled" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html#services">Nos Services</a>
+                <a href="index.html#proprietes">Propriétés</a>
+                <a href="places.html">La Région</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Espace Propriétaire</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Progress Steps -->
+    <div class="booking-progress-bar">
+        <div class="container">
+            <div class="progress-steps">
+                <div class="progress-step active" id="step-indicator-1">
+                    <div class="step-number">1</div>
+                    <span class="step-label">Votre séjour</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step-indicator-2">
+                    <div class="step-number">2</div>
+                    <span class="step-label">Vos coordonnées</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step-indicator-3">
+                    <div class="step-number">3</div>
+                    <span class="step-label">Paiement</span>
+                </div>
+                <div class="progress-line"></div>
+                <div class="progress-step" id="step-indicator-4">
+                    <div class="step-number"><i class="fas fa-check"></i></div>
+                    <span class="step-label">Confirmation</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Booking Layout -->
+    <main class="booking-main">
+        <div class="container booking-container">
+
+            <!-- LEFT: Multi-step Form -->
+            <div class="booking-form-area">
+
+                <!-- ============ STEP 1: Dates & Property ============ -->
+                <div class="booking-step active" id="step-1">
+                    <div class="step-header">
+                        <h1 class="step-title">Choisissez vos dates</h1>
+                        <p class="step-subtitle">Les dates en rouge sont déjà réservées. Sélectionnez votre période de séjour.</p>
+                    </div>
+
+                    <!-- Property Selector -->
+                    <div class="form-section">
+                        <label class="form-label"><i class="fas fa-home"></i> Propriété choisie</label>
+                        <div class="property-tabs" id="property-tabs">
+                            <button class="prop-tab active" data-property="kerollivier">
+                                <img src="images/Kerollivier.jpg" alt="Kerollivier">
+                                <span>Manoir de Kerollivier</span>
+                            </button>
+                            <button class="prop-tab" data-property="saint-guy">
+                                <img src="images/StGuy.jpg" alt="Saint Guy">
+                                <span>Gîte de Saint Guy</span>
+                            </button>
+                            <button class="prop-tab" data-property="maison-art">
+                                <img src="images/MaieBail.jpg" alt="Maison Art">
+                                <span>Maison d'Art et Nature</span>
+                            </button>
+                            <button class="prop-tab" data-property="pont-dorniol">
+                                <img src="images/Pont Dorniol.jpg" alt="Pont Dorniol">
+                                <span>Manoir de Pont Dorniol</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Mini Map -->
+                    <div class="form-section">
+                        <div class="mini-map-header">
+                            <label class="form-label"><i class="fas fa-map-marker-alt"></i> Localisation</label>
+                            <button class="mini-map-toggle" id="mini-map-toggle" type="button">
+                                <i class="fas fa-chevron-down" id="mini-map-chevron"></i>
+                                <span id="mini-map-toggle-label">Afficher la carte</span>
+                            </button>
+                        </div>
+                        <div class="mini-map-wrapper" id="mini-map-wrapper" style="display:none;">
+                            <div id="booking-mini-map"></div>
+                            <div class="mini-map-info" id="mini-map-info">
+                                <i class="fas fa-map-marker-alt"></i>
+                                <div>
+                                    <strong id="mini-map-property-name">Manoir de Kerollivier</strong>
+                                    <span id="mini-map-location">Saint-Gilles-Pligeaux, Côtes d'Armor</span>
+                                </div>
+                                <a href="#" id="mini-map-gmaps-link" class="mini-map-gmaps-btn" target="_blank" rel="noopener">
+                                    <i class="fab fa-google"></i> Google Maps
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Calendar -->
+                    <div class="form-section">
+                        <div class="calendar-sync-status" id="cal-sync-status">
+                            <i class="fas fa-circle-notch fa-spin"></i> Vérification des disponibilités…
+                        </div>
+                        <div id="booking-calendar"></div>
+                        <p class="calendar-legend">
+                            <span class="legend-item"><span class="dot dot-available"></span> Disponible</span>
+                            <span class="legend-item"><span class="dot dot-booked"></span> Réservé</span>
+                            <span class="legend-item"><span class="dot dot-selected"></span> Votre sélection</span>
+                        </p>
+                    </div>
+
+                    <!-- Dates Display -->
+                    <div class="dates-display" id="dates-display" style="display:none;">
+                        <div class="date-chip">
+                            <i class="far fa-calendar-check"></i>
+                            <div>
+                                <span class="date-chip-label">Arrivée</span>
+                                <strong id="display-checkin">—</strong>
+                            </div>
+                        </div>
+                        <div class="date-separator"><i class="fas fa-arrow-right"></i></div>
+                        <div class="date-chip">
+                            <i class="far fa-calendar-times"></i>
+                            <div>
+                                <span class="date-chip-label">Départ</span>
+                                <strong id="display-checkout">—</strong>
+                            </div>
+                        </div>
+                        <div class="date-chip nights-chip">
+                            <i class="fas fa-moon"></i>
+                            <div>
+                                <span class="date-chip-label">Durée</span>
+                                <strong id="display-nights">—</strong>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Guests -->
+                    <div class="form-section">
+                        <label class="form-label"><i class="fas fa-user-friends"></i> Nombre de voyageurs</label>
+                        <div class="guests-counter">
+                            <button class="counter-btn" id="guests-minus" type="button"><i class="fas fa-minus"></i></button>
+                            <div class="counter-display">
+                                <span id="guests-count">2</span>
+                                <span class="counter-label">voyageurs</span>
+                            </div>
+                            <button class="counter-btn" id="guests-plus" type="button"><i class="fas fa-plus"></i></button>
+                        </div>
+                        <p class="guests-note" id="guests-capacity-note"></p>
+                    </div>
+
+                    <div class="step-error" id="step1-error" style="display:none;"></div>
+
+                    <button class="btn btn-primary btn-large step-next" id="step1-next">
+                        Continuer <i class="fas fa-arrow-right"></i>
+                    </button>
+                </div>
+
+                <!-- ============ STEP 2: Guest Details ============ -->
+                <div class="booking-step" id="step-2">
+                    <div class="step-header">
+                        <button class="step-back" id="step2-back"><i class="fas fa-arrow-left"></i> Retour</button>
+                        <h1 class="step-title">Vos coordonnées</h1>
+                        <p class="step-subtitle">Ces informations permettront au propriétaire de vous contacter avant votre arrivée.</p>
+                    </div>
+
+                    <form id="guest-form" novalidate>
+                        <div class="form-row">
+                            <div class="form-group">
+                                <label class="form-label" for="first-name">Prénom <span class="required">*</span></label>
+                                <input type="text" id="first-name" name="first-name" class="form-input" placeholder="Marie" required autocomplete="given-name">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label" for="last-name">Nom <span class="required">*</span></label>
+                                <input type="text" id="last-name" name="last-name" class="form-input" placeholder="Dupont" required autocomplete="family-name">
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="email">Adresse e-mail <span class="required">*</span></label>
+                            <input type="email" id="email" name="email" class="form-input" placeholder="marie.dupont@exemple.fr" required autocomplete="email">
+                            <p class="form-hint">La confirmation de réservation vous sera envoyée à cette adresse.</p>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="phone">Téléphone <span class="required">*</span></label>
+                            <input type="tel" id="phone" name="phone" class="form-input" placeholder="+33 6 12 34 56 78" required autocomplete="tel">
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="arrival-time">Heure d'arrivée estimée</label>
+                            <select id="arrival-time" name="arrival-time" class="form-input form-select">
+                                <option value="">Sélectionnez une heure</option>
+                                <option value="14h-15h">14h – 15h</option>
+                                <option value="15h-16h">15h – 16h</option>
+                                <option value="16h-17h">16h – 17h</option>
+                                <option value="17h-18h">17h – 18h</option>
+                                <option value="18h-19h">18h – 19h</option>
+                                <option value="19h-20h">19h – 20h</option>
+                                <option value="après 20h">Après 20h (nous prévenir)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label" for="special-requests">Demandes spéciales ou informations complémentaires</label>
+                            <textarea id="special-requests" name="special-requests" class="form-input form-textarea" rows="4" placeholder="Anniversaire, allergie alimentaire, lit bébé, arrivée tardive…"></textarea>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="form-label">Services additionnels Kastell Breizh</label>
+                            <div class="service-checkboxes">
+                                <label class="service-checkbox-item">
+                                    <input type="checkbox" name="services" value="panier-bienvenue">
+                                    <span class="checkbox-custom"></span>
+                                    <div class="checkbox-content">
+                                        <strong>Panier de bienvenue breton</strong>
+                                        <span>Cidre, caramel au beurre salé, biscuits artisanaux — 45€</span>
+                                    </div>
+                                </label>
+                                <label class="service-checkbox-item">
+                                    <input type="checkbox" name="services" value="petit-dejeuner">
+                                    <span class="checkbox-custom"></span>
+                                    <div class="checkbox-content">
+                                        <strong>Petit-déjeuner d'accueil</strong>
+                                        <span>Produits locaux du marché le matin de votre arrivée — 18€/pers.</span>
+                                    </div>
+                                </label>
+                                <label class="service-checkbox-item">
+                                    <input type="checkbox" name="services" value="picnic-artisan">
+                                    <span class="checkbox-custom"></span>
+                                    <div class="checkbox-content">
+                                        <strong>Pique-nique artisan</strong>
+                                        <span>Panier pique-nique avec produits de nos producteurs locaux — 35€/pers.</span>
+                                    </div>
+                                </label>
+                                <label class="service-checkbox-item">
+                                    <input type="checkbox" name="services" value="rom-pack">
+                                    <span class="checkbox-custom"></span>
+                                    <div class="checkbox-content">
+                                        <strong>Pack Week-end romantique</strong>
+                                        <span>Fleurs, champagne brut, chocolats artisanaux — 95€</span>
+                                    </div>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="step-error" id="step2-error" style="display:none;"></div>
+
+                        <button type="button" class="btn btn-primary btn-large step-next" id="step2-next">
+                            Continuer vers le paiement <i class="fas fa-lock"></i>
+                        </button>
+                    </form>
+                </div>
+
+                <!-- ============ STEP 3: Payment ============ -->
+                <div class="booking-step" id="step-3">
+                    <div class="step-header">
+                        <button class="step-back" id="step3-back"><i class="fas fa-arrow-left"></i> Retour</button>
+                        <h1 class="step-title">Paiement sécurisé</h1>
+                        <p class="step-subtitle">Votre paiement est traité directement par le propriétaire via Stripe. Kastell Breizh ne conserve pas vos données bancaires.</p>
+                    </div>
+
+                    <!-- Trust Indicators -->
+                    <div class="payment-trust-row">
+                        <div class="trust-badge"><i class="fas fa-lock"></i> Paiement SSL 256-bit</div>
+                        <div class="trust-badge"><i class="fab fa-stripe-s"></i> Propulsé par Stripe</div>
+                        <div class="trust-badge"><i class="fas fa-shield-alt"></i> Protection acheteur</div>
+                    </div>
+
+                    <!-- Cancellation Policy -->
+                    <div class="policy-card">
+                        <h4><i class="fas fa-info-circle"></i> Politique d'annulation</h4>
+                        <ul>
+                            <li><strong>Annulation gratuite</strong> jusqu'à 14 jours avant l'arrivée</li>
+                            <li>Entre 7 et 14 jours : remboursement à 50%</li>
+                            <li>Moins de 7 jours avant l'arrivée : aucun remboursement</li>
+                        </ul>
+                    </div>
+
+                    <!-- Payment Flow Explanation -->
+                    <div class="payment-info-card">
+                        <div class="payment-info-icon"><i class="fas fa-exchange-alt"></i></div>
+                        <div class="payment-info-content">
+                            <h4>Comment fonctionne le paiement ?</h4>
+                            <p>Le montant total est versé <strong>directement au propriétaire</strong> de la demeure via Stripe. La commission de service Kastell Breizh (15% du montant HT) est prélevée automatiquement après la transaction, identique au modèle Airbnb.</p>
+                        </div>
+                    </div>
+
+                    <!-- Stripe Payment Element Container -->
+                    <div class="stripe-container" id="stripe-container">
+                        <div id="payment-element">
+                            <!-- Stripe Elements injecte ici -->
+                            <!-- CONFIGURATION REQUISE: Renseignez votre clé publique Stripe ci-dessous -->
+                        </div>
+                        <div id="payment-placeholder" class="payment-placeholder">
+                            <div class="placeholder-stripe-ui">
+                                <div class="stripe-field-mock">
+                                    <label>Numéro de carte</label>
+                                    <div class="mock-input"><i class="far fa-credit-card"></i> **** **** **** ****</div>
+                                </div>
+                                <div class="stripe-row-mock">
+                                    <div class="stripe-field-mock half">
+                                        <label>Date d'expiration</label>
+                                        <div class="mock-input">MM / AA</div>
+                                    </div>
+                                    <div class="stripe-field-mock half">
+                                        <label>Code de sécurité</label>
+                                        <div class="mock-input">CVC</div>
+                                    </div>
+                                </div>
+                                <div class="stripe-setup-notice">
+                                    <i class="fas fa-tools"></i>
+                                    <div>
+                                        <strong>Configuration Stripe requise</strong>
+                                        <p>Pour activer les paiements, renseignez votre clé publique Stripe dans <code>booking.js</code> (variable <code>STRIPE_PUBLISHABLE_KEY</code>) et déployez la fonction serverless <code>functions/create-payment-intent.js</code>.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="form-group terms-group">
+                        <label class="service-checkbox-item terms-checkbox">
+                            <input type="checkbox" id="terms-accept" name="terms">
+                            <span class="checkbox-custom"></span>
+                            <div class="checkbox-content">
+                                J'accepte les <a href="#" class="accent-link">Conditions Générales de Vente</a> et la <a href="#" class="accent-link">Politique de Confidentialité</a> de Kastell Breizh.
+                            </div>
+                        </label>
+                    </div>
+
+                    <div class="step-error" id="step3-error" style="display:none;"></div>
+
+                    <button class="btn btn-primary btn-large pay-btn" id="pay-button">
+                        <i class="fas fa-lock"></i> Confirmer et payer <span id="pay-amount"></span>
+                    </button>
+
+                    <p class="payment-note">En cliquant sur "Confirmer et payer", vous serez redirigé vers Stripe, la plateforme de paiement sécurisée. Aucune information de carte n'est traitée par Kastell Breizh.</p>
+                </div>
+
+                <!-- ============ STEP 4: Confirmation ============ -->
+                <div class="booking-step" id="step-4">
+                    <div class="confirmation-wrapper">
+                        <div class="confirmation-icon">
+                            <i class="fas fa-check-circle"></i>
+                        </div>
+                        <h1 class="confirmation-title">Réservation confirmée !</h1>
+                        <p class="confirmation-subtitle">Merci <strong id="conf-guest-name">Voyageur</strong>. Votre demande de réservation a bien été transmise.</p>
+
+                        <div class="booking-ref">
+                            Référence : <strong id="conf-ref">KB-XXXXXX</strong>
+                        </div>
+
+                        <div class="confirmation-summary" id="confirmation-summary">
+                            <!-- Filled by JS -->
+                        </div>
+
+                        <!-- Google Calendar CTA -->
+                        <div class="gcal-card">
+                            <div class="gcal-icon"><i class="fab fa-google"></i></div>
+                            <div class="gcal-content">
+                                <h4>Ajouter à votre agenda Google</h4>
+                                <p>Cliquez pour ajouter automatiquement votre séjour à Google Calendar avec toutes les informations.</p>
+                                <a href="#" id="gcal-link" class="btn btn-primary" target="_blank">
+                                    <i class="fas fa-calendar-plus"></i> Ajouter à Google Calendar
+                                </a>
+                            </div>
+                        </div>
+
+                        <!-- What happens next -->
+                        <div class="next-steps">
+                            <h3>Prochaines étapes</h3>
+                            <div class="next-steps-grid">
+                                <div class="next-step-item">
+                                    <div class="next-step-num">1</div>
+                                    <div>
+                                        <strong>E-mail de confirmation</strong>
+                                        <p>Vous recevrez un récapitulatif détaillé dans les prochaines minutes.</p>
+                                    </div>
+                                </div>
+                                <div class="next-step-item">
+                                    <div class="next-step-num">2</div>
+                                    <div>
+                                        <strong>Contact du propriétaire</strong>
+                                        <p>Le propriétaire ou la Kastell Team vous contactera 72h avant votre arrivée.</p>
+                                    </div>
+                                </div>
+                                <div class="next-step-item">
+                                    <div class="next-step-num">3</div>
+                                    <div>
+                                        <strong>Livret d'accueil</strong>
+                                        <p>Un guide personnalisé avec codes, informations pratiques et recommandations locales vous sera envoyé.</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div style="display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; margin-top: 2rem;">
+                            <a href="index.html" class="btn btn-outline">Retour à l'accueil</a>
+                            <a href="places.html" class="btn btn-primary">Découvrir la région <i class="fas fa-map"></i></a>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- RIGHT: Booking Summary (Sticky) -->
+            <aside class="booking-summary" id="booking-summary">
+                <div class="summary-card">
+                    <div class="summary-property-image" id="summary-property-image">
+                        <img src="images/Kerollivier.jpg" alt="Propriété" id="summary-img">
+                        <div class="summary-property-badge" id="summary-badge">Coup de cœur</div>
+                    </div>
+
+                    <div class="summary-property-info">
+                        <h3 id="summary-property-name">Manoir de Kerollivier</h3>
+                        <p id="summary-property-location"><i class="fas fa-map-marker-alt"></i> Saint-Gilles-Pligeaux</p>
+                        <div class="summary-rating">
+                            <i class="fas fa-star"></i>
+                            <span id="summary-rating">4.96</span>
+                            <span class="summary-reviews" id="summary-reviews">(48 avis)</span>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-dates-row" id="summary-dates-row">
+                        <div class="summary-date">
+                            <span class="summary-date-label">Arrivée</span>
+                            <strong id="summary-checkin">—</strong>
+                        </div>
+                        <i class="fas fa-arrow-right summary-arrow"></i>
+                        <div class="summary-date">
+                            <span class="summary-date-label">Départ</span>
+                            <strong id="summary-checkout">—</strong>
+                        </div>
+                    </div>
+
+                    <div class="summary-divider" id="summary-price-divider" style="display:none;"></div>
+
+                    <div class="price-breakdown" id="price-breakdown" style="display:none;">
+                        <div class="price-line">
+                            <span id="price-nights-label">— × —</span>
+                            <span id="price-nights-total">—</span>
+                        </div>
+                        <div class="price-line">
+                            <span>Frais de ménage</span>
+                            <span id="price-cleaning">—</span>
+                        </div>
+                        <div class="price-line services-line" id="services-total-line" style="display:none;">
+                            <span>Services additionnels</span>
+                            <span id="price-services">—</span>
+                        </div>
+                        <div class="price-line total-line">
+                            <strong>Total</strong>
+                            <strong id="price-total">—</strong>
+                        </div>
+                        <p class="price-note">Paiement versé directement au propriétaire. La commission Kastell Breizh est déduite après la transaction.</p>
+                    </div>
+
+                    <div class="summary-divider"></div>
+
+                    <div class="summary-features" id="summary-features">
+                        <!-- Filled by JS -->
+                    </div>
+                </div>
+
+                <!-- Need help? -->
+                <div class="help-card">
+                    <i class="fas fa-concierge-bell"></i>
+                    <div>
+                        <strong>Besoin d'aide ?</strong>
+                        <p>La Kastell Team est disponible pour vous guider.</p>
+                        <a href="mailto:contact@kastellbreizh.fr" class="accent-link">contact@kastellbreizh.fr</a>
+                    </div>
+                </div>
+            </aside>
+
+        </div>
+    </main>
+
+    <!-- Footer minimal -->
+    <footer class="booking-footer">
+        <div class="container">
+            <p>© 2026 Kastell Breizh Conciergerie · <a href="#">Mentions Légales</a> · <a href="#">CGV</a></p>
+        </div>
+    </footer>
+
+    <!-- Scripts -->
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+    <script src="https://cdn.jsdelivr.net/npm/flatpickr/dist/l10n/fr.js"></script>
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLcE=" crossorigin=""></script>
+    <script src="booking.js"></script>
+    <script>
+    // ─── Mini Map ───────────────────────────────────────
+    // Coordinates match properties.html data
+    const BOOKING_COORDS = {
+        'kerollivier':  { lat: 48.3243, lng: -3.0060, gmaps: 'https://www.google.com/maps/search/Manoir+de+Kerollivier,+Saint-Gilles-Pligeaux/@48.3243,-3.0060,14z' },
+        'saint-guy':    { lat: 48.6044, lng: -3.1047, gmaps: 'https://www.google.com/maps/search/Gite+de+Saint+Guy,+Gommenec\'h/@48.6044,-3.1047,14z' },
+        'maison-art':   { lat: 48.3910, lng: -3.1320, gmaps: 'https://www.google.com/maps/search/Maison+Art+Nature,+Saint-Connan/@48.3910,-3.1320,14z' },
+        'pont-dorniol': { lat: 48.2192, lng: -3.0826, gmaps: 'https://www.google.com/maps/search/Manoir+Pont+Dorniol,+Laniscat/@48.2192,-3.0826,14z' },
+    };
+
+    let miniMap = null;
+    let miniMapMarker = null;
+    let miniMapOpen = false;
+
+    const miniMapToggleBtn = document.getElementById('mini-map-toggle');
+    const miniMapWrapper = document.getElementById('mini-map-wrapper');
+    const miniMapChevron = document.getElementById('mini-map-chevron');
+    const miniMapToggleLabel = document.getElementById('mini-map-toggle-label');
+
+    miniMapToggleBtn.addEventListener('click', () => {
+        miniMapOpen = !miniMapOpen;
+        miniMapWrapper.style.display = miniMapOpen ? 'block' : 'none';
+        miniMapChevron.style.transform = miniMapOpen ? 'rotate(180deg)' : '';
+        miniMapToggleLabel.textContent = miniMapOpen ? 'Masquer la carte' : 'Afficher la carte';
+
+        if (miniMapOpen && !miniMap) {
+            // Lazy-init map on first open
+            initMiniMap(document.querySelector('.prop-tab.active')?.dataset?.property || 'kerollivier');
+        } else if (miniMapOpen && miniMap) {
+            setTimeout(() => miniMap.invalidateSize(), 50);
+        }
+    });
+
+    function initMiniMap(propertyId) {
+        const coords = BOOKING_COORDS[propertyId] || BOOKING_COORDS['kerollivier'];
+        miniMap = L.map('booking-mini-map', {
+            center: [coords.lat, coords.lng],
+            zoom: 13,
+            zoomControl: true,
+            scrollWheelZoom: false,
+            attributionControl: true,
+        });
+
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19,
+        }).addTo(miniMap);
+
+        // Custom KB marker
+        const kbIcon = L.divIcon({
+            className: 'kb-map-marker',
+            html: '<div class="kb-marker-pin"><i class="fas fa-home"></i></div>',
+            iconSize: [42, 42],
+            iconAnchor: [21, 42],
+            popupAnchor: [0, -44],
+        });
+
+        miniMapMarker = L.marker([coords.lat, coords.lng], { icon: kbIcon }).addTo(miniMap);
+    }
+
+    function updateMiniMap(propertyId) {
+        const coords = BOOKING_COORDS[propertyId];
+        if (!coords) return;
+
+        // Update info bar
+        const prop = (typeof PROPERTIES !== 'undefined') ? PROPERTIES[propertyId] : null;
+        if (prop) {
+            document.getElementById('mini-map-property-name').textContent = prop.name;
+            document.getElementById('mini-map-location').textContent = prop.location;
+        }
+        document.getElementById('mini-map-gmaps-link').href = coords.gmaps;
+
+        if (!miniMapOpen) return;
+
+        if (!miniMap) {
+            initMiniMap(propertyId);
+            return;
+        }
+        miniMap.flyTo([coords.lat, coords.lng], 13, { duration: 0.6 });
+        if (miniMapMarker) miniMapMarker.setLatLng([coords.lat, coords.lng]);
+    }
+
+    // Hook into property tab clicks (runs after booking.js bindEvents)
+    document.addEventListener('DOMContentLoaded', () => {
+        document.querySelectorAll('.prop-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                updateMiniMap(tab.dataset.property);
+            });
+        });
+
+        // Init info bar on load
+        const initProp = new URLSearchParams(window.location.search).get('property') || 'kerollivier';
+        updateMiniMap(initProp);
+    });
+    </script>
+</body>
+
+</html>

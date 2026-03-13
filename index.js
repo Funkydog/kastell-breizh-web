@@ -29,34 +29,46 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Reservation form basic handling
+// Booking widget — redirect to booking.html with URL params
 const bookingForm = document.getElementById('reservation');
 if (bookingForm) {
-    const bookingSubmit = bookingForm.querySelector('.booking-submit');
+    const bookingSubmit = document.getElementById('booking-widget-submit') || bookingForm.querySelector('.booking-submit');
 
-    bookingSubmit.addEventListener('click', (e) => {
-        e.preventDefault();
+    if (bookingSubmit) {
+        bookingSubmit.addEventListener('click', (e) => {
+            e.preventDefault();
 
-        // Add a simple loading effect
-        const originalText = bookingSubmit.innerHTML;
-        bookingSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Recherche...';
-        bookingSubmit.disabled = true;
+            const destination = document.getElementById('destination')?.value || '';
+            const checkIn = document.getElementById('check-in')?.value || '';
+            const checkOut = document.getElementById('check-out')?.value || '';
+            const guests = document.getElementById('guests')?.value || '2';
 
-        // Simulate network request
-        setTimeout(() => {
-            bookingSubmit.innerHTML = '<i class="fas fa-check"></i> Disponible';
-            bookingSubmit.classList.remove('btn-primary');
-            bookingSubmit.style.backgroundColor = '#2ecc71';
-            bookingSubmit.style.color = 'white';
+            // Map destination to property ID
+            const destToProperty = {
+                'guingamp': 'kerollivier',
+                'cotes-darmor': 'kerollivier',
+            };
+            const propertyParam = destToProperty[destination] || '';
+
+            // Build params
+            const params = new URLSearchParams();
+            if (propertyParam) params.set('property', propertyParam);
+            if (checkIn) params.set('checkin', checkIn);
+            if (checkOut) params.set('checkout', checkOut);
+            if (guests) params.set('guests', guests);
+
+            const bookingUrl = 'booking.html' + (params.toString() ? '?' + params.toString() : '');
+
+            // Loading animation then redirect
+            const originalText = bookingSubmit.innerHTML;
+            bookingSubmit.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Vérification...';
+            bookingSubmit.disabled = true;
 
             setTimeout(() => {
-                bookingSubmit.innerHTML = originalText;
-                bookingSubmit.disabled = false;
-                bookingSubmit.classList.add('btn-primary');
-                bookingSubmit.style = '';
-            }, 2000);
-        }, 1500);
-    });
+                window.location.href = bookingUrl;
+            }, 800);
+        });
+    }
 }
 
 // ==========================================
@@ -128,11 +140,26 @@ function disableBookedDates(bookedDates) {
     });
 }
 
-// Initialize Calendar Sync (Example URL)
-const googleCalendarUrl = "https://calendar.google.com/calendar/ical/example/public/basic.ics";
+// ==========================================
+// Scroll Animation (Intersection Observer)
+// ==========================================
+document.addEventListener('DOMContentLoaded', () => {
+    // Animate elements on scroll
+    const animateOnScroll = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.opacity = '1';
+                entry.target.style.transform = 'translateY(0)';
+                animateOnScroll.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
 
-// Run sync on load
-document.addEventListener('DOMContentLoaded', async () => {
-    const bookedDates = await fetchCalendarAvailability(googleCalendarUrl);
-    disableBookedDates(bookedDates);
+    // Apply to service cards, property cards, tourism categories
+    document.querySelectorAll('.service-card, .property-card, .tourism-category, .hiw-step, .testimonial-card').forEach(el => {
+        el.style.opacity = '0';
+        el.style.transform = 'translateY(20px)';
+        el.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+        animateOnScroll.observe(el);
+    });
 });

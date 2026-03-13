@@ -1,0 +1,911 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Découvrir les Côtes d'Armor | Kastell Breizh</title>
+    <meta name="description" content="Restaurants gastronomiques, sites patrimoniaux, randonnées et activités dans les Côtes d'Armor. Le guide de la Kastell Team pour un séjour d'exception en Bretagne.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="places.css">
+</head>
+
+<body>
+
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="logo-light logo-img">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html#services">Nos Services</a>
+                <a href="index.html#proprietes">Nos Demeures</a>
+                <a href="places.html" class="active-nav">La Région</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline light">Espace Propriétaire</a>
+                <a href="booking.html" class="btn btn-primary">Réserver un Séjour</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="close-menu" id="close-menu-btn"><i class="fas fa-times"></i></button>
+            <nav class="mobile-nav-links">
+                <a href="index.html#services" class="mobile-link">Nos Services</a>
+                <a href="index.html#proprietes" class="mobile-link">Nos Demeures</a>
+                <a href="places.html" class="mobile-link">La Région</a>
+                <a href="booking.html" class="btn btn-primary">Réserver un Séjour</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Banner -->
+    <section class="places-hero">
+        <div class="places-hero-overlay"></div>
+        <div class="container places-hero-content">
+            <p class="places-hero-label">Guide exclusif Kastell Breizh</p>
+            <h1 class="places-hero-title">Les Côtes d'Armor<br><em>par notre équipe</em></h1>
+            <p class="places-hero-desc">Chefs étoilés, manoirs cachés, côtes sauvages et marchés artisanaux. Laissez-vous guider par notre sélection des meilleures adresses de la Bretagne intérieure et côtière.</p>
+            <a href="#categories" class="btn btn-secondary btn-large">Explorer nos coups de cœur</a>
+        </div>
+        <div class="places-hero-stats">
+            <div class="hero-stat"><strong>50+</strong><span>Adresses sélectionnées</span></div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat"><strong>5</strong><span>Catégories</span></div>
+            <div class="hero-stat-divider"></div>
+            <div class="hero-stat"><strong>2</strong><span>Étoiles Michelin à proximité</span></div>
+        </div>
+    </section>
+
+    <!-- Concierge Note -->
+    <div class="concierge-note">
+        <div class="container concierge-note-inner">
+            <div class="concierge-note-icon"><i class="fas fa-concierge-bell"></i></div>
+            <div class="concierge-note-text">
+                <strong>Le mot de la Kastell Team</strong>
+                <p>Toutes les adresses de ce guide ont été visitées et sélectionnées par notre équipe. Pour une réservation de table, un circuit sur mesure ou un panier pique-nique de producteurs locaux, n'hésitez pas à nous écrire — nous adorons préparer votre séjour dans les moindres détails.</p>
+            </div>
+            <a href="mailto:contact@kastellbreizh.fr" class="btn btn-primary btn-sm">Nous consulter</a>
+        </div>
+    </div>
+
+    <!-- Category Tabs -->
+    <section id="categories" class="categories-section">
+        <div class="container">
+            <div class="category-tabs" id="category-tabs">
+                <button class="cat-tab active" data-cat="all">
+                    <i class="fas fa-th-large"></i> Tout
+                </button>
+                <button class="cat-tab" data-cat="gastro">
+                    <i class="fas fa-utensils"></i> Gastronomie
+                </button>
+                <button class="cat-tab" data-cat="heritage">
+                    <i class="fas fa-landmark"></i> Patrimoine
+                </button>
+                <button class="cat-tab" data-cat="nature">
+                    <i class="fas fa-leaf"></i> Nature & Randonnées
+                </button>
+                <button class="cat-tab" data-cat="activities">
+                    <i class="fas fa-swimmer"></i> Activités & Sports
+                </button>
+                <button class="cat-tab" data-cat="circuits">
+                    <i class="fas fa-route"></i> Circuits
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Places Grid -->
+    <section class="places-grid-section">
+        <div class="container">
+            <div class="places-grid" id="places-grid">
+
+                <!-- ═══════════ GASTRONOMIE ═══════════ -->
+
+                <article class="place-card" data-cat="gastro" data-featured="true">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1414235077428-338989a2e8c0?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-gold"><i class="fas fa-star"></i> Coup de cœur</span>
+                            <span class="place-badge badge-michelin">★ Michelin</span>
+                        </div>
+                        <div class="place-category-dot gastro"><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>La Ville Blanche</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Lannion · 35 min</div>
+                        </div>
+                        <p class="place-desc">Une étoile Michelin bien méritée pour le chef Matthieu Aumont. Table gastronomique adossée au manoir de la Ville Blanche, avec vue sur le Jaudy. Cuisine inventive inspirée des produits de la mer et de l'Argoat.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Gastronomique</span>
+                            <span class="place-tag">★ Michelin</span>
+                            <span class="place-tag">Vue rivière</span>
+                        </div>
+                        <a href="https://la-ville-blanche.com/" target="_blank" class="place-link">
+                            Réserver une table <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="gastro" data-featured="true">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1550966871-3ed3cdb5ed0c?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-michelin">★ Michelin</span>
+                        </div>
+                        <div class="place-category-dot gastro"><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Auberge Grand Maison</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Mûr-de-Bretagne · 25 min</div>
+                        </div>
+                        <p class="place-desc">Chef Jacques Thorel, 1 étoile Michelin depuis 1980. Une institution gastronomique bretonne aux portes du Lac de Guerlédan. Produits nobles de la région, carte de vins exceptionnelle.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Gastronomique</span>
+                            <span class="place-tag">★ Michelin</span>
+                            <span class="place-tag">Institution</span>
+                        </div>
+                        <a href="http://www.auberge-grand-maison.com/" target="_blank" class="place-link">
+                            Découvrir <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="gastro">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1504674900247-0877df9cc836?w=600&q=80');">
+                        <div class="place-category-dot gastro"><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Le Boisgelin</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Pléhédel · 20 min</div>
+                        </div>
+                        <p class="place-desc">Table gastronomique au cœur d'un domaine viticole breton. Cuisine de terroir raffinée mettant en valeur les producteurs locaux — poissons côtiers, agneau de prés-salés et légumes du potager du château.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Domaine</span>
+                            <span class="place-tag">Terroir</span>
+                            <span class="place-tag">Cadre unique</span>
+                        </div>
+                        <a href="https://www.leboisgelin.com/ledomaine/" target="_blank" class="place-link">
+                            Découvrir <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="gastro">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1559339352-11d035aa65de?w=600&q=80');">
+                        <div class="place-category-dot gastro"><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>La Vieille Tour</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Plérin · 40 min</div>
+                        </div>
+                        <p class="place-desc">Demeure du XVe siècle face à la Baie de Saint-Brieuc. Produits de la mer et iode sur assiette : homard breton, saint-jacques à la plancha et turbot sauvage. Vue panoramique sur la baie.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Fruits de mer</span>
+                            <span class="place-tag">Vue mer</span>
+                            <span class="place-tag">Cadre historique</span>
+                        </div>
+                        <a href="http://www.la-vieille-tour.com/" target="_blank" class="place-link">
+                            Découvrir <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="gastro">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-gold">Authenticité</span>
+                        </div>
+                        <div class="place-category-dot gastro"><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Le Char à Bancs</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Plélo · 15 min</div>
+                        </div>
+                        <p class="place-desc">Ferme-auberge et écomusée au cœur de l'Argoat. Galettes de sarrasin au lard du pays, cidres artisanaux et confiture de lait maison. Un lieu vivant où les enfants découvrent la vie à la ferme.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Ferme-auberge</span>
+                            <span class="place-tag">Galettes</span>
+                            <span class="place-tag">Écomusée</span>
+                        </div>
+                        <a href="https://www.aucharabancs.com/" target="_blank" class="place-link">
+                            Découvrir <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="gastro">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1571104508999-893933ded431?w=600&q=80');">
+                        <div class="place-category-dot gastro"><i class="fas fa-utensils"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Marché de Guingamp</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Guingamp · 10 min</div>
+                        </div>
+                        <p class="place-desc">Chaque samedi matin, place du Centre. L'un des marchés les plus authentiques des Côtes d'Armor : fromages de Brest, poissons du Goëlo, cidres du Trégor, légumes anciens et miel de bocage.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Marché</span>
+                            <span class="place-tag">Samedi matin</span>
+                            <span class="place-tag">Producteurs locaux</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team peut préparer votre panier-marché
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ═══════════ PATRIMOINE ═══════════ -->
+
+                <article class="place-card" data-cat="heritage" data-featured="true">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1548430395-ec39eaf2aa1a?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-gold"><i class="fas fa-star"></i> Incontournable</span>
+                        </div>
+                        <div class="place-category-dot heritage"><i class="fas fa-landmark"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Domaine de la Roche Jagu</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Ploézal · 30 min</div>
+                        </div>
+                        <p class="place-desc">Forteresse médiévale du XVe siècle dominant le Trieux depuis 130 hectares de jardins en terrasses. Expositions d'art contemporain en plein air, randonnées en forêt et panoramas à couper le souffle sur l'estuaire.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Monument historique</span>
+                            <span class="place-tag">Jardins</span>
+                            <span class="place-tag">Art contemporain</span>
+                        </div>
+                        <a href="https://larochejagu.fr/" target="_blank" class="place-link">
+                            Visiter le site <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="heritage" data-featured="true">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1577717903315-1691ae25ab3f?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-gold">Mystique</span>
+                        </div>
+                        <div class="place-category-dot heritage"><i class="fas fa-landmark"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Abbaye de Bon Repos</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Laniscat · 10 min</div>
+                        </div>
+                        <p class="place-desc">Abbaye cistercienne fondée en 1184, nichée dans un vallon sauvage au bord du Blavet. Spectacle son et lumière "Bon Repos en Lumières" chaque été — un événement incontournable qui plonge les visiteurs dans l'histoire médiévale bretonne.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">XIIe siècle</span>
+                            <span class="place-tag">Son & Lumière</span>
+                            <span class="place-tag">Cadre naturel</span>
+                        </div>
+                        <a href="https://www.bon-repos.com/" target="_blank" class="place-link">
+                            Découvrir <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="heritage">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1570195065994-9c3b3e9e5c5b?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-navy">Unique au monde</span>
+                        </div>
+                        <div class="place-category-dot heritage"><i class="fas fa-landmark"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>La Vallée des Saints</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Carnoët · 25 min</div>
+                        </div>
+                        <p class="place-desc">Le projet artistique le plus ambitieux de France : 200 statues monumentales (2m à 7m) représentant les saints bretons sur une colline sacrée. "Le Mont-Saint-Michel de la sculpture" selon le Monde. Visite libre et guidée, atelier de sculpture.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Sculpture</span>
+                            <span class="place-tag">Culture bretonne</span>
+                            <span class="place-tag">En plein air</span>
+                        </div>
+                        <a href="https://www.vallee-des-saints.com/" target="_blank" class="place-link">
+                            Explorer <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="heritage">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1533930030493-9b7b23ff1a2e?w=600&q=80');">
+                        <div class="place-category-dot heritage"><i class="fas fa-landmark"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>La Vapeur du Trieux</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Paimpol · 35 min</div>
+                        </div>
+                        <p class="place-desc">Train à vapeur touristique qui remonte l'estuaire du Trieux de Paimpol à Pontrieux, longeant des rives sauvages et des manoirs secrets. 18 km de pur plaisir à bord d'une locomotive 1950, avec commentaires sur l'histoire du Trégor.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Train à vapeur</span>
+                            <span class="place-tag">Famille</span>
+                            <span class="place-tag">Estuaire du Trieux</span>
+                        </div>
+                        <a href="https://www.vapeurdutrieux.com/" target="_blank" class="place-link">
+                            Réserver <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="heritage">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&q=80');">
+                        <div class="place-category-dot heritage"><i class="fas fa-landmark"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Basilique de Guingamp</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Guingamp · 10 min</div>
+                        </div>
+                        <p class="place-desc">Notre-Dame de Bon Secours, joyau gothique-Renaissance des XIVe–XVIe siècles, célèbre pour sa Vierge Noire et le Grand Pardon de juillet qui réunit des milliers de pèlerins. L'un des lieux de ferveur les plus authentiques de Bretagne.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Gothique & Renaissance</span>
+                            <span class="place-tag">Pardon breton</span>
+                            <span class="place-tag">Vierge Noire</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team peut organiser une visite guidée privée
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="heritage">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=600&q=80');">
+                        <div class="place-category-dot heritage"><i class="fas fa-landmark"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Château de Tonquédec</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Tonquédec · 30 min</div>
+                        </div>
+                        <p class="place-desc">Imposantes ruines médiévales (XIIe–XVIe s.) perchées sur un promontoire dominant le Léguer. L'un des ensembles castraux les mieux conservés de Bretagne, avec neuf tours en partie intactes. Visite libre, panorama exceptionnel.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Ruines médiévales</span>
+                            <span class="place-tag">Panorama</span>
+                            <span class="place-tag">Insolite</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> À combiner avec une randonnée sur le Léguer
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ═══════════ NATURE ═══════════ -->
+
+                <article class="place-card" data-cat="nature" data-featured="true">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-gold"><i class="fas fa-star"></i> Incontournable</span>
+                        </div>
+                        <div class="place-category-dot nature"><i class="fas fa-leaf"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Côte de Granit Rose</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Perros-Guirec · 55 min</div>
+                        </div>
+                        <p class="place-desc">L'un des paysages les plus extraordinaires d'Europe. Des rochers de granite millénaires aux formes fantastiques sculptés par l'érosion, teintés de rose au coucher de soleil. Le sentier des douaniers entre Perros-Guirec et Trégastel est l'un des plus beaux du monde.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Incontournable</span>
+                            <span class="place-tag">GR34</span>
+                            <span class="place-tag">Coucher de soleil</span>
+                        </div>
+                        <a href="https://www.bretagne-cotes-darmor.com/sites-naturels/cote-de-granit-rose" target="_blank" class="place-link">
+                            En savoir plus <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="nature" data-featured="true">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1475924156734-496f6cac6ec1?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-gold">Joyau intérieur</span>
+                        </div>
+                        <div class="place-category-dot nature"><i class="fas fa-leaf"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Lac de Guerlédan</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Mûr-de-Bretagne · 25 min</div>
+                        </div>
+                        <p class="place-desc">Le plus grand lac naturel de Bretagne (3 km²), créé par le barrage de Guerlédan sur le Blavet. Tour du lac à pied (38 km) ou à vélo, plages de sable, activités nautiques et forêt de Quénécan toute proche. Idéal pour une journée complète.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Lac</span>
+                            <span class="place-tag">Plage</span>
+                            <span class="place-tag">Vélo & Marche</span>
+                        </div>
+                        <a href="http://www.lacdeguerledan.com/" target="_blank" class="place-link">
+                            Découvrir <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="nature">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1447752875215-b2761acb3c5d?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-navy">Réserve naturelle</span>
+                        </div>
+                        <div class="place-category-dot nature"><i class="fas fa-leaf"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Les Sept-Îles</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Perros-Guirec · 55 min</div>
+                        </div>
+                        <p class="place-desc">Réserve naturelle nationale, la plus importante colonie de fous de Bassan de France. 24 000 couples nichent sur l'Île Rouzic. Croisières depuis Perros-Guirec (tour extérieur) ou accès à l'Île aux Moines. Phoques gris, macareux moines, et cormorans huppés.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Réserve ornithologique</span>
+                            <span class="place-tag">Croisière</span>
+                            <span class="place-tag">Phoques & oiseaux</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team peut réserver votre croisière
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="nature">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1469474968028-56623f02e42e?w=600&q=80');">
+                        <div class="place-category-dot nature"><i class="fas fa-leaf"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>GR34 — Sentier des Douaniers</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Toute la côte</div>
+                        </div>
+                        <p class="place-desc">Le sentier mythique qui longe tout le littoral breton. Portions à couper le souffle entre Paimpol et Perros-Guirec : falaises de schiste, plages secrètes, pointes et panoramas sur l'Archipel des Sept-Îles. Accessible en courtes étapes depuis nos propriétés.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Randonnée</span>
+                            <span class="place-tag">Côte</span>
+                            <span class="place-tag">Mythique</span>
+                        </div>
+                        <a href="https://www.tourismebretagne.com/selon-mes-envies/randonnee-pedestre/gr-34-le-sentier-des-douaniers/" target="_blank" class="place-link">
+                            Préparer sa randonnée <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="nature">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1565058379802-bbe93b2f703a?w=600&q=80');">
+                        <div class="place-category-dot nature"><i class="fas fa-leaf"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Gorges du Daoulas</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Mael-Pestivien · 20 min</div>
+                        </div>
+                        <p class="place-desc">L'une des plus belles vallées encaissées de l'Argoat intérieur. Ruisseau tumulteux, chênaies centenaires et rochers de granit. Randonnée facile de 6 km très appréciée des familles. En automne, les fougères rousses offrent un spectacle chromatique somptueux.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Famille</span>
+                            <span class="place-tag">Forêt</span>
+                            <span class="place-tag">Argoat</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Parfait pour un pique-nique artisan Kastell Breizh
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="nature">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=600&q=80');">
+                        <div class="place-category-dot nature"><i class="fas fa-leaf"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>EV4 La Vélomaritime</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Saint-Brieuc → Roscoff</div>
+                        </div>
+                        <p class="place-desc">Itinéraire cyclable balisé longeant la côte nord de Bretagne, avec des tronçons parmi les plus beaux d'Europe. Depuis nos propriétés, rejoignez facilement la piste pour une journée de vélo vers Binic, Étables-sur-Mer ou la Baie de Paimpol.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Vélo</span>
+                            <span class="place-tag">Côte</span>
+                            <span class="place-tag">Toutes distances</span>
+                        </div>
+                        <a href="https://www.cotesdarmor.com/balades-et-randonnees/a-velo/ev4-la-velomaritime/" target="_blank" class="place-link">
+                            Itinéraires <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <!-- ═══════════ ACTIVITÉS ═══════════ -->
+
+                <article class="place-card" data-cat="activities" data-featured="true">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1564013799919-ab600027ffc6?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-gold">Exclusif</span>
+                        </div>
+                        <div class="place-category-dot activities"><i class="fas fa-swimmer"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Voile & Régates — Paimpol</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Paimpol · 40 min</div>
+                        </div>
+                        <p class="place-desc">Port de Paimpol, capitale de la pêche islandaise. Centre nautique proposant initiation à la voile, location de voiliers habitables pour la nuit, et sorties au large des Sept-Îles. Chaque été, le festival du Chant de Marin réunit des centaines de voiliers en rade.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Voile</span>
+                            <span class="place-tag">Croisière</span>
+                            <span class="place-tag">Festival</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team peut réserver votre sortie en mer
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="activities">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1531804028202-e4714ae42be2?w=600&q=80');">
+                        <div class="place-category-dot activities"><i class="fas fa-swimmer"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Kayak de mer — Côte du Goëlo</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Binic-Étables · 35 min</div>
+                        </div>
+                        <p class="place-desc">La Côte du Goëlo est l'une des plus belles pour le kayak de mer en France. Falaises de schiste, grottes marines, plages inaccessibles autrement. Sorties guidées au départ de Binic, pour débutants ou expérimentés. Lever de soleil en mer sur demande.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Kayak</span>
+                            <span class="place-tag">Stand-up paddle</span>
+                            <span class="place-tag">Côte sauvage</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team organise vos sorties nautiques
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="activities">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1551698618-1dfe5d97d256?w=600&q=80');">
+                        <div class="place-category-dot activities"><i class="fas fa-swimmer"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Golf de Lannion</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Lannion · 35 min</div>
+                        </div>
+                        <p class="place-desc">18 trous dans un cadre de bocage breton exceptionnel, avec vue sur la baie de Lannion. Green fees préférentiels pour les hôtes Kastell Breizh. Terrain de réception, practice couvert et restaurant le Birdie avec panorama sur les fairways.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Golf 18 trous</span>
+                            <span class="place-tag">Vue mer</span>
+                            <span class="place-tag">Tarif partenaire</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Green fees préférentiels pour nos hôtes
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="activities">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1553284965-83fd3e82fa5a?w=600&q=80');">
+                        <div class="place-category-dot activities"><i class="fas fa-swimmer"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Équitation — Equibreizh</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Région entière</div>
+                        </div>
+                        <p class="place-desc">Réseau de centres équestres balisés dans toute la Bretagne. Randonnées à cheval dans les forêts de l'Argoat, en crête sur les landes, ou en bord de mer sur les plages de Tréguier. Niveaux débutant à confirmé, séjours équestres de 2 à 7 jours.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Équitation</span>
+                            <span class="place-tag">Randonnée</span>
+                            <span class="place-tag">Forêts & Landes</span>
+                        </div>
+                        <a href="http://carto.equibreizh.com/equiBZH/bzh/" target="_blank" class="place-link">
+                            Trouver un circuit <i class="fas fa-external-link-alt"></i>
+                        </a>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="activities">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1542626991-cbc4e32524cc?w=600&q=80');">
+                        <div class="place-category-dot activities"><i class="fas fa-swimmer"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Plongée sous-marine</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Perros-Guirec · 55 min</div>
+                        </div>
+                        <p class="place-desc">Les eaux de la Côte de Granit Rose regorgent d'épaves et de vie marine. Club de plongée proposant baptêmes, formations PADI et sorties encadrées sur les épaves de la Grande Guerre et les tombolos de la Côte Sauvage. Visibilité exceptionnelle en été.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Plongée</span>
+                            <span class="place-tag">Épaves</span>
+                            <span class="place-tag">PADI</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team organise vos sorties plongée
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card" data-cat="activities">
+                    <div class="place-card-image" style="background-image: url('https://images.unsplash.com/photo-1498554747552-bda4ff3a5a9a?w=600&q=80');">
+                        <div class="place-badges">
+                            <span class="place-badge badge-gold">Expérience locale</span>
+                        </div>
+                        <div class="place-category-dot activities"><i class="fas fa-swimmer"></i></div>
+                    </div>
+                    <div class="place-card-body">
+                        <div class="place-card-header">
+                            <h3>Atelier Cidre & Galettes</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Région de Guingamp</div>
+                        </div>
+                        <p class="place-desc">Immersion dans le patrimoine culinaire breton : découvrez les secrets de la galette de sarrasin chez un maître crêpier, puis visitez un cidrerie artisanale pour une dégustation de cidres de pommes locaux. Atelier de 3h réservable pour des groupes.</p>
+                        <div class="place-tags">
+                            <span class="place-tag">Gastronomie</span>
+                            <span class="place-tag">Atelier</span>
+                            <span class="place-tag">Culture bretonne</span>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team organise cet atelier pour vous
+                        </div>
+                    </div>
+                </article>
+
+                <!-- ═══════════ CIRCUITS ═══════════ -->
+
+                <article class="place-card place-card-circuit" data-cat="circuits" data-featured="true">
+                    <div class="circuit-header">
+                        <div class="circuit-meta">
+                            <span class="circuit-duration"><i class="far fa-clock"></i> 2 jours</span>
+                            <span class="circuit-difficulty"><i class="fas fa-route"></i> Facile</span>
+                            <span class="circuit-km">~120 km</span>
+                        </div>
+                        <div class="circuit-badge">Coup de cœur</div>
+                    </div>
+                    <div class="place-card-body circuit-body">
+                        <div class="place-card-header">
+                            <h3>Circuit des Manoirs de l'Argoat</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Au départ de Guingamp</div>
+                        </div>
+                        <p class="place-desc">Deux jours pour explorer les seigneuries cachées de l'Argoat breton. Jour 1 : Manoir de Kerollivier → Abbaye de Bon Repos → Lac de Guerlédan → Auberge Grand Maison (déjeuner). Jour 2 : Gorges du Daoulas → Vallée des Saints → Château de Tonquédec → retour via le Trégor.</p>
+                        <div class="circuit-stops">
+                            <div class="circuit-stop"><span class="stop-num">1</span>Manoir de Kerollivier</div>
+                            <div class="circuit-stop"><span class="stop-num">2</span>Abbaye de Bon Repos</div>
+                            <div class="circuit-stop"><span class="stop-num">3</span>Lac de Guerlédan</div>
+                            <div class="circuit-stop"><span class="stop-num">4</span>Vallée des Saints</div>
+                            <div class="circuit-stop"><span class="stop-num">5</span>Château de Tonquédec</div>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Ce circuit peut être organisé sur mesure par Kastell Breizh, avec réservations de restaurants incluses
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card place-card-circuit" data-cat="circuits">
+                    <div class="circuit-header">
+                        <div class="circuit-meta">
+                            <span class="circuit-duration"><i class="far fa-clock"></i> 1 journée</span>
+                            <span class="circuit-difficulty"><i class="fas fa-route"></i> Modéré</span>
+                            <span class="circuit-km">~80 km</span>
+                        </div>
+                    </div>
+                    <div class="place-card-body circuit-body">
+                        <div class="place-card-header">
+                            <h3>Côte de Granit Rose & Sept-Îles</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Perros-Guirec</div>
+                        </div>
+                        <p class="place-desc">La journée côtière parfaite. Départ matinal vers Perros-Guirec pour prendre le bateau vers les Sept-Îles (macareux, fous de Bassan, phoques gris). Retour, déjeuner de fruits de mer à Trestrignel. Après-midi sur le sentier des douaniers jusqu'à Ploumanac'h et ses rochers roses au coucher du soleil.</p>
+                        <div class="circuit-stops">
+                            <div class="circuit-stop"><span class="stop-num">1</span>Croisière Sept-Îles</div>
+                            <div class="circuit-stop"><span class="stop-num">2</span>Déjeuner fruits de mer</div>
+                            <div class="circuit-stop"><span class="stop-num">3</span>GR34 Perros → Ploumanac'h</div>
+                            <div class="circuit-stop"><span class="stop-num">4</span>Coucher de soleil granit rose</div>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team réserve le bateau et la table de fruits de mer
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card place-card-circuit" data-cat="circuits">
+                    <div class="circuit-header">
+                        <div class="circuit-meta">
+                            <span class="circuit-duration"><i class="far fa-clock"></i> Demi-journée</span>
+                            <span class="circuit-difficulty"><i class="fas fa-route"></i> Facile</span>
+                            <span class="circuit-km">~30 km</span>
+                        </div>
+                    </div>
+                    <div class="place-card-body circuit-body">
+                        <div class="place-card-header">
+                            <h3>Route des Saveurs Bretonnes</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Pays de Guingamp</div>
+                        </div>
+                        <p class="place-desc">Une demi-journée gourmande en circuit court : marché de Guingamp le matin (samedi), dégustation chez un apiculteur (miel de bocage et hydromels), visite d'un moulin à farine, puis crêperie traditionnelle à base de sarrasin local. Accord parfait pour une dernière matinée avant le départ.</p>
+                        <div class="circuit-stops">
+                            <div class="circuit-stop"><span class="stop-num">1</span>Marché de Guingamp</div>
+                            <div class="circuit-stop"><span class="stop-num">2</span>Apiculteur du bocage</div>
+                            <div class="circuit-stop"><span class="stop-num">3</span>Moulin de Kerveau</div>
+                            <div class="circuit-stop"><span class="stop-num">4</span>Crêperie artisanale</div>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Ce circuit est organisé par Kastell Breizh sur demande
+                        </div>
+                    </div>
+                </article>
+
+                <article class="place-card place-card-circuit" data-cat="circuits">
+                    <div class="circuit-header">
+                        <div class="circuit-meta">
+                            <span class="circuit-duration"><i class="far fa-clock"></i> 2 jours</span>
+                            <span class="circuit-difficulty"><i class="fas fa-route"></i> Sportif</span>
+                            <span class="circuit-km">~150 km</span>
+                        </div>
+                    </div>
+                    <div class="place-card-body circuit-body">
+                        <div class="place-card-header">
+                            <h3>Argoat Sauvage — Lacs, Forêts & Moulins</h3>
+                            <div class="place-distance"><i class="fas fa-map-marker-alt"></i> Intérieur Côtes d'Armor</div>
+                        </div>
+                        <p class="place-desc">Deux jours en immersion dans la Bretagne profonde. Jour 1 : Gorges du Daoulas → Forêt de Quénécan → Lac de Guerlédan (nuit en chambre d'hôtes au bord du lac). Jour 2 : Tour du lac en vélo → Gorges du Blavet → Village de Guerlédan → Musée de la Résistance à Saint-Connan.</p>
+                        <div class="circuit-stops">
+                            <div class="circuit-stop"><span class="stop-num">1</span>Forêt de Quénécan</div>
+                            <div class="circuit-stop"><span class="stop-num">2</span>Lac de Guerlédan</div>
+                            <div class="circuit-stop"><span class="stop-num">3</span>Gorges du Blavet</div>
+                            <div class="circuit-stop"><span class="stop-num">4</span>Musée Résistance</div>
+                        </div>
+                        <div class="place-concierge-cta">
+                            <i class="fas fa-concierge-bell"></i> Kastell Team peut organiser hébergement, location de vélos et étapes gastronomiques
+                        </div>
+                    </div>
+                </article>
+
+            </div>
+        </div>
+    </section>
+
+    <!-- Concierge CTA Section -->
+    <section class="places-cta-section">
+        <div class="container">
+            <div class="places-cta-card">
+                <div class="places-cta-text">
+                    <div class="cta-label">Service de Conciergerie Exclusif</div>
+                    <h2>Nous préparons chaque détail pour vous</h2>
+                    <p>Table gastronomique étoilée, sortie en mer sur un voilier privé, panier de producteurs locaux déposé à votre arrivée, circuit sur mesure… Notre équipe est disponible pour transformer votre séjour en expérience inoubliable.</p>
+                    <div class="cta-services-list">
+                        <div class="cta-service"><i class="fas fa-check"></i> Réservations de restaurants</div>
+                        <div class="cta-service"><i class="fas fa-check"></i> Organisation d'activités et de sorties</div>
+                        <div class="cta-service"><i class="fas fa-check"></i> Circuits et excursions sur mesure</div>
+                        <div class="cta-service"><i class="fas fa-check"></i> Livraison de paniers artisans locaux</div>
+                    </div>
+                    <div class="cta-actions">
+                        <a href="mailto:contact@kastellbreizh.fr?subject=Demande d'organisation de séjour" class="btn btn-secondary btn-large">
+                            <i class="fas fa-envelope"></i> Contacter notre équipe
+                        </a>
+                        <a href="booking.html" class="btn btn-outline light btn-large">
+                            Réserver un séjour
+                        </a>
+                    </div>
+                </div>
+                <div class="places-cta-image">
+                    <img src="images/Kerollivier.jpg" alt="Kastell Breizh Conciergerie">
+                    <div class="cta-image-badge">
+                        <i class="fas fa-concierge-bell"></i>
+                        <span>Disponible 7j/7</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo light">
+                        <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="logo-img">
+                    </a>
+                    <p class="footer-desc">Votre partenaire de confiance pour la gestion et la valorisation de biens immobiliers de caractère en Bretagne.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Découvrir</h4>
+                    <ul>
+                        <li><a href="index.html#proprietes">Nos Demeures</a></li>
+                        <li><a href="booking.html">Réserver un séjour</a></li>
+                        <li><a href="gestion.html">Services Propriétaires</a></li>
+                        <li><a href="voyageurs.html">Services Voyageurs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">La Région</h4>
+                    <ul>
+                        <li><a href="places.html?cat=gastro">Gastronomie</a></li>
+                        <li><a href="places.html?cat=heritage">Patrimoine</a></li>
+                        <li><a href="places.html?cat=nature">Nature & Randonnées</a></li>
+                        <li><a href="places.html?cat=activities">Activités</a></li>
+                        <li><a href="places.html?cat=circuits">Circuits</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> <a href="mailto:contact@kastellbreizh.fr">contact@kastellbreizh.fr</a></li>
+                        <li><i class="fas fa-map-marker-alt"></i> Pays de Guingamp et toute la Bretagne.</li>
+                    </ul>
+                    <a href="mailto:contact@kastellbreizh.fr" class="btn btn-primary" style="margin-top: 1rem;">Nous Contacter</a>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kastell Breizh Conciergerie. Tous droits réservés.</p>
+                <div class="legal-links">
+                    <a href="#">Mentions Légales</a>
+                    <a href="#">Politique de Cookies</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+    <script>
+        // Category filtering
+        const tabs = document.querySelectorAll('.cat-tab');
+        const cards = document.querySelectorAll('.place-card');
+
+        function filterCards(cat) {
+            cards.forEach(card => {
+                const show = cat === 'all' || card.dataset.cat === cat;
+                card.style.display = show ? '' : 'none';
+                if (show) {
+                    card.style.animation = 'fadeInUp 0.3s ease';
+                }
+            });
+        }
+
+        tabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                tabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+                filterCards(tab.dataset.cat);
+            });
+        });
+
+        // Read cat from URL param
+        const urlCat = new URLSearchParams(window.location.search).get('cat');
+        if (urlCat) {
+            const tabEl = document.querySelector(`[data-cat="${urlCat}"]`);
+            if (tabEl) {
+                tabs.forEach(t => t.classList.remove('active'));
+                tabEl.classList.add('active');
+                filterCards(urlCat);
+                document.getElementById('categories').scrollIntoView({ behavior: 'smooth' });
+            }
+        }
+
+        // Scroll-triggered card animations
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        cards.forEach(card => observer.observe(card));
+    </script>
+</body>
+
+</html>
