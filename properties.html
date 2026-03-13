@@ -1,0 +1,610 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Toutes nos demeures | Kastell Breizh</title>
+    <meta name="description" content="Découvrez nos demeures d'exception en Côtes d'Armor — manoirs, gîtes et maisons de caractère. Disponibilités et prix en temps réel.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Leaflet CSS -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
+    <link rel="stylesheet" href="index.css">
+    <link rel="stylesheet" href="properties.css">
+</head>
+
+<body class="properties-page">
+
+    <!-- Navbar -->
+    <header class="navbar scrolled" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html#services">Nos Services</a>
+                <a href="properties.html" style="color: var(--gold); font-weight: 600;">Nos Demeures</a>
+                <a href="places.html">La Région</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Espace Propriétaire</a>
+                <a href="booking.html" class="btn btn-primary">Réserver</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="close-menu" id="close-menu-btn"><i class="fas fa-times"></i></button>
+            <nav class="mobile-nav-links">
+                <a href="index.html#services" class="mobile-link">Nos Services</a>
+                <a href="properties.html" class="mobile-link">Nos Demeures</a>
+                <a href="places.html" class="mobile-link">La Région</a>
+                <a href="booking.html" class="btn btn-primary">Réserver</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Filter Bar -->
+    <div class="filter-bar" id="filter-bar">
+        <div class="container filter-bar-inner">
+            <div class="filter-group">
+                <label class="filter-label"><i class="fas fa-user-friends"></i> Voyageurs</label>
+                <select class="filter-select" id="filter-guests">
+                    <option value="0">Tous</option>
+                    <option value="2">2 pers.</option>
+                    <option value="4">4 pers.</option>
+                    <option value="6">6 pers.</option>
+                    <option value="8">8+ pers.</option>
+                </select>
+            </div>
+            <div class="filter-divider"></div>
+            <div class="filter-group">
+                <label class="filter-label"><i class="fas fa-euro-sign"></i> Budget/nuit</label>
+                <select class="filter-select" id="filter-price">
+                    <option value="0">Tous les prix</option>
+                    <option value="200">Jusqu'à 200€</option>
+                    <option value="250">Jusqu'à 250€</option>
+                    <option value="999">Plus de 250€</option>
+                </select>
+            </div>
+            <div class="filter-divider"></div>
+            <div class="filter-group">
+                <label class="filter-label"><i class="fas fa-sort-amount-down"></i> Trier par</label>
+                <select class="filter-select" id="filter-sort">
+                    <option value="recommended">Recommandés</option>
+                    <option value="price-asc">Prix croissant</option>
+                    <option value="price-desc">Prix décroissant</option>
+                    <option value="rating">Mieux notés</option>
+                    <option value="capacity">Capacité</option>
+                </select>
+            </div>
+            <div class="filter-results" id="filter-results">
+                <span id="results-count">4</span> demeures
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile view toggle -->
+    <div class="mobile-view-toggle" id="mobile-view-toggle">
+        <button class="view-toggle-btn active" id="btn-list-view" data-view="list">
+            <i class="fas fa-th-list"></i> Liste
+        </button>
+        <button class="view-toggle-btn" id="btn-map-view" data-view="map">
+            <i class="fas fa-map"></i> Carte
+        </button>
+    </div>
+
+    <!-- Main Split View -->
+    <main class="split-view" id="split-view">
+
+        <!-- LEFT: Property List -->
+        <div class="list-panel" id="list-panel">
+            <div class="list-panel-inner">
+                <div class="properties-list" id="properties-list">
+                    <!-- Populated by JS -->
+                </div>
+                <div class="no-results" id="no-results" style="display:none;">
+                    <i class="fas fa-search"></i>
+                    <p>Aucune demeure ne correspond à vos critères.</p>
+                    <button class="btn btn-outline" id="reset-filters">Réinitialiser les filtres</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- RIGHT: Map -->
+        <div class="map-panel" id="map-panel">
+            <div id="properties-map"></div>
+            <!-- Map legend -->
+            <div class="map-legend">
+                <div class="map-legend-item">
+                    <div class="legend-marker legend-marker-navy">185€</div>
+                    <span>Prix par nuit</span>
+                </div>
+                <div class="map-legend-item">
+                    <div class="legend-marker legend-marker-active">185€</div>
+                    <span>Sélectionné</span>
+                </div>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLcE=" crossorigin=""></script>
+    <script src="index.js"></script>
+    <script>
+    // ─────────────────────────────────────────────
+    // PROPERTY DATA (coordinates verified on OSM)
+    // ─────────────────────────────────────────────
+    const PROPERTIES_MAP_DATA = [
+        {
+            id: 'kerollivier',
+            name: 'Manoir de Kerollivier',
+            subtitle: '2 gîtes de caractère · XVIIIe siècle',
+            location: 'Saint-Gilles-Pligeaux, Côtes d\'Armor',
+            lat: 48.3243,
+            lng: -3.0060,
+            capacity: 6,
+            beds: 3,
+            baths: 2,
+            pricePerNight: 185,
+            cleaningFee: 80,
+            rating: 4.96,
+            reviews: 48,
+            badge: 'Coup de cœur',
+            badgeClass: 'badge-gold',
+            image: 'images/Kerollivier.jpg',
+            description: 'Manoir du XVIIIe siècle niché dans un écrin de verdure, avec deux gîtes indépendants. Jardin clos, cheminées d\'époque et calme absolu à 10 min de Guingamp.',
+            features: [
+                { icon: 'fas fa-wifi', label: 'WiFi' },
+                { icon: 'fas fa-tree', label: 'Jardin' },
+                { icon: 'fas fa-fire', label: 'Cheminée' },
+                { icon: 'fas fa-parking', label: 'Parking' },
+            ],
+        },
+        {
+            id: 'saint-guy',
+            name: 'Le Gîte de Saint Guy',
+            subtitle: 'Gîte familial · Argoat',
+            location: 'Gommenec\'h, Côtes d\'Armor',
+            lat: 48.6044,
+            lng: -3.1047,
+            capacity: 6,
+            beds: 3,
+            baths: 2,
+            pricePerNight: 220,
+            cleaningFee: 90,
+            rating: 4.88,
+            reviews: 36,
+            badge: 'Familial',
+            badgeClass: 'badge-navy',
+            image: 'images/StGuy.jpg',
+            description: 'Gîte chaleureux et bien équipé au cœur du pays de Guingamp. Piscine privée chauffée, potager, et accès direct aux sentiers de randonnée de l\'Argoat.',
+            features: [
+                { icon: 'fas fa-wifi', label: 'WiFi' },
+                { icon: 'fas fa-swimming-pool', label: 'Piscine' },
+                { icon: 'fas fa-child', label: 'Enfants' },
+                { icon: 'fas fa-seedling', label: 'Potager' },
+            ],
+        },
+        {
+            id: 'maison-art',
+            name: 'Maison d\'Art et Nature',
+            subtitle: '3 gîtes indépendants · 18 pers.',
+            location: 'Saint-Connan, Côtes d\'Armor',
+            lat: 48.3910,
+            lng: -3.1320,
+            capacity: 18,
+            beds: 8,
+            baths: 4,
+            pricePerNight: 280,
+            cleaningFee: 120,
+            rating: 5.0,
+            reviews: 22,
+            badge: '5 étoiles',
+            badgeClass: 'badge-gold',
+            image: 'images/MaieBail.jpg',
+            description: 'Ensemble de 3 gîtes indépendants sur un domaine de 5 hectares. Atelier d\'art, sentiers privés, idéal pour séminaires, mariages et grandes réunions familiales.',
+            features: [
+                { icon: 'fas fa-wifi', label: 'WiFi' },
+                { icon: 'fas fa-palette', label: 'Atelier art' },
+                { icon: 'fas fa-hiking', label: 'Sentiers' },
+                { icon: 'fas fa-users', label: 'Groupes' },
+            ],
+        },
+        {
+            id: 'pont-dorniol',
+            name: 'Manoir de Pont Dorniol',
+            subtitle: 'Demeure d\'exception · Noblayau',
+            location: 'Laniscat, Côtes d\'Armor',
+            lat: 48.2192,
+            lng: -3.0826,
+            capacity: 8,
+            beds: 4,
+            baths: 3,
+            pricePerNight: 250,
+            cleaningFee: 100,
+            rating: 4.95,
+            reviews: 41,
+            badge: 'Exclusif',
+            badgeClass: 'badge-navy',
+            image: 'images/Pont Dorniol.jpg',
+            description: 'Manoir de caractère au bord de la rivière Dorniol, entouré d\'une forêt privée. Sauna, spa extérieur et vue panoramique sur les gorges. Intimité et luxe absolu.',
+            features: [
+                { icon: 'fas fa-wifi', label: 'WiFi' },
+                { icon: 'fas fa-spa', label: 'Sauna & Spa' },
+                { icon: 'fas fa-water', label: 'Rivière' },
+                { icon: 'fas fa-tree', label: 'Forêt' },
+            ],
+        },
+    ];
+
+    // ─────────────────────────────────────────────
+    // STATE
+    // ─────────────────────────────────────────────
+    let mapInstance = null;
+    let markers = {};         // id → Leaflet marker
+    let activeMarkerId = null;
+    let filteredData = [...PROPERTIES_MAP_DATA];
+    let currentView = 'list'; // 'list' | 'map'
+
+    // ─────────────────────────────────────────────
+    // INIT
+    // ─────────────────────────────────────────────
+    document.addEventListener('DOMContentLoaded', () => {
+        initMap();
+        renderList(filteredData);
+        bindFilters();
+        bindMobileToggle();
+    });
+
+    // ─────────────────────────────────────────────
+    // MAP INIT (Leaflet + OpenStreetMap)
+    // ─────────────────────────────────────────────
+    function setMapHeight() {
+        const filterBar = document.getElementById('filter-bar');
+        const mobileToggle = document.getElementById('mobile-view-toggle');
+        const filterBottom = filterBar.getBoundingClientRect().bottom;
+        const toggleH = (window.getComputedStyle(mobileToggle).display !== 'none')
+            ? mobileToggle.offsetHeight : 0;
+        const h = Math.max(window.innerHeight - filterBottom - toggleH, 300);
+        const hpx = h + 'px';
+        document.getElementById('split-view').style.height = hpx;
+        document.getElementById('list-panel').style.height = hpx;
+        document.getElementById('map-panel').style.height = hpx;
+        document.getElementById('properties-map').style.height = hpx;
+        if (mapInstance) mapInstance.invalidateSize();
+    }
+
+    function initMap() {
+        setMapHeight();
+
+        mapInstance = L.map('properties-map', {
+            center: [48.42, -3.06],
+            zoom: 10,
+            zoomControl: true,
+        });
+
+        // CartoDB Positron — light grey, no API key needed
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png', {
+            attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors © <a href="https://carto.com/attributions">CARTO</a>',
+            subdomains: 'abcd',
+            maxZoom: 19,
+        }).addTo(mapInstance);
+
+        PROPERTIES_MAP_DATA.forEach(prop => addMarker(prop));
+
+        requestAnimationFrame(() => requestAnimationFrame(() => mapInstance.invalidateSize()));
+
+        window.addEventListener('resize', setMapHeight);
+    }
+
+    function addMarker(prop) {
+        const icon = buildPriceIcon(prop.pricePerNight, false);
+
+        const marker = L.marker([prop.lat, prop.lng], { icon })
+            .addTo(mapInstance);
+
+        // Custom popup
+        marker.bindPopup(buildPopupHTML(prop), {
+            maxWidth: 280,
+            minWidth: 240,
+            className: 'leaflet-popup-kb',
+            closeButton: true,
+            offset: [0, -10],
+        });
+
+        marker.on('click', () => {
+            setActiveMarker(prop.id);
+            scrollCardIntoView(prop.id);
+        });
+
+        marker.on('popupopen', () => setActiveMarker(prop.id));
+        marker.on('popupclose', () => {
+            if (activeMarkerId === prop.id) {
+                setActiveMarker(null);
+            }
+        });
+
+        markers[prop.id] = marker;
+    }
+
+    function buildPriceIcon(price, isActive) {
+        return L.divIcon({
+            className: 'map-price-icon',
+            html: `<div class="map-price-pill ${isActive ? 'active' : ''}">${price}€</div>`,
+            iconSize: [72, 34],
+            iconAnchor: [36, 17],
+            popupAnchor: [0, -20],
+        });
+    }
+
+    function buildPopupHTML(prop) {
+        const stars = '★'.repeat(Math.floor(prop.rating));
+        return `
+            <div class="map-popup-card">
+                <div class="map-popup-img" style="background-image: url('${prop.image}');">
+                    <span class="map-popup-badge ${prop.badgeClass}">${prop.badge}</span>
+                </div>
+                <div class="map-popup-body">
+                    <h4 class="map-popup-title">${prop.name}</h4>
+                    <p class="map-popup-location"><i class="fas fa-map-marker-alt"></i> ${prop.location}</p>
+                    <div class="map-popup-meta">
+                        <span class="map-popup-rating"><i class="fas fa-star"></i> ${prop.rating} <span class="popup-reviews">(${prop.reviews})</span></span>
+                        <span class="map-popup-cap"><i class="fas fa-user"></i> ${prop.capacity} pers.</span>
+                    </div>
+                    <div class="map-popup-footer">
+                        <div class="map-popup-price">
+                            <span class="popup-from">à partir de</span>
+                            <strong>${prop.pricePerNight}€</strong>
+                            <span class="popup-night">/nuit</span>
+                        </div>
+                        <a href="booking.html?property=${prop.id}" class="btn btn-primary btn-sm map-popup-book">
+                            Réserver
+                        </a>
+                    </div>
+                </div>
+            </div>
+        `;
+    }
+
+    function setActiveMarker(id) {
+        // Reset previous
+        if (activeMarkerId && markers[activeMarkerId]) {
+            const prev = PROPERTIES_MAP_DATA.find(p => p.id === activeMarkerId);
+            if (prev) markers[activeMarkerId].setIcon(buildPriceIcon(prev.pricePerNight, false));
+        }
+        activeMarkerId = id;
+        // Activate new
+        if (id && markers[id]) {
+            const curr = PROPERTIES_MAP_DATA.find(p => p.id === id);
+            if (curr) {
+                markers[id].setIcon(buildPriceIcon(curr.pricePerNight, true));
+                markers[id].setZIndexOffset(1000);
+            }
+        }
+        // Highlight the card
+        document.querySelectorAll('.prop-list-card').forEach(c => {
+            c.classList.toggle('highlighted', c.dataset.id === id);
+        });
+    }
+
+    // ─────────────────────────────────────────────
+    // LIST RENDERING
+    // ─────────────────────────────────────────────
+    function renderList(data) {
+        const container = document.getElementById('properties-list');
+        const noResults = document.getElementById('no-results');
+        document.getElementById('results-count').textContent = data.length;
+
+        if (data.length === 0) {
+            container.innerHTML = '';
+            noResults.style.display = 'flex';
+            return;
+        }
+        noResults.style.display = 'none';
+
+        container.innerHTML = data.map(prop => `
+            <article class="prop-list-card" data-id="${prop.id}" tabindex="0" role="button" aria-label="Voir ${prop.name}">
+                <div class="prop-list-image">
+                    <img src="${prop.image}" alt="${prop.name}" loading="lazy">
+                    <span class="prop-list-badge ${prop.badgeClass}">${prop.badge}</span>
+                </div>
+                <div class="prop-list-content">
+                    <div class="prop-list-header">
+                        <div>
+                            <h3 class="prop-list-title">${prop.name}</h3>
+                            <p class="prop-list-subtitle">${prop.subtitle}</p>
+                        </div>
+                        <div class="prop-list-rating">
+                            <i class="fas fa-star"></i>
+                            <span>${prop.rating}</span>
+                            <span class="prop-list-reviews">(${prop.reviews})</span>
+                        </div>
+                    </div>
+
+                    <p class="prop-list-location"><i class="fas fa-map-marker-alt"></i> ${prop.location}</p>
+                    <p class="prop-list-desc">${prop.description}</p>
+
+                    <div class="prop-list-features">
+                        <span class="prop-feat"><i class="fas fa-user"></i> ${prop.capacity} pers. max.</span>
+                        <span class="prop-feat"><i class="fas fa-bed"></i> ${prop.beds} chambres</span>
+                        <span class="prop-feat"><i class="fas fa-bath"></i> ${prop.baths} SDB</span>
+                        ${prop.features.map(f => `<span class="prop-feat"><i class="${f.icon}"></i> ${f.label}</span>`).join('')}
+                    </div>
+
+                    <div class="prop-list-footer">
+                        <div class="prop-list-price">
+                            <span class="price-from">à partir de</span>
+                            <strong>${prop.pricePerNight} €</strong>
+                            <span class="price-unit">/nuit</span>
+                            <span class="prop-cleaning">+ ${prop.cleaningFee}€ ménage</span>
+                        </div>
+                        <div class="prop-list-actions">
+                            <button class="btn-map-focus" onclick="focusOnMap('${prop.id}')" title="Voir sur la carte">
+                                <i class="fas fa-map-marker-alt"></i>
+                            </button>
+                            <a href="booking.html?property=${prop.id}" class="btn btn-primary btn-sm">
+                                Réserver
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </article>
+        `).join('');
+
+        // Bind card hover → map marker
+        document.querySelectorAll('.prop-list-card').forEach(card => {
+            const id = card.dataset.id;
+
+            card.addEventListener('mouseenter', () => {
+                setActiveMarker(id);
+            });
+            card.addEventListener('mouseleave', () => {
+                if (!markers[id]?.isPopupOpen()) {
+                    setActiveMarker(null);
+                }
+            });
+            card.addEventListener('click', (e) => {
+                if (e.target.closest('a') || e.target.closest('.btn-map-focus')) return;
+                focusOnMap(id);
+            });
+            card.addEventListener('keydown', (e) => {
+                if (e.key === 'Enter') {
+                    window.location.href = `booking.html?property=${id}`;
+                }
+            });
+        });
+    }
+
+    function focusOnMap(id) {
+        const prop = PROPERTIES_MAP_DATA.find(p => p.id === id);
+        if (!prop || !mapInstance) return;
+
+        // On mobile: switch to map view
+        if (window.innerWidth < 900) {
+            switchView('map');
+        }
+
+        mapInstance.flyTo([prop.lat, prop.lng], 13, { duration: 0.8 });
+        setActiveMarker(id);
+        setTimeout(() => {
+            if (markers[id]) markers[id].openPopup();
+        }, 900);
+    }
+
+    function scrollCardIntoView(id) {
+        const card = document.querySelector(`.prop-list-card[data-id="${id}"]`);
+        if (card) {
+            card.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+        }
+    }
+
+    // ─────────────────────────────────────────────
+    // FILTERS
+    // ─────────────────────────────────────────────
+    function bindFilters() {
+        ['filter-guests', 'filter-price', 'filter-sort'].forEach(id => {
+            document.getElementById(id).addEventListener('change', applyFilters);
+        });
+
+        document.getElementById('reset-filters').addEventListener('click', () => {
+            document.getElementById('filter-guests').value = '0';
+            document.getElementById('filter-price').value = '0';
+            document.getElementById('filter-sort').value = 'recommended';
+            applyFilters();
+        });
+    }
+
+    function applyFilters() {
+        const guestFilter = parseInt(document.getElementById('filter-guests').value);
+        const priceFilter = parseInt(document.getElementById('filter-price').value);
+        const sortVal = document.getElementById('filter-sort').value;
+
+        let result = [...PROPERTIES_MAP_DATA];
+
+        if (guestFilter > 0) {
+            result = result.filter(p => p.capacity >= guestFilter);
+        }
+
+        if (priceFilter === 200) {
+            result = result.filter(p => p.pricePerNight <= 200);
+        } else if (priceFilter === 250) {
+            result = result.filter(p => p.pricePerNight <= 250);
+        } else if (priceFilter === 999) {
+            result = result.filter(p => p.pricePerNight > 250);
+        }
+
+        switch (sortVal) {
+            case 'price-asc':
+                result.sort((a, b) => a.pricePerNight - b.pricePerNight);
+                break;
+            case 'price-desc':
+                result.sort((a, b) => b.pricePerNight - a.pricePerNight);
+                break;
+            case 'rating':
+                result.sort((a, b) => b.rating - a.rating);
+                break;
+            case 'capacity':
+                result.sort((a, b) => b.capacity - a.capacity);
+                break;
+        }
+
+        // Show/hide map markers
+        PROPERTIES_MAP_DATA.forEach(prop => {
+            const visible = result.some(r => r.id === prop.id);
+            if (markers[prop.id]) {
+                if (visible) {
+                    markers[prop.id].addTo(mapInstance);
+                } else {
+                    markers[prop.id].remove();
+                }
+            }
+        });
+
+        // Fit map bounds to visible markers if any
+        if (result.length > 0) {
+            const latlngs = result.map(p => [p.lat, p.lng]);
+            mapInstance.fitBounds(latlngs, { padding: [40, 40], maxZoom: 12 });
+        }
+
+        filteredData = result;
+        renderList(result);
+    }
+
+    // ─────────────────────────────────────────────
+    // MOBILE VIEW TOGGLE
+    // ─────────────────────────────────────────────
+    function bindMobileToggle() {
+        document.getElementById('btn-list-view').addEventListener('click', () => switchView('list'));
+        document.getElementById('btn-map-view').addEventListener('click', () => switchView('map'));
+    }
+
+    function switchView(view) {
+        currentView = view;
+        const listPanel = document.getElementById('list-panel');
+        const mapPanel = document.getElementById('map-panel');
+        document.getElementById('btn-list-view').classList.toggle('active', view === 'list');
+        document.getElementById('btn-map-view').classList.toggle('active', view === 'map');
+
+        if (view === 'map') {
+            listPanel.classList.add('hidden-mobile');
+            mapPanel.classList.remove('hidden-mobile');
+            setTimeout(() => { setMapHeight(); mapInstance.invalidateSize(); }, 50);
+        } else {
+            listPanel.classList.remove('hidden-mobile');
+            mapPanel.classList.add('hidden-mobile');
+        }
+    }
+    </script>
+</body>
+</html>

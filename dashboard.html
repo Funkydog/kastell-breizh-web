@@ -1,723 +1,1232 @@
 <!DOCTYPE html>
 <html lang="fr">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Tableau de Bord | Kastell Breizh</title>
-
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
-        rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="stylesheet" href="index.css">
-
     <style>
-        body {
-            background-color: var(--slate-light);
-        }
+        *, *::before, *::after { box-sizing: border-box; }
+        body { background: #f4f6f9; margin: 0; font-family: 'Inter', sans-serif; }
 
-        .dashboard-layout {
-            display: flex;
-            min-height: 100vh;
-        }
+        /* ─── Layout ─── */
+        .dash-layout { display: flex; min-height: 100vh; }
 
-        /* Sidebar Styles */
+        /* ─── Sidebar ─── */
         .sidebar {
-            width: 280px;
-            background-color: var(--navy-blue);
-            color: var(--white);
-            display: flex;
-            flex-direction: column;
-            position: fixed;
-            height: 100vh;
-            left: 0;
-            top: 0;
-            z-index: 100;
+            width: 270px; background: var(--navy-blue); color: white;
+            position: fixed; height: 100vh; left: 0; top: 0; z-index: 100;
+            display: flex; flex-direction: column; overflow-y: auto;
         }
-
-        .sidebar-header {
-            padding: 2rem 1.5rem;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
-        .sidebar-logo {
-            height: 40px;
-            margin-bottom: 1rem;
-        }
-
-        .owner-profile {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
+        .sidebar-header { padding: 1.75rem 1.5rem 1.25rem; border-bottom: 1px solid rgba(255,255,255,0.1); }
+        .sidebar-logo { height: 36px; margin-bottom: 1rem; }
+        .owner-profile { display: flex; align-items: center; gap: 0.875rem; }
         .owner-avatar {
-            width: 40px;
-            height: 40px;
-            background-color: var(--gold);
-            color: var(--navy-blue-dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: 600;
-            font-size: 1.1rem;
+            width: 40px; height: 40px; background: var(--gold); color: var(--navy-blue-dark);
+            border-radius: 50%; display: flex; align-items: center; justify-content: center;
+            font-weight: 700; font-size: 1rem; flex-shrink: 0;
         }
-
-        .owner-info h3 {
-            color: var(--white);
-            margin: 0;
-            font-size: 1rem;
-            font-family: var(--font-body);
+        .owner-info h3 { color: white; margin: 0; font-size: 0.95rem; font-family: var(--font-body); }
+        .owner-info .owner-role {
+            font-size: 0.75rem; color: rgba(255,255,255,0.6);
+            background: rgba(255,255,255,0.1); padding: 1px 8px; border-radius: 20px;
+            display: inline-block; margin-top: 3px;
         }
-
-        .owner-info span {
-            font-size: 0.8rem;
-            color: rgba(255, 255, 255, 0.7);
+        .sidebar-nav { padding: 1.25rem 0; flex: 1; }
+        .sidebar-nav ul { list-style: none; margin: 0; padding: 0; }
+        .nav-section-label {
+            font-size: 0.65rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px;
+            color: rgba(255,255,255,0.35); padding: 0.75rem 1.5rem 0.35rem;
         }
-
-        .sidebar-nav {
-            padding: 1.5rem 0;
-            flex-grow: 1;
-        }
-
-        .sidebar-nav ul {
-            display: flex;
-            flex-direction: column;
-        }
-
         .sidebar-nav li a {
-            display: flex;
-            align-items: center;
-            padding: 1rem 1.5rem;
-            color: rgba(255, 255, 255, 0.8);
-            text-decoration: none;
-            gap: 1rem;
-            transition: var(--transition-fast);
-            border-left: 3px solid transparent;
+            display: flex; align-items: center; padding: 0.8rem 1.5rem;
+            color: rgba(255,255,255,0.75); text-decoration: none; gap: 0.875rem;
+            transition: all 0.15s; border-left: 3px solid transparent; font-size: 0.9rem;
         }
-
-        .sidebar-nav li a:hover,
-        .sidebar-nav li a.active {
-            background-color: rgba(255, 255, 255, 0.05);
-            color: var(--gold);
+        .sidebar-nav li a:hover, .sidebar-nav li a.active {
+            background: rgba(255,255,255,0.06); color: var(--gold);
             border-left-color: var(--gold);
         }
-
-        .sidebar-nav li a i {
-            width: 20px;
-            text-align: center;
+        .sidebar-nav li a i { width: 18px; text-align: center; }
+        .nav-badge {
+            margin-left: auto; background: var(--gold); color: var(--navy-blue-dark);
+            font-size: 0.65rem; font-weight: 700; padding: 1px 6px; border-radius: 10px;
         }
-
-        .sidebar-footer {
-            padding: 1.5rem;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
-        }
-
+        .sidebar-footer { padding: 1.25rem 1.5rem; border-top: 1px solid rgba(255,255,255,0.1); }
         .logout-btn {
-            color: rgba(255, 255, 255, 0.7);
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            transition: var(--transition-fast);
+            display: flex; align-items: center; gap: 0.5rem;
+            color: rgba(255,255,255,0.6); text-decoration: none; font-size: 0.875rem;
+            transition: color 0.15s;
+        }
+        .logout-btn:hover { color: #ff6b6b; }
+        .admin-badge-sidebar {
+            font-size: 0.65rem; background: var(--gold); color: var(--navy-blue-dark);
+            padding: 2px 7px; border-radius: 20px; font-weight: 700; margin-left: 0.5rem;
         }
 
-        .logout-btn:hover {
-            color: #ff6b6b;
-        }
+        /* ─── Main Content ─── */
+        .main-content { flex: 1; margin-left: 270px; padding: 2.25rem 2.5rem; min-width: 0; }
 
-        /* Main Content Styles */
-        .main-content {
-            flex-grow: 1;
-            margin-left: 280px;
-            padding: 2rem 3rem;
-        }
+        /* ─── Page sections ─── */
+        .dash-section { display: none; }
+        .dash-section.active { display: block; }
 
+        /* ─── Top bar ─── */
         .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 3rem;
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 2.25rem; gap: 1rem;
         }
-
-        .page-title {
-            margin: 0;
-            font-size: 1.8rem;
-        }
-
+        .page-title { margin: 0; font-size: 1.7rem; color: var(--navy-blue); }
         .property-selector {
-            padding: 0.5rem 1rem;
-            border-radius: var(--border-radius-sm);
-            border: 1px solid var(--slate-grey);
-            font-family: var(--font-body);
-            background: white;
-            outline: none;
+            padding: 0.5rem 1rem; border-radius: 8px;
+            border: 1px solid rgba(0,0,0,0.12); font-family: var(--font-body);
+            background: white; outline: none; font-size: 0.875rem; cursor: pointer;
         }
 
-        /* KPI Cards */
+        /* ─── KPI Grid ─── */
         .kpi-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-bottom: 3rem;
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.25rem; margin-bottom: 2.25rem;
         }
-
         .kpi-card {
-            background: var(--white);
-            padding: 1.5rem;
-            border-radius: var(--border-radius-md);
-            box-shadow: var(--shadow-sm);
-            display: flex;
-            align-items: flex-start;
-            gap: 1.5rem;
+            background: white; padding: 1.5rem; border-radius: 12px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.06); display: flex; align-items: flex-start; gap: 1.25rem;
         }
-
         .kpi-icon {
-            width: 50px;
-            height: 50px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 1.5rem;
+            width: 48px; height: 48px; border-radius: 12px;
+            display: flex; align-items: center; justify-content: center; font-size: 1.3rem; flex-shrink: 0;
         }
+        .kpi-icon.blue  { background: rgba(26,43,76,0.1); color: var(--navy-blue); }
+        .kpi-icon.green { background: rgba(46,204,113,0.12); color: #27ae60; }
+        .kpi-icon.gold  { background: rgba(212,175,55,0.12); color: var(--gold-dark); }
+        .kpi-icon.purple{ background: rgba(155,89,182,0.12); color: #8e44ad; }
+        .kpi-details h4 { color: var(--text-muted); font-size: 0.8rem; font-weight: 500; margin: 0 0 0.4rem; font-family: var(--font-body); }
+        .kpi-value { font-size: 1.7rem; font-weight: 700; color: var(--navy-blue); line-height: 1; margin-bottom: 0.35rem; }
+        .kpi-trend { font-size: 0.8rem; display: flex; align-items: center; gap: 0.25rem; }
+        .trend-up { color: #27ae60; } .trend-down { color: #e74c3c; }
 
-        .kpi-icon.blue {
-            background-color: rgba(26, 43, 76, 0.1);
-            color: var(--navy-blue);
+        /* ─── Dashboard card ─── */
+        .dash-card {
+            background: white; border-radius: 12px;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.06); padding: 1.5rem; margin-bottom: 1.5rem;
         }
-
-        .kpi-icon.green {
-            background-color: rgba(46, 204, 113, 0.1);
-            color: #2ecc71;
-        }
-
-        .kpi-icon.gold {
-            background-color: rgba(212, 175, 55, 0.1);
-            color: var(--gold-dark);
-        }
-
-        .kpi-details h4 {
-            color: var(--text-muted);
-            font-family: var(--font-body);
-            font-weight: 500;
-            font-size: 0.9rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .kpi-value {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--navy-blue);
-            line-height: 1;
-            margin-bottom: 0.5rem;
-        }
-
-        .kpi-trend {
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 0.25rem;
-        }
-
-        .trend-up {
-            color: #2ecc71;
-        }
-
-        .trend-down {
-            color: #e74c3c;
-        }
-
-        /* Dashboard Layout Grid */
-        .dashboard-grid {
-            display: grid;
-            grid-template-columns: 2fr 1fr;
-            gap: 2rem;
-        }
-
-        /* Calendar Card */
-        .dashboard-card {
-            background: var(--white);
-            border-radius: var(--border-radius-md);
-            box-shadow: var(--shadow-sm);
-            padding: 1.5rem;
-        }
-
         .card-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 1.5rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--slate-light);
+            display: flex; justify-content: space-between; align-items: center;
+            margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid #f0f2f5;
         }
+        .card-header h3 { margin: 0; font-size: 1.1rem; color: var(--navy-blue); }
+        .dash-grid-2 { display: grid; grid-template-columns: 2fr 1fr; gap: 1.5rem; }
 
-        .card-header h3 {
-            margin: 0;
-            font-size: 1.25rem;
-        }
-
-        /* Mock Calendar Grid */
+        /* ─── Calendar ─── */
         .calendar-header {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            text-align: center;
-            font-weight: 600;
-            color: var(--text-muted);
-            margin-bottom: 0.5rem;
-            font-size: 0.9rem;
+            display: grid; grid-template-columns: repeat(7,1fr); text-align: center;
+            font-weight: 600; color: var(--text-muted); margin-bottom: 0.5rem; font-size: 0.8rem;
         }
-
-        .calendar-grid {
-            display: grid;
-            grid-template-columns: repeat(7, 1fr);
-            gap: 4px;
-        }
-
+        .calendar-grid { display: grid; grid-template-columns: repeat(7,1fr); gap: 3px; }
         .cal-day {
-            aspect-ratio: 1;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border-radius: var(--border-radius-sm);
-            font-size: 0.9rem;
-            background-color: var(--off-white);
-            cursor: pointer;
-            transition: var(--transition-fast);
-            position: relative;
+            aspect-ratio: 1; display: flex; flex-direction: column; align-items: center;
+            justify-content: center; border-radius: 6px; font-size: 0.85rem;
+            background: #f8f9fb; cursor: pointer; transition: background 0.15s;
         }
+        .cal-day:hover { background: var(--slate-light); }
+        .cal-empty { background: transparent; cursor: default; }
+        .cal-booked { background: var(--navy-blue); color: white; font-weight: 600; }
+        .cal-checkout { background: rgba(26,43,76,0.15); color: var(--navy-blue); }
+        .cal-today { outline: 2px solid var(--gold); outline-offset: -2px; }
+        .cal-price { font-size: 0.58rem; color: var(--text-muted); margin-top: 1px; }
+        .cal-booked .cal-price { color: rgba(255,255,255,0.65); }
 
-        .cal-day:hover {
-            background-color: var(--slate-light);
-        }
-
-        .cal-empty {
-            background-color: transparent;
-            cursor: default;
-        }
-
-        /* Statuses */
-        .cal-booked {
-            background-color: rgba(26, 43, 76, 0.8);
-            color: white;
-            font-weight: 600;
-        }
-
-        .cal-blocked {
-            background-color: var(--slate-grey);
-            color: white;
-            opacity: 0.7;
-            background-image: repeating-linear-gradient(45deg, transparent, transparent 5px, rgba(0, 0, 0, 0.1) 5px, rgba(0, 0, 0, 0.1) 10px);
-        }
-
-        .cal-price {
-            font-size: 0.65rem;
-            color: var(--text-muted);
-            margin-top: 2px;
-        }
-
-        .cal-booked .cal-price {
-            color: rgba(255, 255, 255, 0.7);
-        }
-
-        /* Recent Activity List */
-        .activity-list {
-            display: flex;
-            flex-direction: column;
-            gap: 1rem;
-        }
-
+        /* ─── Activity ─── */
+        .activity-list { display: flex; flex-direction: column; gap: 1rem; }
         .activity-item {
-            display: flex;
-            gap: 1rem;
-            padding-bottom: 1rem;
-            border-bottom: 1px solid var(--slate-light);
+            display: flex; gap: 0.875rem; padding-bottom: 1rem;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        .activity-item:last-child { border-bottom: none; padding-bottom: 0; }
+        .act-icon {
+            width: 34px; height: 34px; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; flex-shrink: 0; font-size: 0.85rem;
+        }
+        .act-icon.gold   { background: rgba(212,175,55,0.1); color: var(--gold-dark); }
+        .act-icon.green  { background: rgba(46,204,113,0.1); color: #27ae60; }
+        .act-icon.blue   { background: rgba(52,152,219,0.1); color: #2980b9; }
+        .act-icon.purple { background: rgba(155,89,182,0.1); color: #8e44ad; }
+        .act-title { font-size: 0.9rem; font-weight: 600; color: var(--navy-blue); margin: 0 0 2px; }
+        .act-desc { font-size: 0.82rem; color: var(--text-muted); margin: 0; }
+        .act-time { font-size: 0.72rem; color: var(--slate-grey); margin-top: 3px; }
+
+        /* ─── Table ─── */
+        .data-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        .data-table th {
+            text-align: left; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.4px; color: var(--text-muted); padding: 0 1rem 0.875rem;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        .data-table td { padding: 0.875rem 1rem; border-bottom: 1px solid #f8f9fb; vertical-align: middle; }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover td { background: #fafbfc; }
+        .table-filters {
+            display: flex; gap: 0.75rem; margin-bottom: 1.25rem; flex-wrap: wrap;
+        }
+        .table-filter-select {
+            padding: 0.45rem 0.875rem; border: 1px solid rgba(0,0,0,0.1);
+            border-radius: 20px; font-family: var(--font-body); font-size: 0.82rem;
+            background: white; cursor: pointer; outline: none;
         }
 
-        .activity-item:last-child {
-            border-bottom: none;
-            padding-bottom: 0;
+        /* ─── Status badges ─── */
+        .badge {
+            display: inline-flex; align-items: center; gap: 0.3rem;
+            padding: 3px 10px; border-radius: 20px; font-size: 0.72rem; font-weight: 600;
+        }
+        .badge-confirmed { background: rgba(46,204,113,0.12); color: #27ae60; }
+        .badge-pending   { background: rgba(243,156,18,0.12); color: #d68910; }
+        .badge-completed { background: rgba(52,152,219,0.12); color: #2980b9; }
+        .badge-cancelled { background: rgba(231,76,60,0.12); color: #c0392b; }
+        .badge-published { background: rgba(46,204,113,0.12); color: #27ae60; }
+        .badge-unpublished{ background: rgba(0,0,0,0.06); color: var(--text-muted); }
+        .badge-review    { background: rgba(243,156,18,0.12); color: #d68910; }
+
+        /* ─── Finance ─── */
+        .finance-table { width: 100%; border-collapse: collapse; font-size: 0.875rem; }
+        .finance-table th {
+            text-align: right; font-size: 0.72rem; font-weight: 700; text-transform: uppercase;
+            letter-spacing: 0.4px; color: var(--text-muted); padding: 0 1rem 0.875rem;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        .finance-table th:first-child { text-align: left; }
+        .finance-table td { padding: 0.75rem 1rem; border-bottom: 1px solid #f8f9fb; text-align: right; }
+        .finance-table td:first-child { text-align: left; font-weight: 500; }
+        .finance-table tfoot td { font-weight: 700; border-top: 2px solid #f0f2f5; border-bottom: none; }
+
+        /* ─── Property Cards ─── */
+        .prop-cards-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 1.25rem; }
+        .prop-dash-card {
+            background: white; border-radius: 12px; overflow: hidden;
+            box-shadow: 0 1px 6px rgba(0,0,0,0.07); border: 2px solid transparent; transition: all 0.2s;
+        }
+        .prop-dash-card:hover { box-shadow: 0 4px 16px rgba(0,0,0,0.1); }
+        .prop-dash-img { height: 180px; position: relative; overflow: hidden; }
+        .prop-dash-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+        .prop-dash-body { padding: 1.25rem; }
+        .prop-dash-name { font-size: 1.05rem; color: var(--navy-blue); margin: 0 0 0.2rem; }
+        .prop-dash-loc { font-size: 0.8rem; color: var(--text-muted); margin: 0 0 0.875rem; }
+        .prop-dash-stats { display: grid; grid-template-columns: repeat(3,1fr); gap: 0.5rem; margin-bottom: 1rem; }
+        .prop-stat { background: #f8f9fb; border-radius: 8px; padding: 0.6rem; text-align: center; }
+        .prop-stat-value { font-size: 1rem; font-weight: 700; color: var(--navy-blue); }
+        .prop-stat-label { font-size: 0.65rem; color: var(--text-muted); margin-top: 2px; }
+        .prop-dash-actions { display: flex; gap: 0.75rem; align-items: center; }
+        .prop-dash-card-add {
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            background: white; border-radius: 12px; border: 2px dashed rgba(0,0,0,0.12);
+            padding: 2.5rem 2rem; cursor: pointer; transition: all 0.2s; min-height: 200px;
+            color: var(--text-muted); text-align: center; gap: 0.875rem;
+        }
+        .prop-dash-card-add:hover { border-color: var(--gold); color: var(--navy-blue); background: rgba(212,175,55,0.03); }
+        .prop-dash-card-add i { font-size: 2rem; color: var(--gold); }
+        .prop-dash-card-add span { font-size: 0.95rem; font-weight: 600; }
+
+        /* ─── Add Property Form ─── */
+        .form-section-group { margin-bottom: 2rem; }
+        .form-section-title {
+            font-size: 1rem; font-weight: 600; color: var(--navy-blue);
+            margin-bottom: 1.25rem; padding-bottom: 0.75rem; border-bottom: 1px solid #f0f2f5;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .form-section-title i { color: var(--gold-dark); }
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+        .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; }
+        .add-form-group { margin-bottom: 1rem; }
+        .add-form-group label {
+            display: block; font-size: 0.82rem; font-weight: 600;
+            color: var(--text-main); margin-bottom: 0.35rem;
+        }
+        .add-form-control {
+            width: 100%; padding: 0.7rem 0.875rem; border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 8px; font-family: var(--font-body); font-size: 0.9rem;
+            background: #fafbfc; transition: all 0.15s; box-sizing: border-box;
+        }
+        .add-form-control:focus {
+            outline: none; border-color: var(--gold); background: white;
+            box-shadow: 0 0 0 3px rgba(212,175,55,0.1);
+        }
+        textarea.add-form-control { resize: vertical; min-height: 100px; }
+        .amenity-grid { display: flex; flex-wrap: wrap; gap: 0.5rem; }
+        .amenity-check {
+            display: inline-flex; align-items: center; gap: 0.4rem;
+            padding: 0.4rem 0.875rem; border: 1px solid rgba(0,0,0,0.12);
+            border-radius: 20px; cursor: pointer; font-size: 0.82rem; user-select: none;
+            transition: all 0.15s; background: white;
+        }
+        .amenity-check:has(input:checked) { background: var(--navy-blue); color: white; border-color: var(--navy-blue); }
+        .amenity-check input[type="checkbox"] { display: none; }
+        .file-upload-area {
+            border: 2px dashed rgba(0,0,0,0.12); border-radius: 8px; padding: 1.5rem;
+            text-align: center; cursor: pointer; transition: all 0.15s; background: #fafbfc;
+        }
+        .file-upload-area:hover { border-color: var(--gold); background: rgba(212,175,55,0.03); }
+        .file-upload-area i { font-size: 2rem; color: var(--slate-grey); margin-bottom: 0.5rem; }
+
+        /* ─── Admin ─── */
+        .admin-prop-row {
+            display: flex; align-items: center; gap: 1.25rem; padding: 1rem 0;
+            border-bottom: 1px solid #f0f2f5;
+        }
+        .admin-prop-row:last-child { border-bottom: none; }
+        .admin-prop-img { width: 72px; height: 54px; border-radius: 8px; object-fit: cover; flex-shrink: 0; }
+        .admin-prop-info { flex: 1; min-width: 0; }
+        .admin-prop-name { font-weight: 600; color: var(--navy-blue); font-size: 0.95rem; margin: 0 0 2px; }
+        .admin-prop-meta { font-size: 0.78rem; color: var(--text-muted); }
+        .admin-prop-actions { display: flex; align-items: center; gap: 0.75rem; flex-shrink: 0; }
+
+        /* Toggle switch */
+        .toggle-switch { position: relative; width: 48px; height: 26px; }
+        .toggle-switch input { opacity: 0; width: 0; height: 0; }
+        .toggle-slider {
+            position: absolute; cursor: pointer; inset: 0;
+            background: rgba(0,0,0,0.15); border-radius: 26px; transition: 0.25s;
+        }
+        .toggle-slider::before {
+            content: ''; position: absolute;
+            width: 20px; height: 20px; left: 3px; bottom: 3px;
+            background: white; border-radius: 50%; transition: 0.25s;
+        }
+        .toggle-switch input:checked + .toggle-slider { background: #27ae60; }
+        .toggle-switch input:checked + .toggle-slider::before { transform: translateX(22px); }
+
+        .btn-sm-icon {
+            width: 32px; height: 32px; border-radius: 8px; border: 1px solid rgba(0,0,0,0.1);
+            background: white; cursor: pointer; display: flex; align-items: center;
+            justify-content: center; font-size: 0.8rem; color: var(--navy-blue);
+            transition: all 0.15s; text-decoration: none;
+        }
+        .btn-sm-icon:hover { background: var(--navy-blue); color: white; border-color: var(--navy-blue); }
+        .btn-sm-icon.danger:hover { background: #e74c3c; border-color: #e74c3c; }
+
+        .section-intro {
+            background: rgba(26,43,76,0.04); border-left: 3px solid var(--gold);
+            border-radius: 0 8px 8px 0; padding: 0.875rem 1.25rem;
+            font-size: 0.875rem; color: var(--text-muted); margin-bottom: 1.5rem;
         }
 
-        .activity-icon {
-            width: 36px;
-            height: 36px;
-            background-color: rgba(212, 175, 55, 0.1);
-            color: var(--gold-dark);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            flex-shrink: 0;
+        /* Success/error inline */
+        .inline-success {
+            background: rgba(46,204,113,0.1); border: 1px solid rgba(46,204,113,0.3);
+            border-radius: 8px; padding: 1rem 1.25rem; color: #1a7a44;
+            font-size: 0.9rem; display: none; margin-bottom: 1.25rem;
         }
+        .inline-success i { margin-right: 0.4rem; }
 
-        .activity-content h4 {
-            margin: 0 0 0.25rem 0;
-            font-size: 0.95rem;
-            font-family: var(--font-body);
-            color: var(--navy-blue);
+        /* ─── Responsive ─── */
+        @media (max-width: 1100px) {
+            .dash-grid-2 { grid-template-columns: 1fr; }
+            .form-grid-3 { grid-template-columns: 1fr 1fr; }
         }
-
-        .activity-content p {
-            margin: 0;
-            font-size: 0.85rem;
-            color: var(--text-muted);
-        }
-
-        .activity-time {
-            font-size: 0.75rem;
-            color: var(--slate-grey);
-            margin-top: 0.25rem;
+        @media (max-width: 900px) {
+            .sidebar { width: 70px; }
+            .sidebar-header .sidebar-logo, .owner-profile .owner-info,
+            .nav-section-label, .sidebar-nav li a span, .admin-badge-sidebar { display: none; }
+            .sidebar-nav li a { justify-content: center; padding: 0.9rem; }
+            .main-content { margin-left: 70px; padding: 1.5rem; }
+            .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
         }
     </style>
 </head>
 
 <body>
+<div class="dash-layout">
 
-    <div class="dashboard-layout">
+<!-- ─── Sidebar ─── -->
+<aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+        <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="sidebar-logo">
+        <div class="owner-profile">
+            <div class="owner-avatar" id="user-avatar">YB</div>
+            <div class="owner-info">
+                <h3 id="user-name">Propriétaire</h3>
+                <span class="owner-role" id="user-role-badge">Propriétaire</span>
+            </div>
+        </div>
+    </div>
 
-        <!-- Sidebar -->
-        <aside class="sidebar">
-            <div class="sidebar-header">
-                <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="sidebar-logo">
-                <div class="owner-profile">
-                    <div class="owner-avatar">YB</div>
-                    <div class="owner-info">
-                        <h3>Yannick B.</h3>
-                        <span>Propriétaire Partenaire</span>
-                    </div>
+    <nav class="sidebar-nav">
+        <ul>
+            <div class="nav-section-label">Principal</div>
+            <li><a href="#" class="nav-link active" data-section="overview"><i class="fas fa-chart-pie"></i> <span>Vue d'ensemble</span></a></li>
+            <li><a href="#" class="nav-link" data-section="reservations"><i class="fas fa-calendar-check"></i> <span>Réservations</span></a></li>
+            <li><a href="#" class="nav-link" data-section="finance"><i class="fas fa-file-invoice-dollar"></i> <span>Finance & Revenus</span></a></li>
+
+            <div class="nav-section-label" style="margin-top:0.5rem;">Mes Biens</div>
+            <li><a href="#" class="nav-link" data-section="properties"><i class="fas fa-home"></i> <span>Mes Propriétés</span></a></li>
+            <li><a href="#" class="nav-link" data-section="add-property"><i class="fas fa-plus-circle"></i> <span>Ajouter un bien</span></a></li>
+
+            <div class="nav-section-label admin-only" style="margin-top:0.5rem;display:none;">Administration</div>
+            <li class="admin-only" style="display:none;"><a href="#" class="nav-link" data-section="admin"><i class="fas fa-shield-alt"></i> <span>Admin Conciergerie <span class="admin-badge-sidebar">ADMIN</span></span></a></li>
+        </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+        <a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> <span>Se déconnecter</span></a>
+    </div>
+</aside>
+
+<!-- ─── Main ─── -->
+<main class="main-content">
+
+    <!-- ══════════════ OVERVIEW ══════════════ -->
+    <section class="dash-section active" id="section-overview">
+        <div class="topbar">
+            <h1 class="page-title">Tableau de Bord</h1>
+            <select class="property-selector" id="overview-prop-select">
+                <option value="all">Tous mes biens</option>
+                <option value="kerollivier">Manoir de Kerollivier</option>
+                <option value="saint-guy">Le Gîte de Saint Guy</option>
+            </select>
+        </div>
+
+        <div class="kpi-grid">
+            <div class="kpi-card">
+                <div class="kpi-icon blue"><i class="fas fa-bed"></i></div>
+                <div class="kpi-details">
+                    <h4>Taux d'occupation (Mars)</h4>
+                    <div class="kpi-value">78%</div>
+                    <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +5% vs mois dernier</div>
                 </div>
             </div>
-
-            <nav class="sidebar-nav">
-                <ul>
-                    <li><a href="#" class="active"><i class="fas fa-chart-pie"></i> Vue d'ensemble</a></li>
-                    <li><a href="#"><i class="far fa-calendar-alt"></i> Calendrier & Tarifs</a></li>
-                    <li><a href="#"><i class="fas fa-users"></i> Réservations</a></li>
-                    <li><a href="#"><i class="fas fa-file-invoice-dollar"></i> Finance & Factures</a></li>
-                    <li><a href="#"><i class="fas fa-home"></i> Mes Propriétés</a></li>
-                    <li><a href="#"><i class="far fa-envelope"></i> Messagerie <span
-                                style="background: var(--gold); color: var(--navy-blue); padding: 2px 6px; border-radius: 10px; font-size: 0.7rem; font-weight: bold; margin-left: auto;">2</span></a>
-                    </li>
-                </ul>
-            </nav>
-
-            <div class="sidebar-footer">
-                <a href="index.html" class="logout-btn"><i class="fas fa-sign-out-alt"></i> Se déconnecter</a>
+            <div class="kpi-card">
+                <div class="kpi-icon green"><i class="fas fa-euro-sign"></i></div>
+                <div class="kpi-details">
+                    <h4>Revenus YTD 2026</h4>
+                    <div class="kpi-value">8 150 €</div>
+                    <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +12% vs 2025</div>
+                </div>
             </div>
-        </aside>
+            <div class="kpi-card">
+                <div class="kpi-icon gold"><i class="fas fa-chart-line"></i></div>
+                <div class="kpi-details">
+                    <h4>Revenus prévisionnels</h4>
+                    <div class="kpi-value">38 200 €</div>
+                    <div class="kpi-trend"><span style="color:var(--text-muted)">Basé sur réserv. actuelles</span></div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon purple"><i class="fas fa-star"></i></div>
+                <div class="kpi-details">
+                    <h4>Note moyenne</h4>
+                    <div class="kpi-value">4.94</div>
+                    <div class="kpi-trend trend-up"><i class="fas fa-star" style="color:var(--gold);"></i> 84 avis</div>
+                </div>
+            </div>
+        </div>
 
-        <!-- Main Content -->
-        <main class="main-content">
-            <div class="topbar">
-                <h1 class="page-title">Tableau de Bord</h1>
-                <select class="property-selector">
-                    <option>Global (Tous les biens)</option>
-                    <option>Manoir de Kerollivier</option>
-                    <option>Le Gîte de Saint Guy</option>
+        <div class="dash-grid-2">
+            <div class="dash-card">
+                <div class="card-header">
+                    <div style="display:flex;align-items:center;gap:0.875rem;">
+                        <h3>Calendrier des réservations</h3>
+                        <span id="sync-status" style="font-size:0.75rem;color:var(--text-muted);background:#f4f6f9;padding:2px 10px;border-radius:20px;">
+                            <i class="fas fa-sync fa-spin"></i> Sync…
+                        </span>
+                    </div>
+                    <div style="display:flex;align-items:center;gap:0.75rem;">
+                        <span id="calendar-month-label" style="font-weight:600;font-size:0.9rem;"></span>
+                        <div style="display:flex;gap:0.25rem;">
+                            <button class="btn btn-outline" id="cal-prev" style="padding:0.25rem 0.6rem;"><i class="fas fa-chevron-left"></i></button>
+                            <button class="btn btn-outline" id="cal-next" style="padding:0.25rem 0.6rem;"><i class="fas fa-chevron-right"></i></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="calendar-header">
+                    <div>Lun</div><div>Mar</div><div>Mer</div><div>Jeu</div><div>Ven</div><div>Sam</div><div>Dim</div>
+                </div>
+                <div class="calendar-grid" id="cal-grid"></div>
+            </div>
+
+            <div class="dash-card">
+                <div class="card-header"><h3>Activité récente</h3></div>
+                <div class="activity-list">
+                    <div class="activity-item">
+                        <div class="act-icon gold"><i class="fas fa-star"></i></div>
+                        <div>
+                            <p class="act-title">Nouvel avis — 5/5</p>
+                            <p class="act-desc">"Séjour exceptionnel, accueil parfait !" — Manoir de Kerollivier</p>
+                            <div class="act-time">Il y a 2 heures</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="act-icon green"><i class="fas fa-calendar-check"></i></div>
+                        <div>
+                            <p class="act-title">Nouvelle réservation</p>
+                            <p class="act-desc">Jean-Pierre D. — 22-26 Mars — 985€</p>
+                            <div class="act-time">Aujourd'hui 09:14</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="act-icon blue"><i class="fas fa-broom"></i></div>
+                        <div>
+                            <p class="act-title">Ménage effectué</p>
+                            <p class="act-desc">Compte-rendu disponible — Gîte de Saint Guy</p>
+                            <div class="act-time">Hier 14:30</div>
+                        </div>
+                    </div>
+                    <div class="activity-item">
+                        <div class="act-icon purple"><i class="fas fa-euro-sign"></i></div>
+                        <div>
+                            <p class="act-title">Virement effectué</p>
+                            <p class="act-desc">3 450€ virés pour la période de Février 2026</p>
+                            <div class="act-time">01 Mars 2026</div>
+                        </div>
+                    </div>
+                </div>
+                <button class="btn btn-outline" style="width:100%;margin-top:1.25rem;" onclick="switchSection('reservations')">Voir toutes les réservations</button>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════ RESERVATIONS ══════════════ -->
+    <section class="dash-section" id="section-reservations">
+        <div class="topbar">
+            <h1 class="page-title">Réservations</h1>
+            <a href="booking.html" class="btn btn-primary btn-sm">+ Nouvelle réservation</a>
+        </div>
+
+        <div class="dash-card">
+            <div class="table-filters">
+                <select class="table-filter-select" id="res-filter-prop">
+                    <option value="all">Tous les biens</option>
+                    <option value="kerollivier">Manoir de Kerollivier</option>
+                    <option value="saint-guy">Gîte de Saint Guy</option>
+                    <option value="maison-art">Maison d'Art et Nature</option>
+                    <option value="pont-dorniol">Manoir de Pont Dorniol</option>
+                </select>
+                <select class="table-filter-select" id="res-filter-status">
+                    <option value="all">Tous les statuts</option>
+                    <option value="confirmed">Confirmée</option>
+                    <option value="pending">En attente</option>
+                    <option value="completed">Terminée</option>
+                    <option value="cancelled">Annulée</option>
                 </select>
             </div>
 
-            <!-- KPIs -->
-            <div class="kpi-grid">
-                <div class="kpi-card">
-                    <div class="kpi-icon blue"><i class="fas fa-bed"></i></div>
-                    <div class="kpi-details">
-                        <h4>Taux d'occupation (Mois)</h4>
-                        <div class="kpi-value">78%</div>
-                        <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +5% vs mois dernier</div>
-                    </div>
-                </div>
+            <div style="overflow-x:auto;">
+                <table class="data-table" id="reservations-table">
+                    <thead>
+                        <tr>
+                            <th>Réf.</th>
+                            <th>Propriété</th>
+                            <th>Voyageur</th>
+                            <th>Arrivée</th>
+                            <th>Départ</th>
+                            <th>Pers.</th>
+                            <th>Total</th>
+                            <th>Statut</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody id="reservations-tbody"></tbody>
+                </table>
+            </div>
+        </div>
+    </section>
 
-                <div class="kpi-card">
-                    <div class="kpi-icon green"><i class="fas fa-euro-sign"></i></div>
-                    <div class="kpi-details">
-                        <h4>Revenus Générés (YTD)</h4>
-                        <div class="kpi-value">24 500 €</div>
-                        <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +12% vs année dernière</div>
-                    </div>
-                </div>
+    <!-- ══════════════ FINANCE ══════════════ -->
+    <section class="dash-section" id="section-finance">
+        <div class="topbar">
+            <h1 class="page-title">Finance & Revenus</h1>
+            <button class="btn btn-outline" onclick="alert('Export CSV à venir dans la prochaine version.')"><i class="fas fa-download" style="margin-right:0.4rem;"></i>Exporter</button>
+        </div>
 
-                <div class="kpi-card">
-                    <div class="kpi-icon gold"><i class="fas fa-chart-line"></i></div>
-                    <div class="kpi-details">
-                        <h4>Revenus Prévisionnels (Année)</h4>
-                        <div class="kpi-value">38 200 €</div>
-                        <div class="kpi-trend"><span style="color: var(--text-muted)">Basé sur réserv. actuelles</span>
+        <div class="kpi-grid" style="grid-template-columns:repeat(auto-fit,minmax(180px,1fr));">
+            <div class="kpi-card">
+                <div class="kpi-icon green"><i class="fas fa-euro-sign"></i></div>
+                <div class="kpi-details">
+                    <h4>Revenus nets mars 2026</h4>
+                    <div class="kpi-value">3 440 €</div>
+                    <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +18%</div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon blue"><i class="fas fa-chart-bar"></i></div>
+                <div class="kpi-details">
+                    <h4>Revenus bruts YTD</h4>
+                    <div class="kpi-value">9 935 €</div>
+                    <div class="kpi-trend"><span style="color:var(--text-muted)">Jan – Mars 2026</span></div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon purple"><i class="fas fa-hand-holding-usd"></i></div>
+                <div class="kpi-details">
+                    <h4>Frais conciergerie (15%)</h4>
+                    <div class="kpi-value">1 490 €</div>
+                    <div class="kpi-trend"><span style="color:var(--text-muted)">Déduits YTD</span></div>
+                </div>
+            </div>
+            <div class="kpi-card">
+                <div class="kpi-icon gold"><i class="fas fa-piggy-bank"></i></div>
+                <div class="kpi-details">
+                    <h4>Revenus nets YTD</h4>
+                    <div class="kpi-value">8 445 €</div>
+                    <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> vs 7 510€ en 2025</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <div class="card-header">
+                <h3>Détail mensuel 2026</h3>
+                <select class="table-filter-select" id="finance-prop">
+                    <option value="all">Tous les biens</option>
+                    <option value="kerollivier">Manoir de Kerollivier</option>
+                    <option value="saint-guy">Gîte de Saint Guy</option>
+                </select>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="finance-table">
+                    <thead>
+                        <tr>
+                            <th>Mois</th>
+                            <th>Nuits louées</th>
+                            <th>Revenus bruts</th>
+                            <th>Frais KB (15%)</th>
+                            <th>Revenus nets</th>
+                            <th>Statut</th>
+                        </tr>
+                    </thead>
+                    <tbody id="finance-tbody"></tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total YTD</td>
+                            <td style="text-align:right;" id="finance-total-nights">—</td>
+                            <td style="text-align:right;" id="finance-total-gross">—</td>
+                            <td style="text-align:right;" id="finance-total-fee">—</td>
+                            <td style="text-align:right;" id="finance-total-net">—</td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <div class="card-header"><h3>Structure des frais</h3></div>
+            <p style="font-size:0.875rem;color:var(--text-muted);margin:0 0 1rem;">La commission Kastell Breizh de <strong>15%</strong> sur le revenu brut comprend : gestion des réservations, accueil des voyageurs, coordination du ménage, reporting mensuel et support client 7j/7.</p>
+            <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1rem;">
+                <div style="background:#f8f9fb;border-radius:10px;padding:1rem;">
+                    <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Gestion réservations</div>
+                    <div style="font-weight:700;color:var(--navy-blue);">5%</div>
+                </div>
+                <div style="background:#f8f9fb;border-radius:10px;padding:1rem;">
+                    <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Accueil & logistique</div>
+                    <div style="font-weight:700;color:var(--navy-blue);">5%</div>
+                </div>
+                <div style="background:#f8f9fb;border-radius:10px;padding:1rem;">
+                    <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Coordination ménage</div>
+                    <div style="font-weight:700;color:var(--navy-blue);">3%</div>
+                </div>
+                <div style="background:#f8f9fb;border-radius:10px;padding:1rem;">
+                    <div style="font-size:0.75rem;color:var(--text-muted);margin-bottom:0.25rem;">Reporting & support</div>
+                    <div style="font-weight:700;color:var(--navy-blue);">2%</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ══════════════ MY PROPERTIES ══════════════ -->
+    <section class="dash-section" id="section-properties">
+        <div class="topbar">
+            <h1 class="page-title">Mes Propriétés</h1>
+            <button class="btn btn-primary btn-sm" onclick="switchSection('add-property')">
+                <i class="fas fa-plus" style="margin-right:0.4rem;"></i>Ajouter un bien
+            </button>
+        </div>
+
+        <div class="prop-cards-grid" id="my-properties-grid"></div>
+    </section>
+
+    <!-- ══════════════ ADD PROPERTY ══════════════ -->
+    <section class="dash-section" id="section-add-property">
+        <div class="topbar">
+            <h1 class="page-title">Soumettre un bien</h1>
+        </div>
+
+        <div class="dash-card">
+            <div class="section-intro">
+                <i class="fas fa-info-circle" style="color:var(--gold-dark);margin-right:0.4rem;"></i>
+                Après soumission, notre équipe examinera votre dossier et vous contactera sous 48h pour valider et publier votre bien sur la plateforme.
+            </div>
+
+            <div class="inline-success" id="add-prop-success">
+                <i class="fas fa-check-circle"></i>
+                Votre bien a bien été soumis ! Notre équipe vous contactera dans les 48h pour la validation et la publication.
+            </div>
+
+            <form id="add-property-form">
+                <!-- Identification -->
+                <div class="form-section-group">
+                    <div class="form-section-title"><i class="fas fa-home"></i> Identification du bien</div>
+                    <div class="form-grid-2">
+                        <div class="add-form-group">
+                            <label>Nom du bien *</label>
+                            <input type="text" class="add-form-control" placeholder="Manoir de Kerollivier" required>
                         </div>
+                        <div class="add-form-group">
+                            <label>Type de bien *</label>
+                            <select class="add-form-control" required>
+                                <option value="">Sélectionner…</option>
+                                <option>Manoir</option><option>Gîte</option>
+                                <option>Maison de caractère</option><option>Villa</option>
+                                <option>Chalet</option><option>Appartement</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="add-form-group">
+                        <label>Adresse complète *</label>
+                        <input type="text" class="add-form-control" placeholder="Le Bois Joly, 22480 Saint-Gilles-Pligeaux" required>
+                    </div>
+                    <div class="form-grid-2">
+                        <div class="add-form-group">
+                            <label>Commune *</label>
+                            <input type="text" class="add-form-control" placeholder="Guingamp" required>
+                        </div>
+                        <div class="add-form-group">
+                            <label>Code postal *</label>
+                            <input type="text" class="add-form-control" placeholder="22200" required>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Capacité -->
+                <div class="form-section-group">
+                    <div class="form-section-title"><i class="fas fa-users"></i> Capacité & Équipements</div>
+                    <div class="form-grid-3">
+                        <div class="add-form-group">
+                            <label>Voyageurs max *</label>
+                            <input type="number" class="add-form-control" min="1" max="30" placeholder="8" required>
+                        </div>
+                        <div class="add-form-group">
+                            <label>Chambres *</label>
+                            <input type="number" class="add-form-control" min="1" placeholder="4" required>
+                        </div>
+                        <div class="add-form-group">
+                            <label>Salles de bain *</label>
+                            <input type="number" class="add-form-control" min="1" placeholder="2" required>
+                        </div>
+                    </div>
+                    <div class="add-form-group">
+                        <label>Équipements disponibles</label>
+                        <div class="amenity-grid">
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-wifi"></i> WiFi</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-parking"></i> Parking</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-tree"></i> Jardin</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-swimming-pool"></i> Piscine</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-fire"></i> Cheminée</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-spa"></i> Sauna</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-hot-tub"></i> Jacuzzi</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-dog"></i> Animaux acceptés</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-child"></i> Adapté enfants</label>
+                            <label class="amenity-check"><input type="checkbox"> <i class="fas fa-wheelchair"></i> Accessibilité PMR</label>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Tarifs -->
+                <div class="form-section-group">
+                    <div class="form-section-title"><i class="fas fa-euro-sign"></i> Tarification</div>
+                    <div class="form-grid-3">
+                        <div class="add-form-group">
+                            <label>Prix / nuit (€) *</label>
+                            <input type="number" class="add-form-control" min="50" placeholder="185" required>
+                        </div>
+                        <div class="add-form-group">
+                            <label>Frais de ménage (€)</label>
+                            <input type="number" class="add-form-control" min="0" placeholder="80">
+                        </div>
+                        <div class="add-form-group">
+                            <label>Séjour minimum (nuits)</label>
+                            <input type="number" class="add-form-control" min="1" value="2">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Description -->
+                <div class="form-section-group">
+                    <div class="form-section-title"><i class="fas fa-align-left"></i> Description</div>
+                    <div class="add-form-group">
+                        <label>Description du bien *</label>
+                        <textarea class="add-form-control" rows="5" placeholder="Décrivez votre bien : histoire, cadre, atouts principaux, environnement…" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Photos -->
+                <div class="form-section-group">
+                    <div class="form-section-title"><i class="fas fa-camera"></i> Photos</div>
+                    <div class="file-upload-area" onclick="document.getElementById('prop-photos').click()">
+                        <i class="fas fa-cloud-upload-alt"></i>
+                        <p style="margin:0.5rem 0 0.25rem;font-weight:600;color:var(--navy-blue);">Cliquez pour ajouter des photos</p>
+                        <p style="margin:0;font-size:0.78rem;color:var(--text-muted);">JPG, PNG — max 10 Mo par fichier — 15 photos maximum</p>
+                        <input type="file" id="prop-photos" multiple accept="image/*" style="display:none;" onchange="showPhotoCount(this)">
+                    </div>
+                    <p id="photo-count" style="font-size:0.8rem;color:var(--text-muted);margin-top:0.5rem;"></p>
+                </div>
+
+                <!-- Calendar -->
+                <div class="form-section-group">
+                    <div class="form-section-title"><i class="fas fa-calendar-alt"></i> Disponibilités</div>
+                    <div class="add-form-group">
+                        <label>Lien Google Calendar ICS (public)</label>
+                        <input type="url" class="add-form-control" placeholder="https://calendar.google.com/calendar/ical/…/basic.ics">
+                        <small style="color:var(--text-muted);font-size:0.78rem;">Optionnel — permet la synchronisation automatique des disponibilités.</small>
+                    </div>
+                </div>
+
+                <button type="submit" class="btn btn-primary" style="min-width:220px;">
+                    Soumettre pour validation <i class="fas fa-paper-plane" style="margin-left:0.4rem;"></i>
+                </button>
+            </form>
+        </div>
+    </section>
+
+    <!-- ══════════════ ADMIN ══════════════ -->
+    <section class="dash-section admin-only" id="section-admin" style="display:none;">
+        <div class="topbar">
+            <h1 class="page-title">Administration <span style="font-size:0.75rem;background:var(--gold);color:var(--navy-blue-dark);padding:3px 10px;border-radius:20px;font-family:var(--font-body);font-weight:700;vertical-align:middle;margin-left:0.5rem;">CONCIERGERIE</span></h1>
+        </div>
+
+        <div class="dash-card" style="margin-bottom:1.5rem;">
+            <div class="card-header">
+                <h3>Gestion des propriétés</h3>
+                <span style="font-size:0.8rem;color:var(--text-muted);">Publier ou dépublier les biens de la plateforme</span>
+            </div>
+            <div id="admin-props-list"></div>
+        </div>
+
+        <div class="dash-card">
+            <div class="card-header">
+                <h3>Demandes d'inscription <span class="badge badge-pending" style="margin-left:0.5rem;" id="pending-count-badge">1 en attente</span></h3>
+            </div>
+            <div id="admin-registrations">
+                <div class="admin-prop-row">
+                    <div style="width:44px;height:44px;background:var(--slate-light);border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-weight:700;color:var(--navy-blue);">MR</div>
+                    <div class="admin-prop-info">
+                        <div class="admin-prop-name">Maxime Roux</div>
+                        <div class="admin-prop-meta">maxime.roux@email.fr · Inscrit le 13 Mars 2026 · Propriétaire</div>
+                    </div>
+                    <div class="admin-prop-actions">
+                        <span class="badge badge-pending">En attente</span>
+                        <button class="btn btn-primary btn-sm" onclick="approveUser(this)">Approuver</button>
+                        <button class="btn btn-outline btn-sm" onclick="rejectUser(this)">Rejeter</button>
                     </div>
                 </div>
             </div>
+        </div>
+    </section>
 
-            <div class="dashboard-grid">
-                <!-- Calendar Section -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <div style="display: flex; align-items: center; gap: 1rem;">
-                            <h3>Calendrier des Réservations</h3>
-                            <span id="sync-status"
-                                style="font-size: 0.8rem; color: var(--text-muted); padding: 2px 8px; border-radius: 12px; background: var(--off-white);"><i
-                                    class="fas fa-sync fa-spin"></i> Synchronisation...</span>
-                        </div>
-                        <div style="display: flex; gap: 1rem; align-items: center;">
-                            <span id="calendar-month-label" style="font-weight: 600;"></span>
-                            <div style="display: flex; gap: 0.5rem;">
-                                <button class="btn btn-outline" style="padding: 0.25rem 0.75rem;"><i
-                                        class="fas fa-chevron-left"></i></button>
-                                <button class="btn btn-outline" style="padding: 0.25rem 0.75rem;"><i
-                                        class="fas fa-chevron-right"></i></button>
-                            </div>
-                        </div>
-                    </div>
+</main>
+</div>
 
-                    <div class="calendar-container">
-                        <div class="calendar-header">
-                            <div>Lun</div>
-                            <div>Mar</div>
-                            <div>Mer</div>
-                            <div>Jeu</div>
-                            <div>Ven</div>
-                            <div>Sam</div>
-                            <div>Dim</div>
-                        </div>
-                        <div class="calendar-grid" id="dashboard-calendar-grid">
-                            <!-- Dynamic days injected by JS -->
-                        </div>
-                    </div>
-                </div>
+<script>
+// ─────────────────────────────────────
+// DATA
+// ─────────────────────────────────────
+const RESERVATIONS = [
+    { id:'KB-2601', prop:'Manoir de Kerollivier', propId:'kerollivier', guest:'Jean-Pierre Dupont', checkin:'2026-03-22', checkout:'2026-03-26', guests:4, gross:985, status:'confirmed' },
+    { id:'KB-2602', prop:'Gîte de Saint Guy',     propId:'saint-guy',   guest:'Marie Lefèvre',    checkin:'2026-03-28', checkout:'2026-04-01', guests:6, gross:1060, status:'confirmed' },
+    { id:'KB-2603', prop:'Manoir de Kerollivier', propId:'kerollivier', guest:'Thomas Andreani',  checkin:'2026-04-05', checkout:'2026-04-09', guests:2, gross:820, status:'pending' },
+    { id:'KB-2604', prop:'Gîte de Saint Guy',     propId:'saint-guy',   guest:'Sarah Beaumont',   checkin:'2026-04-12', checkout:'2026-04-14', guests:4, gross:530, status:'confirmed' },
+    { id:'KB-2605', prop:'Manoir de Kerollivier', propId:'kerollivier', guest:'Lucas Martin',     checkin:'2026-04-20', checkout:'2026-04-25', guests:6, gross:1185, status:'completed' },
+    { id:'KB-2606', prop:"Maison d'Art et Nature",propId:'maison-art',  guest:'Groupe Le Tallec', checkin:'2026-05-01', checkout:'2026-05-07', guests:16, gross:2100, status:'confirmed' },
+    { id:'KB-2607', prop:'Manoir de Pont Dorniol', propId:'pont-dorniol',guest:'Claire Fontaine', checkin:'2026-05-15', checkout:'2026-05-19', guests:5, gross:1180, status:'pending' },
+    { id:'KB-2608', prop:'Manoir de Kerollivier', propId:'kerollivier', guest:'Antoine Mercier',  checkin:'2026-02-14', checkout:'2026-02-18', guests:3, gross:820, status:'completed' },
+];
 
-                <!-- Activity Center -->
-                <div class="dashboard-card">
-                    <div class="card-header">
-                        <h3>Activité Récente</h3>
-                    </div>
+const FINANCE_DATA = [
+    { month:'Janvier',  nights:12, gross:2100, paid:true },
+    { month:'Février',  nights:10, gross:1850, paid:true },
+    { month:'Mars',     nights:18, gross:5985, paid:false },
+    { month:'Avril',    nights:0,  gross:0,    paid:false },
+    { month:'Mai',      nights:0,  gross:0,    paid:false },
+    { month:'Juin',     nights:0,  gross:0,    paid:false },
+    { month:'Juillet',  nights:0,  gross:0,    paid:false },
+    { month:'Août',     nights:0,  gross:0,    paid:false },
+    { month:'Septembre',nights:0,  gross:0,    paid:false },
+    { month:'Octobre',  nights:0,  gross:0,    paid:false },
+    { month:'Novembre', nights:0,  gross:0,    paid:false },
+    { month:'Décembre', nights:0,  gross:0,    paid:false },
+];
 
-                    <div class="activity-list">
-                        <div class="activity-item">
-                            <div class="activity-icon"><i class="fas fa-star" style="color: #f1c40f;"></i></div>
-                            <div class="activity-content">
-                                <h4>Nouvel Avis - 5/5</h4>
-                                <p>"Séjour incroyable, service parfait de la conciergerie !" - <em>Manoir de
-                                        Kerollivier</em></p>
-                                <div class="activity-time">Il y a 2 heures</div>
-                            </div>
-                        </div>
+const MY_PROPS = [
+    { id:'kerollivier', name:'Manoir de Kerollivier', loc:'Saint-Gilles-Pligeaux, Côtes d\'Armor',
+      img:'images/Kerollivier.jpg', status:'published', occupancy:'78%', avgRate:'185€', ytd:'4 820€', next:'22 Mars 2026' },
+    { id:'saint-guy', name:'Le Gîte de Saint Guy', loc:'Gommenec\'h, Côtes d\'Armor',
+      img:'images/StGuy.jpg', status:'published', occupancy:'65%', avgRate:'220€', ytd:'3 330€', next:'28 Mars 2026' },
+];
 
-                        <div class="activity-item">
-                            <div class="activity-icon"
-                                style="background-color: rgba(46, 204, 113, 0.1); color: #2ecc71;"><i
-                                    class="fas fa-check"></i></div>
-                            <div class="activity-content">
-                                <h4>Nouvelle Réservation</h4>
-                                <p>Airbnb : 4 nuits (14-18 Juil). Revenu net : 860€</p>
-                                <div class="activity-time">Aujourd'hui à 09:14</div>
-                            </div>
-                        </div>
+const ADMIN_PROPS = [
+    { id:'kerollivier', name:'Manoir de Kerollivier', owner:'Yannick B.', img:'images/Kerollivier.jpg', published:true, status:'active' },
+    { id:'saint-guy', name:'Le Gîte de Saint Guy', owner:'Yannick B.', img:'images/StGuy.jpg', published:true, status:'active' },
+    { id:'maison-art', name:"Maison d'Art et Nature", owner:'Claire F.', img:'images/MaieBail.jpg', published:true, status:'active' },
+    { id:'pont-dorniol', name:'Manoir de Pont Dorniol', owner:'Bernard L.', img:'images/Pont Dorniol.jpg', published:false, status:'active' },
+    { id:'new-prop-1', name:'Villa Les Grèves (en attente)', owner:'Maxime R.', img:'images/property_armorica_1772298498666.png', published:false, status:'pending' },
+];
 
-                        <div class="activity-item">
-                            <div class="activity-icon"
-                                style="background-color: rgba(52, 152, 219, 0.1); color: #3498db;"><i
-                                    class="fas fa-broom"></i></div>
-                            <div class="activity-content">
-                                <h4>Ménage & Logistique</h4>
-                                <p>Intervention terminée et compte-rendu disponible - <em>Le Gîte de Saint Guy</em></p>
-                                <div class="activity-time">Hier à 14:30</div>
-                            </div>
-                        </div>
+// ─────────────────────────────────────
+// INIT
+// ─────────────────────────────────────
+document.addEventListener('DOMContentLoaded', () => {
+    applyUserSession();
+    initNav();
+    renderReservations();
+    renderFinance();
+    renderMyProperties();
+    renderAdminProps();
+    initCalendar();
+    handleAddPropertyForm();
+    document.getElementById('res-filter-prop').addEventListener('change', renderReservations);
+    document.getElementById('res-filter-status').addEventListener('change', renderReservations);
+});
 
-                        <div class="activity-item">
-                            <div class="activity-icon"
-                                style="background-color: rgba(155, 89, 182, 0.1); color: #9b59b6;"><i
-                                    class="fas fa-euro-sign"></i></div>
-                            <div class="activity-content">
-                                <h4>Virement Mensuel Effectué</h4>
-                                <p>Virement de 3 450€ initié pour la période de Juin.</p>
-                                <div class="activity-time">01 Juillet 2026</div>
-                            </div>
-                        </div>
-                    </div>
+function applyUserSession() {
+    const role = localStorage.getItem('kb_user_role') || 'owner';
+    const email = localStorage.getItem('kb_user_email') || 'proprietaire@email.fr';
+    const name = localStorage.getItem('kb_user_name') || 'Propriétaire';
 
-                    <button class="btn btn-outline" style="width: 100%; margin-top: 1.5rem;">Voir tout
-                        l'historique</button>
-                </div>
-            </div>
+    const initials = name.split(/[\s@._]+/).slice(0,2).map(p => p[0]?.toUpperCase() || '').join('');
+    document.getElementById('user-avatar').textContent = initials || 'P';
+    document.getElementById('user-name').textContent = name.charAt(0).toUpperCase() + name.slice(1);
+    document.getElementById('user-role-badge').textContent = role === 'admin' ? 'Conciergerie' : 'Propriétaire';
 
-        </main>
-    </div>
+    if (role === 'admin') {
+        document.querySelectorAll('.admin-only').forEach(el => { el.style.display = ''; });
+    }
+}
 
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const calendarGrid = document.getElementById('dashboard-calendar-grid');
-            const monthLabel = document.getElementById('calendar-month-label');
-            const prevMonthBtn = document.querySelectorAll('.card-header button.btn-outline')[0];
-            const nextMonthBtn = document.querySelectorAll('.card-header button.btn-outline')[1];
-
-            let currentDate = new Date();
-            let bookedDates = []; // Will hold {start, end, summary} objects
-
-            const ICS_URL = "https://calendar.google.com/calendar/ical/08247f509af91516fb0a544e3a99238ad711275f739fe7ce21035a5726c029d5%40group.calendar.google.com/public/basic.ics";
-            // Using a free CORS proxy to fetch the ICS file since we're in the browser
-            const PROXY_URL = "https://corsproxy.io/?" + encodeURIComponent(ICS_URL);
-
-            const syncStatusEl = document.getElementById('sync-status');
-
-            // Basic parsing of ICS format
-            function parseICS(icsText) {
-                const lines = icsText.split(/\r\n|\n|\r/);
-                const events = [];
-                let currentEvent = null;
-
-                for (let i = 0; i < lines.length; i++) {
-                    const line = lines[i];
-                    if (line === 'BEGIN:VEVENT') {
-                        currentEvent = {};
-                    } else if (line === 'END:VEVENT') {
-                        if (currentEvent && currentEvent.DTSTART && currentEvent.DTEND) {
-                            events.push(currentEvent);
-                        }
-                        currentEvent = null;
-                    } else if (currentEvent) {
-                        if (line.startsWith('DTSTART')) {
-                            const val = line.split(':')[1];
-                            currentEvent.DTSTART = parseICalDate(val);
-                        } else if (line.startsWith('DTEND')) {
-                            const val = line.split(':')[1];
-                            currentEvent.DTEND = parseICalDate(val);
-                        } else if (line.startsWith('SUMMARY')) {
-                            currentEvent.SUMMARY = line.substring(line.indexOf(':') + 1);
-                        }
-                    }
-                }
-                return events;
-            }
-
-            function parseICalDate(dateStr) {
-                // Handling formats like 20260714T000000Z or basic 20260714
-                if (!dateStr) return new Date();
-                const year = parseInt(dateStr.substring(0, 4));
-                const month = parseInt(dateStr.substring(4, 6)) - 1;
-                const day = parseInt(dateStr.substring(6, 8));
-                return new Date(year, month, day);
-            }
-
-            async function fetchCalendarData() {
-                try {
-                    const response = await fetch(PROXY_URL);
-                    if (!response.ok) throw new Error("Failed to fetch ICS");
-                    const data = await response.text();
-
-                    const events = parseICS(data);
-
-                    // Convert events to intervals
-                    // If start and end are the same day, it's a 1-night
-                    // If end is next day, the checkout day is the end
-                    bookedDates = events.map(e => ({
-                        start: e.DTSTART,
-                        end: e.DTEND, // Exclusive check-out date typically
-                        summary: e.SUMMARY || "Réservé"
-                    }));
-
-                    syncStatusEl.innerHTML = '<i class="fas fa-check-circle" style="color: #2ecc71;"></i> Synchronisé';
-                    if (bookedDates.length === 0) {
-                        syncStatusEl.innerHTML += ' (0 évènement)';
-                    }
-
-                    renderCalendar(currentDate);
-                } catch (error) {
-                    console.error("Calendar Sync Error:", error);
-                    syncStatusEl.innerHTML = '<i class="fas fa-exclamation-circle" style="color: #e74c3c;"></i> Erreur de Sync';
-                    renderCalendar(currentDate); // Render empty if failed
-                }
-            }
-
-            function isDateBooked(date) {
-                // Return status: false, 'booked', or 'checkout'
-                for (const booking of bookedDates) {
-                    // Normalize dates to midnight for comparison
-                    const d = new Date(date.getFullYear(), date.getMonth(), date.getDate()).getTime();
-                    const bStart = new Date(booking.start.getFullYear(), booking.start.getMonth(), booking.start.getDate()).getTime();
-                    const bEnd = new Date(booking.end.getFullYear(), booking.end.getMonth(), booking.end.getDate()).getTime();
-
-                    if (d === bEnd) {
-                        return { status: 'checkout' };
-                    }
-                    if (d >= bStart && d < bEnd) {
-                        return { status: 'booked', label: booking.summary };
-                    }
-                }
-                return { status: false };
-            }
-
-            function renderCalendar(date) {
-                calendarGrid.innerHTML = '';
-
-                const year = date.getFullYear();
-                const month = date.getMonth();
-                const startDay = new Date(year, month, 1);
-                // 0 is Sunday, 1 is Monday... Adjusting logic for Monday start:
-                let firstDayIndex = startDay.getDay() - 1;
-                if (firstDayIndex === -1) firstDayIndex = 6;
-
-                const daysInMonth = new Date(year, month + 1, 0).getDate();
-
-                const monthNames = ["Janvier", "Février", "Mars", "Avril", "Mai", "Juin", "Juillet", "Août", "Septembre", "Octobre", "Novembre", "Décembre"];
-                monthLabel.textContent = `${monthNames[month]} ${year}`;
-
-                // Padding empty days
-                for (let i = 0; i < firstDayIndex; i++) {
-                    const emptyDiv = document.createElement('div');
-                    emptyDiv.className = 'cal-day cal-empty';
-                    calendarGrid.appendChild(emptyDiv);
-                }
-
-                // Days
-                for (let i = 1; i <= daysInMonth; i++) {
-                    const d = new Date(year, month, i);
-                    const bookingStatus = isDateBooked(d);
-
-                    const dayDiv = document.createElement('div');
-                    let className = 'cal-day';
-                    let priceLabel = '240€';
-
-                    if (bookingStatus.status === 'checkout') {
-                        // For checkout days, we do NOT strictly color it booked per user request.
-                        // We leave the class alone so it looks like a normal unbooked day, 
-                        // but you could add checking out logic here if needed.
-                        priceLabel = 'Checkout';
-                    } else if (bookingStatus.status === 'booked') {
-                        className += ' cal-booked';
-                        priceLabel = bookingStatus.label || 'Réservé';
-                    }
-
-                    dayDiv.className = className;
-                    dayDiv.innerHTML = `${i}<span class="cal-price">${priceLabel}</span>`;
-                    calendarGrid.appendChild(dayDiv);
-                }
-            }
-
-            // Events
-            prevMonthBtn.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() - 1);
-                renderCalendar(currentDate);
-            });
-
-            nextMonthBtn.addEventListener('click', () => {
-                currentDate.setMonth(currentDate.getMonth() + 1);
-                renderCalendar(currentDate);
-            });
-
-            // Initial render
-            renderCalendar(currentDate);
-
-            // Fetch ICS data in background
-            fetchCalendarData();
+// ─────────────────────────────────────
+// NAV
+// ─────────────────────────────────────
+function initNav() {
+    document.querySelectorAll('.nav-link').forEach(link => {
+        link.addEventListener('click', e => {
+            e.preventDefault();
+            switchSection(link.dataset.section);
         });
-    </script>
-</body>
+    });
+}
 
+function switchSection(name) {
+    document.querySelectorAll('.dash-section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('.nav-link').forEach(l => l.classList.remove('active'));
+
+    const section = document.getElementById('section-' + name);
+    if (section) section.classList.add('active');
+    const link = document.querySelector(`.nav-link[data-section="${name}"]`);
+    if (link) link.classList.add('active');
+    window.scrollTo(0, 0);
+}
+
+// ─────────────────────────────────────
+// RESERVATIONS
+// ─────────────────────────────────────
+function renderReservations() {
+    const propF = document.getElementById('res-filter-prop').value;
+    const statusF = document.getElementById('res-filter-status').value;
+
+    const filtered = RESERVATIONS.filter(r =>
+        (propF === 'all' || r.propId === propF) &&
+        (statusF === 'all' || r.status === statusF)
+    );
+
+    const statusLabels = { confirmed:'Confirmée', pending:'En attente', completed:'Terminée', cancelled:'Annulée' };
+    const statusClasses = { confirmed:'badge-confirmed', pending:'badge-pending', completed:'badge-completed', cancelled:'badge-cancelled' };
+
+    document.getElementById('reservations-tbody').innerHTML = filtered.map(r => {
+        const fee = Math.round(r.gross * 0.15);
+        const net = r.gross - fee;
+        return `<tr>
+            <td><span style="font-size:0.75rem;color:var(--text-muted);">${r.id}</span></td>
+            <td><strong style="font-size:0.875rem;">${r.prop}</strong></td>
+            <td>${r.guest}</td>
+            <td>${formatDate(r.checkin)}</td>
+            <td>${formatDate(r.checkout)}</td>
+            <td style="text-align:center;">${r.guests}</td>
+            <td>
+                <div style="font-weight:700;color:var(--navy-blue);">${net} €</div>
+                <div style="font-size:0.7rem;color:var(--text-muted);">Brut: ${r.gross}€ · KB: ${fee}€</div>
+            </td>
+            <td><span class="badge ${statusClasses[r.status]}">${statusLabels[r.status]}</span></td>
+            <td>
+                <div style="display:flex;gap:0.4rem;">
+                    <button class="btn-sm-icon" title="Voir détails" onclick="alert('Détail réservation ${r.id}\\n\\nVoyageur: ${r.guest}\\nArrivée: ${formatDate(r.checkin)}\\nDépart: ${formatDate(r.checkout)}\\nMontant net: ${net}€')"><i class="fas fa-eye"></i></button>
+                    <a href="mailto:contact@kastellbreizh.fr?subject=Réservation ${r.id}" class="btn-sm-icon" title="Envoyer un message"><i class="fas fa-envelope"></i></a>
+                </div>
+            </td>
+        </tr>`;
+    }).join('') || `<tr><td colspan="9" style="text-align:center;padding:2rem;color:var(--text-muted);">Aucune réservation trouvée.</td></tr>`;
+}
+
+function formatDate(dateStr) {
+    const d = new Date(dateStr + 'T00:00:00');
+    return d.toLocaleDateString('fr-FR', { day:'2-digit', month:'short', year:'numeric' });
+}
+
+// ─────────────────────────────────────
+// FINANCE
+// ─────────────────────────────────────
+function renderFinance() {
+    const FEE = 0.15;
+    let totalNights = 0, totalGross = 0;
+
+    document.getElementById('finance-tbody').innerHTML = FINANCE_DATA.map(row => {
+        if (row.gross === 0) return `<tr>
+            <td>${row.month}</td>
+            <td>—</td><td>—</td><td>—</td><td>—</td>
+            <td><span class="badge badge-unpublished">À venir</span></td>
+        </tr>`;
+
+        totalNights += row.nights;
+        totalGross += row.gross;
+        const fee = Math.round(row.gross * FEE);
+        const net = row.gross - fee;
+        return `<tr>
+            <td><strong>${row.month}</strong></td>
+            <td>${row.nights}</td>
+            <td>${row.gross.toLocaleString('fr-FR')} €</td>
+            <td style="color:#c0392b;">-${fee.toLocaleString('fr-FR')} €</td>
+            <td style="color:#27ae60;font-weight:700;">${net.toLocaleString('fr-FR')} €</td>
+            <td><span class="badge ${row.paid ? 'badge-confirmed' : 'badge-pending'}">${row.paid ? 'Viré' : 'En cours'}</span></td>
+        </tr>`;
+    }).join('');
+
+    const totalFee = Math.round(totalGross * FEE);
+    const totalNet = totalGross - totalFee;
+    document.getElementById('finance-total-nights').textContent = totalNights;
+    document.getElementById('finance-total-gross').textContent = totalGross.toLocaleString('fr-FR') + ' €';
+    document.getElementById('finance-total-fee').textContent = '-' + totalFee.toLocaleString('fr-FR') + ' €';
+    document.getElementById('finance-total-net').textContent = totalNet.toLocaleString('fr-FR') + ' €';
+}
+
+// ─────────────────────────────────────
+// MY PROPERTIES
+// ─────────────────────────────────────
+function renderMyProperties() {
+    const grid = document.getElementById('my-properties-grid');
+    grid.innerHTML = MY_PROPS.map(p => `
+        <div class="prop-dash-card">
+            <div class="prop-dash-img">
+                <img src="${p.img}" alt="${p.name}" loading="lazy">
+                <span class="badge ${p.status === 'published' ? 'badge-published' : 'badge-review'}"
+                    style="position:absolute;top:0.75rem;left:0.75rem;">
+                    ${p.status === 'published' ? 'Publié' : 'En révision'}
+                </span>
+            </div>
+            <div class="prop-dash-body">
+                <h3 class="prop-dash-name">${p.name}</h3>
+                <p class="prop-dash-loc"><i class="fas fa-map-marker-alt" style="color:var(--gold-dark);margin-right:0.3rem;"></i>${p.loc}</p>
+                <div class="prop-dash-stats">
+                    <div class="prop-stat">
+                        <div class="prop-stat-value">${p.occupancy}</div>
+                        <div class="prop-stat-label">Occupation</div>
+                    </div>
+                    <div class="prop-stat">
+                        <div class="prop-stat-value">${p.avgRate}</div>
+                        <div class="prop-stat-label">Moy/nuit</div>
+                    </div>
+                    <div class="prop-stat">
+                        <div class="prop-stat-value">${p.ytd}</div>
+                        <div class="prop-stat-label">YTD net</div>
+                    </div>
+                </div>
+                <div class="prop-dash-actions">
+                    <button class="btn btn-outline btn-sm" onclick="switchSection('reservations')">
+                        <i class="fas fa-calendar"></i> Réservations
+                    </button>
+                    <a href="properties.html" class="btn btn-primary btn-sm">
+                        <i class="fas fa-eye"></i> Voir
+                    </a>
+                </div>
+            </div>
+        </div>
+    `).join('') + `
+        <div class="prop-dash-card-add" onclick="switchSection('add-property')">
+            <i class="fas fa-plus-circle"></i>
+            <span>Ajouter un nouveau bien</span>
+            <p style="margin:0;font-size:0.78rem;color:var(--text-muted);">Soumettez votre propriété pour examen par notre équipe</p>
+        </div>
+    `;
+}
+
+// ─────────────────────────────────────
+// ADMIN
+// ─────────────────────────────────────
+function renderAdminProps() {
+    const list = document.getElementById('admin-props-list');
+    if (!list) return;
+    list.innerHTML = ADMIN_PROPS.map((p, i) => `
+        <div class="admin-prop-row">
+            <img src="${p.img}" alt="${p.name}" class="admin-prop-img">
+            <div class="admin-prop-info">
+                <div class="admin-prop-name">${p.name}</div>
+                <div class="admin-prop-meta">
+                    Propriétaire: ${p.owner} &nbsp;·&nbsp;
+                    ${p.status === 'pending' ? '<span class="badge badge-review">Nouvelle soumission</span>' : ''}
+                </div>
+            </div>
+            <div class="admin-prop-actions">
+                <span class="badge ${p.published ? 'badge-published' : 'badge-unpublished'}" id="admin-status-${i}">
+                    ${p.published ? 'Publié' : 'Non publié'}
+                </span>
+                <label class="toggle-switch" title="${p.published ? 'Dépublier' : 'Publier'}">
+                    <input type="checkbox" ${p.published ? 'checked' : ''} onchange="toggleAdminProp(${i}, this)">
+                    <span class="toggle-slider"></span>
+                </label>
+                <a href="booking.html?property=${p.id}" class="btn-sm-icon" title="Voir la page"><i class="fas fa-external-link-alt"></i></a>
+            </div>
+        </div>
+    `).join('');
+}
+
+function toggleAdminProp(idx, checkbox) {
+    ADMIN_PROPS[idx].published = checkbox.checked;
+    const badge = document.getElementById('admin-status-' + idx);
+    if (badge) {
+        badge.textContent = checkbox.checked ? 'Publié' : 'Non publié';
+        badge.className = 'badge ' + (checkbox.checked ? 'badge-published' : 'badge-unpublished');
+    }
+}
+
+function approveUser(btn) {
+    const row = btn.closest('.admin-prop-row');
+    row.querySelector('.badge').className = 'badge badge-confirmed';
+    row.querySelector('.badge').textContent = 'Approuvé';
+    btn.remove();
+    row.querySelector('.btn-outline').remove();
+    document.getElementById('pending-count-badge').textContent = '0 en attente';
+}
+
+function rejectUser(btn) {
+    if (confirm('Confirmer le rejet de cette demande ?')) {
+        btn.closest('.admin-prop-row').remove();
+        document.getElementById('pending-count-badge').textContent = '0 en attente';
+    }
+}
+
+// ─────────────────────────────────────
+// ADD PROPERTY FORM
+// ─────────────────────────────────────
+function handleAddPropertyForm() {
+    document.getElementById('add-property-form').addEventListener('submit', e => {
+        e.preventDefault();
+        const btn = e.submitter;
+        btn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Envoi en cours…';
+        btn.disabled = true;
+        setTimeout(() => {
+            document.getElementById('add-prop-success').style.display = 'block';
+            document.getElementById('add-property-form').style.display = 'none';
+            window.scrollTo(0, 0);
+            btn.innerHTML = 'Soumettre pour validation <i class="fas fa-paper-plane"></i>';
+            btn.disabled = false;
+        }, 1200);
+    });
+}
+
+function showPhotoCount(input) {
+    const n = input.files.length;
+    document.getElementById('photo-count').textContent = n > 0 ? `${n} photo(s) sélectionnée(s)` : '';
+}
+
+// ─────────────────────────────────────
+// CALENDAR
+// ─────────────────────────────────────
+let calDate = new Date();
+let bookedDates = [];
+
+function initCalendar() {
+    document.getElementById('cal-prev').addEventListener('click', () => {
+        calDate.setMonth(calDate.getMonth() - 1);
+        renderCalendar();
+    });
+    document.getElementById('cal-next').addEventListener('click', () => {
+        calDate.setMonth(calDate.getMonth() + 1);
+        renderCalendar();
+    });
+    renderCalendar();
+    fetchICS();
+}
+
+function fetchICS() {
+    const ICS_URL = "https://calendar.google.com/calendar/ical/08247f509af91516fb0a544e3a99238ad711275f739fe7ce21035a5726c029d5%40group.calendar.google.com/public/basic.ics";
+    const PROXY = "https://corsproxy.io/?" + encodeURIComponent(ICS_URL);
+    const sync = document.getElementById('sync-status');
+
+    fetch(PROXY).then(r => r.ok ? r.text() : Promise.reject()).then(text => {
+        bookedDates = parseICS(text);
+        sync.innerHTML = '<i class="fas fa-check-circle" style="color:#27ae60;"></i> Synchronisé';
+        renderCalendar();
+    }).catch(() => {
+        sync.innerHTML = '<i class="fas fa-exclamation-circle" style="color:#e74c3c;"></i> Sync indisponible';
+        renderCalendar();
+    });
+}
+
+function parseICS(text) {
+    const lines = text.split(/\r\n|\n|\r/);
+    const events = []; let ev = null;
+    for (const line of lines) {
+        if (line === 'BEGIN:VEVENT') { ev = {}; }
+        else if (line === 'END:VEVENT') { if (ev?.DTSTART && ev?.DTEND) events.push(ev); ev = null; }
+        else if (ev) {
+            if (line.startsWith('DTSTART')) ev.DTSTART = parseICalDate(line.split(':')[1]);
+            else if (line.startsWith('DTEND')) ev.DTEND = parseICalDate(line.split(':')[1]);
+            else if (line.startsWith('SUMMARY')) ev.SUMMARY = line.substring(line.indexOf(':') + 1);
+        }
+    }
+    return events.map(e => ({ start: e.DTSTART, end: e.DTEND, label: e.SUMMARY || 'Réservé' }));
+}
+
+function parseICalDate(s) {
+    if (!s) return new Date();
+    return new Date(parseInt(s.slice(0,4)), parseInt(s.slice(4,6))-1, parseInt(s.slice(6,8)));
+}
+
+function dateStatus(d) {
+    const t = d.getTime();
+    for (const b of bookedDates) {
+        const s = b.start.getTime(), e = b.end.getTime();
+        if (t === e) return 'checkout';
+        if (t >= s && t < e) return 'booked';
+    }
+    return null;
+}
+
+function renderCalendar() {
+    const grid = document.getElementById('cal-grid');
+    const y = calDate.getFullYear(), m = calDate.getMonth();
+    const months = ['Janvier','Février','Mars','Avril','Mai','Juin','Juillet','Août','Septembre','Octobre','Novembre','Décembre'];
+    document.getElementById('calendar-month-label').textContent = months[m] + ' ' + y;
+
+    let first = new Date(y, m, 1).getDay() - 1;
+    if (first < 0) first = 6;
+    const days = new Date(y, m+1, 0).getDate();
+    const today = new Date();
+
+    let html = '';
+    for (let i = 0; i < first; i++) html += '<div class="cal-day cal-empty"></div>';
+    for (let i = 1; i <= days; i++) {
+        const d = new Date(y, m, i);
+        const status = dateStatus(d);
+        const isToday = d.toDateString() === today.toDateString();
+        let cls = 'cal-day';
+        if (status === 'booked') cls += ' cal-booked';
+        else if (status === 'checkout') cls += ' cal-checkout';
+        if (isToday) cls += ' cal-today';
+        const priceLabel = status === 'booked' ? 'Réservé' : status === 'checkout' ? 'Départ' : '185€';
+        html += `<div class="${cls}">${i}<span class="cal-price">${priceLabel}</span></div>`;
+    }
+    grid.innerHTML = html;
+}
+</script>
+</body>
 </html>

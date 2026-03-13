@@ -26,18 +26,19 @@
     <!-- Navbar -->
     <header class="navbar" id="navbar">
         <div class="container navbar-container">
-            <a href="#" class="logo">
+            <a href="index.html" class="logo">
                 <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="logo-light logo-img">
                 <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
             </a>
             <nav class="nav-links">
                 <a href="#services">Nos Services</a>
-                <a href="#proprietes">Propriétés d'Exception</a>
+                <a href="#proprietes">Nos Demeures</a>
+                <a href="places.html">La Région</a>
                 <a href="#confiance">Pourquoi Nous ?</a>
             </nav>
             <div class="nav-actions">
                 <a href="login.html" class="btn btn-outline light">Espace Propriétaire</a>
-                <a href="#reservation" class="btn btn-primary">Réserver un Séjour</a>
+                <a href="booking.html" class="btn btn-primary">Réserver un Séjour</a>
             </div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -53,10 +54,11 @@
             </button>
             <nav class="mobile-nav-links">
                 <a href="#services" class="mobile-link">Nos Services</a>
-                <a href="#proprietes" class="mobile-link">Propriétés d'Exception</a>
+                <a href="#proprietes" class="mobile-link">Nos Demeures</a>
+                <a href="places.html" class="mobile-link">La Région</a>
                 <a href="#confiance" class="mobile-link">Pourquoi Nous ?</a>
-                <a href="#contact" class="mobile-link">Espace Propriétaire</a>
-                <a href="#reservation" class="btn btn-primary">Réserver un Séjour</a>
+                <a href="login.html" class="mobile-link">Espace Propriétaire</a>
+                <a href="booking.html" class="btn btn-primary">Réserver un Séjour</a>
             </nav>
         </div>
     </div>
@@ -72,7 +74,7 @@
                 confiance pour la gestion et la valorisation de biens immobiliers de caractère.
             </p>
             <div class="hero-ctas">
-                <a href="#reservation" class="btn btn-primary btn-large">Trouver votre séjour de rêve</a>
+                <a href="booking.html" class="btn btn-primary btn-large">Trouver votre séjour de rêve</a>
                 <a href="#contact" class="btn btn-secondary btn-large">Confier votre bien</a>
             </div>
         </div>
@@ -109,8 +111,8 @@
                         <option value="5+">5+ Voyageurs</option>
                     </select>
                 </div>
-                <button type="button" class="btn btn-primary booking-submit">
-                    <i class="fas fa-search"></i> Rechercher
+                <button type="button" class="btn btn-primary booking-submit" id="booking-widget-submit">
+                    <i class="fas fa-search"></i> Vérifier les disponibilités
                 </button>
             </form>
         </div>
@@ -173,7 +175,7 @@
                         <p class="section-subtitle light">Séjournez dans un lieu chargé d'histoire au cœur de la
                             Bretagne authentique.</p>
                     </div>
-                    <a href="#" class="btn btn-outline light hide-mobile">Voir toutes les demeures</a>
+                    <a href="properties.html" class="btn btn-outline light hide-mobile">Voir toutes les demeures</a>
                 </div>
             </div>
 
@@ -196,16 +198,17 @@
                             <span><i class="fas fa-home"></i> 2 gîtes</span>
                         </div>
                         <div class="property-footer">
-                            <div class="property-price"><a
-                                    href="https://sites.google.com/view/les-gites-de-kerollivier/accueil"
-                                    target="_blank" class="accent-text" style="text-decoration: underline;">Voir le
-                                    site</a></div>
-                            <button class="btn btn-primary btn-sm">Réserver</button>
+                            <div class="property-price">
+                                <span class="price-from">à partir de</span>
+                                <strong>185 €</strong>
+                                <span class="price-unit">/nuit</span>
+                            </div>
+                            <a href="booking.html?property=kerollivier" class="btn btn-primary btn-sm">Réserver</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Property 2 placeholder, will be replaced by generated image -->
+                <!-- Property 2 -->
                 <div class="property-card">
                     <div class="property-image placeholder-img-2">
                     </div>
@@ -220,18 +223,22 @@
                             <span><i class="fas fa-child"></i> Familial</span>
                         </div>
                         <div class="property-footer">
-                            <div class="property-price"><a
-                                    href="https://www.google.com/maps/place/Kastell+Breizh+Conciergerie/@48.640977,-3.0515549,676m"
-                                    target="_blank" class="accent-text" style="text-decoration: underline;">Voir sur
-                                    Carte</a></div>
-                            <button class="btn btn-primary btn-sm">Réserver</button>
+                            <div class="property-price">
+                                <span class="price-from">à partir de</span>
+                                <strong>220 €</strong>
+                                <span class="price-unit">/nuit</span>
+                            </div>
+                            <a href="booking.html?property=saint-guy" class="btn btn-primary btn-sm">Réserver</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Property 3 placeholder, will be replaced by generated image -->
+                <!-- Property 3 -->
                 <div class="property-card">
                     <div class="property-image placeholder-img-3">
+                        <div class="property-badges">
+                            <span class="badge badge-primary">Note parfaite</span>
+                        </div>
                     </div>
                     <div class="property-content">
                         <div class="property-header">
@@ -244,18 +251,22 @@
                             <span><i class="fas fa-home"></i> 3 gîtes</span>
                         </div>
                         <div class="property-footer">
-                            <div class="property-price"><a
-                                    href="https://www.google.com/maps/place/Kastell+Breizh+Conciergerie/@48.4184876,-3.1113566,679m"
-                                    target="_blank" class="accent-text" style="text-decoration: underline;">Voir sur
-                                    Carte</a></div>
-                            <button class="btn btn-primary btn-sm">Réserver</button>
+                            <div class="property-price">
+                                <span class="price-from">à partir de</span>
+                                <strong>280 €</strong>
+                                <span class="price-unit">/nuit</span>
+                            </div>
+                            <a href="booking.html?property=maison-art" class="btn btn-primary btn-sm">Réserver</a>
                         </div>
                     </div>
                 </div>
 
-                <!-- Property 4 placeholder, will be replaced by generated image -->
+                <!-- Property 4 -->
                 <div class="property-card">
                     <div class="property-image placeholder-img-4">
+                        <div class="property-badges">
+                            <span class="badge badge-primary">Exclusif</span>
+                        </div>
                     </div>
                     <div class="property-content">
                         <div class="property-header">
@@ -268,16 +279,73 @@
                             <span><i class="fas fa-home"></i> 2 gîtes</span>
                         </div>
                         <div class="property-footer">
-                            <div class="property-price"><a
-                                    href="https://sites.google.com/view/manoir-de-pont-dorniol/accueil" target="_blank"
-                                    class="accent-text" style="text-decoration: underline;">Voir le site</a></div>
-                            <button class="btn btn-primary btn-sm">Réserver</button>
+                            <div class="property-price">
+                                <span class="price-from">à partir de</span>
+                                <strong>250 €</strong>
+                                <span class="price-unit">/nuit</span>
+                            </div>
+                            <a href="booking.html?property=pont-dorniol" class="btn btn-primary btn-sm">Réserver</a>
                         </div>
                     </div>
                 </div>
             </div>
-            <a href="#" class="btn btn-outline light show-mobile-only" style="margin-top: 2rem; width: 100%;">Voir
+            <a href="properties.html" class="btn btn-outline light show-mobile-only" style="margin-top: 2rem; width: 100%;">Voir
                 toutes les demeures</a>
+        </div>
+    </section>
+
+    <!-- Comment ça marche -->
+    <section class="how-it-works section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-eyebrow">Simple & Transparent</p>
+                <h2 class="section-title">Votre séjour en 3 étapes</h2>
+                <p class="section-subtitle">Un processus pensé pour vous : paiement sécurisé directement au propriétaire, service de conciergerie inclus.</p>
+            </div>
+
+            <div class="hiw-steps">
+                <div class="hiw-step">
+                    <div class="hiw-step-number">01</div>
+                    <div class="hiw-step-icon"><i class="fas fa-search"></i></div>
+                    <h3>Explorez & Choisissez</h3>
+                    <p>Parcourez notre collection de demeures d'exception en Bretagne. Consultez les disponibilités en temps réel, les équipements et les témoignages des voyageurs précédents.</p>
+                </div>
+                <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
+
+                <div class="hiw-step">
+                    <div class="hiw-step-number">02</div>
+                    <div class="hiw-step-icon"><i class="fas fa-lock"></i></div>
+                    <h3>Réservez en Sécurité</h3>
+                    <p>Votre paiement est traité par <strong>Stripe</strong> et versé directement au propriétaire. Kastell Breizh perçoit une commission de service après la transaction, selon le modèle transparent d'Airbnb.</p>
+                </div>
+                <div class="hiw-connector"><i class="fas fa-arrow-right"></i></div>
+
+                <div class="hiw-step">
+                    <div class="hiw-step-number">03</div>
+                    <div class="hiw-step-icon"><i class="fas fa-concierge-bell"></i></div>
+                    <h3>Vivez l'Expérience</h3>
+                    <p>La Kastell Team prépare votre arrivée : panier de bienvenue, livret d'accueil personnalisé, recommandations locales et disponibilité 7j/7 pour organiser vos activités.</p>
+                </div>
+            </div>
+
+            <div class="hiw-trust-row">
+                <div class="hiw-trust-item">
+                    <i class="fas fa-shield-alt"></i>
+                    <span>Paiement 100% sécurisé par Stripe</span>
+                </div>
+                <div class="hiw-trust-item">
+                    <i class="fas fa-exchange-alt"></i>
+                    <span>Virement direct au propriétaire</span>
+                </div>
+                <div class="hiw-trust-item">
+                    <i class="fas fa-undo"></i>
+                    <span>Annulation gratuite jusqu'à J-14</span>
+                </div>
+                <div class="hiw-trust-item">
+                    <i class="fas fa-headset"></i>
+                    <span>Conciergerie disponible 7j/7</span>
+                </div>
+            </div>
         </div>
     </section>
 
@@ -351,21 +419,27 @@
                         <h3>Sports & Activités</h3>
                     </div>
                     <ul class="tourism-links">
-                        <li><span>Voile & Kite Surf</span></li>
-                        <li><span>Wake Board & Aquapark</span></li>
-                        <li><span>Parcabout & Accrobranche</span></li>
-                        <li><span>Kayak & Paddle</span></li>
-                        <li><span>Golf & Équitation</span></li>
+                        <li><a href="places.html?cat=activities">Voile & Kite Surf</a></li>
+                        <li><a href="places.html?cat=activities">Kayak & Stand Up Paddle</a></li>
+                        <li><a href="places.html?cat=activities">Plongée — Côte de Granit Rose</a></li>
+                        <li><a href="places.html?cat=activities">Golf de Lannion (tarifs partenaires)</a></li>
+                        <li><a href="http://carto.equibreizh.com/equiBZH/bzh/" target="_blank">Équitation — Equibreizh</a></li>
                     </ul>
                 </div>
             </div>
 
-            <div class="tourism-footer text-center" style="margin-top: 3rem; text-align: center;">
-                <p>N'hésitez pas à solliciter la <strong style="color: var(--navy-blue);">Kastell Team</strong> pour
-                    vous réserver une table étoilée, organiser une dégustation privée ou préparer vos paniers
-                    pique-nique à base de produits locaux : miel d'apiculteur, poissons côtiers et produits du verger de
-                    la Région de Guingamp.</p>
-                <a href="#contact" class="btn btn-primary" style="margin-top: 1rem;">Organiser vos activités</a>
+            <div class="tourism-featured-cta">
+                <div class="tourism-cta-text">
+                    <div class="tourism-cta-icon"><i class="fas fa-concierge-bell"></i></div>
+                    <div>
+                        <h3>La Kastell Team organise tout pour vous</h3>
+                        <p>Table étoilée impossible à réserver seul, sortie en mer privée, atelier galettes chez un maître crêpier, panier de producteurs locaux livré à votre arrivée… Nous sommes votre porte ouverte sur le meilleur de la Bretagne authentique.</p>
+                    </div>
+                </div>
+                <div class="tourism-cta-actions">
+                    <a href="places.html" class="btn btn-primary">Voir notre guide complet <i class="fas fa-map"></i></a>
+                    <a href="mailto:contact@kastellbreizh.fr" class="btn btn-outline">Nous consulter</a>
+                </div>
             </div>
         </div>
     </section>
@@ -442,7 +516,7 @@
         <div class="container">
             <div class="footer-grid">
                 <div class="footer-brand">
-                    <a href="#" class="logo light">
+                    <a href="index.html" class="logo light">
                         <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="logo-img">
                     </a>
                     <p class="footer-desc">
@@ -450,16 +524,16 @@
                         caractère en Bretagne.
                     </p>
                     <div class="social-links">
-                        <a href="#"><i class="fab fa-instagram"></i></a>
-                        <a href="#"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                        <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="https://www.linkedin.com/" target="_blank" rel="noopener" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
                     </div>
                 </div>
 
                 <div class="footer-links">
                     <h4 class="footer-title">Découvrir</h4>
                     <ul>
-                        <li><a href="index.html#proprietes">Immobilier d'exception</a></li>
+                        <li><a href="properties.html">Nos demeures sur carte</a></li>
                         <li><a href="gestion.html">Services Propriétaires</a></li>
                         <li><a href="voyageurs.html">Services Voyageurs</a></li>
                         <li><a href="logistique.html">Logistique & Entretien</a></li>
@@ -467,13 +541,13 @@
                 </div>
 
                 <div class="footer-links">
-                    <h4 class="footer-title">Tourisme Local</h4>
+                    <h4 class="footer-title">La Région</h4>
                     <ul>
-                        <li><a href="#">Infos régionales</a></li>
-                        <li><a href="#">Visites et Musées</a></li>
-                        <li><a href="#">Sports et Loisirs</a></li>
-                        <li><a href="#">Gastronomie</a></li>
-                        <li><a href="#">Randonnées</a></li>
+                        <li><a href="places.html?cat=gastro">Gastronomie étoilée</a></li>
+                        <li><a href="places.html?cat=heritage">Visites & Patrimoine</a></li>
+                        <li><a href="places.html?cat=nature">Nature & Randonnées</a></li>
+                        <li><a href="places.html?cat=activities">Sports & Activités</a></li>
+                        <li><a href="places.html?cat=circuits">Circuits sur mesure</a></li>
                     </ul>
                 </div>
 
@@ -484,14 +558,14 @@
                                 href="mailto:contact@kastellbreizh.fr">contact@kastellbreizh.fr</a></li>
                         <li><i class="fas fa-map-marker-alt"></i> Opérant en Pays de Guingamp et toute la Bretagne.</li>
                     </ul>
-                    <a href="#" class="btn btn-primary" style="margin-top: 1rem;">Nous Contacter</a>
+                    <a href="mailto:contact@kastellbreizh.fr" class="btn btn-primary" style="margin-top: 1rem;">Nous Contacter</a>
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <p>&copy; 2026 Kastell Breizh Conciergerie. Tous droits réservés.</p>
                 <div class="legal-links">
-                    <a href="#">Mentions Légales</a>
+                    <a href="mailto:contact@kastellbreizh.fr?subject=Mentions légales">Mentions Légales</a>
                     <a href="https://www.google.com/policies/technologies/cookies/" target="_blank">Politique de
                         Cookies</a>
                 </div>

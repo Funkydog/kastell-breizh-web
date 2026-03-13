@@ -1,0 +1,586 @@
+/* =====================================================
+   Kastell Breizh — Places / Tourism Guide Styles
+   ===================================================== */
+
+/* ─── Active nav link ─── */
+.active-nav {
+    color: var(--gold) !important;
+}
+
+/* ─── Hero ─── */
+.places-hero {
+    position: relative;
+    min-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-image: url('https://images.unsplash.com/photo-1466978913421-dad2ebd01d17?w=1400&q=80');
+    background-size: cover;
+    background-position: center 40%;
+    padding-top: 80px;
+}
+
+.places-hero-overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+        to bottom,
+        rgba(13, 24, 46, 0.75) 0%,
+        rgba(13, 24, 46, 0.55) 60%,
+        rgba(13, 24, 46, 0.85) 100%
+    );
+}
+
+.places-hero-content {
+    position: relative;
+    z-index: 10;
+    text-align: center;
+    color: var(--white);
+    padding: 4rem 2rem 2rem;
+    max-width: 780px;
+}
+
+.places-hero-label {
+    font-family: var(--font-body);
+    font-weight: 500;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+    color: var(--gold);
+    margin-bottom: 1.25rem;
+}
+
+.places-hero-title {
+    font-size: 4rem;
+    line-height: 1.1;
+    color: var(--white);
+    margin-bottom: 1.5rem;
+}
+
+.places-hero-title em {
+    font-style: italic;
+    color: var(--gold-light);
+}
+
+.places-hero-desc {
+    font-size: 1.1rem;
+    font-weight: 300;
+    color: rgba(255,255,255,0.88);
+    margin-bottom: 2.5rem;
+    line-height: 1.7;
+}
+
+.places-hero-stats {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 3rem;
+    padding: 2rem;
+    background: rgba(255,255,255,0.07);
+    backdrop-filter: blur(10px);
+    border-top: 1px solid rgba(255,255,255,0.1);
+    width: 100%;
+}
+
+.hero-stat {
+    text-align: center;
+    color: var(--white);
+}
+
+.hero-stat strong {
+    display: block;
+    font-size: 2rem;
+    font-family: var(--font-heading);
+    color: var(--gold);
+    line-height: 1;
+}
+
+.hero-stat span {
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.7);
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.hero-stat-divider {
+    width: 1px;
+    height: 40px;
+    background: rgba(255,255,255,0.15);
+}
+
+/* ─── Concierge Note ─── */
+.concierge-note {
+    background: linear-gradient(135deg, var(--navy-blue) 0%, var(--navy-blue-light) 100%);
+    padding: 1.75rem 0;
+}
+
+.concierge-note-inner {
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+}
+
+.concierge-note-icon {
+    font-size: 2rem;
+    color: var(--gold);
+    flex-shrink: 0;
+}
+
+.concierge-note-text {
+    flex: 1;
+}
+
+.concierge-note-text strong {
+    display: block;
+    color: var(--white);
+    font-size: 0.95rem;
+    margin-bottom: 0.35rem;
+}
+
+.concierge-note-text p {
+    color: rgba(255,255,255,0.75);
+    font-size: 0.875rem;
+    margin: 0;
+    line-height: 1.6;
+}
+
+/* ─── Category Tabs ─── */
+.categories-section {
+    background: var(--white);
+    padding: 2rem 0 0;
+    border-bottom: 1px solid rgba(0,0,0,0.06);
+    position: sticky;
+    top: 0;
+    z-index: 100;
+    box-shadow: var(--shadow-sm);
+}
+
+.category-tabs {
+    display: flex;
+    gap: 0;
+    overflow-x: auto;
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+    border-bottom: none;
+}
+
+.category-tabs::-webkit-scrollbar { display: none; }
+
+.cat-tab {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 1rem 1.5rem;
+    background: none;
+    border: none;
+    border-bottom: 3px solid transparent;
+    cursor: pointer;
+    font-family: var(--font-body);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    white-space: nowrap;
+    transition: var(--transition-fast);
+}
+
+.cat-tab i { font-size: 0.85rem; }
+
+.cat-tab:hover {
+    color: var(--navy-blue);
+    border-bottom-color: rgba(26, 43, 76, 0.2);
+}
+
+.cat-tab.active {
+    color: var(--navy-blue);
+    border-bottom-color: var(--gold);
+    font-weight: 600;
+}
+
+/* ─── Places Grid ─── */
+.places-grid-section {
+    padding: 3rem 0 5rem;
+    background: var(--slate-light);
+}
+
+.places-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+/* ─── Place Card ─── */
+.place-card {
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+    box-shadow: var(--shadow-sm);
+    transition: var(--transition-normal);
+    opacity: 0;
+    transform: translateY(20px);
+    display: flex;
+    flex-direction: column;
+}
+
+.place-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+.place-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-lg);
+}
+
+.place-card-image {
+    height: 200px;
+    background-size: cover;
+    background-position: center;
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.5s ease;
+}
+
+.place-card:hover .place-card-image {
+    transform: scale(1.04);
+}
+
+.place-badges {
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    z-index: 2;
+}
+
+.place-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.35rem;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+}
+
+.badge-gold {
+    background: var(--gold);
+    color: var(--navy-blue-dark);
+}
+
+.badge-michelin {
+    background: #c0392b;
+    color: white;
+}
+
+.badge-navy {
+    background: var(--navy-blue);
+    color: white;
+}
+
+.place-category-dot {
+    position: absolute;
+    bottom: 1rem;
+    right: 1rem;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.9rem;
+    color: white;
+    z-index: 2;
+}
+
+.place-category-dot.gastro { background: rgba(192, 57, 43, 0.9); }
+.place-category-dot.heritage { background: rgba(26, 43, 76, 0.9); }
+.place-category-dot.nature { background: rgba(39, 174, 96, 0.9); }
+.place-category-dot.activities { background: rgba(52, 152, 219, 0.9); }
+
+.place-card-body {
+    padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+.place-card-header {
+    margin-bottom: 0.75rem;
+}
+
+.place-card-header h3 {
+    font-size: 1.1rem;
+    color: var(--navy-blue);
+    margin-bottom: 0.35rem;
+}
+
+.place-distance {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+}
+
+.place-distance i { color: var(--gold-dark); font-size: 0.7rem; }
+
+.place-desc {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+    margin-bottom: 1rem;
+    flex: 1;
+}
+
+.place-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+}
+
+.place-tag {
+    font-size: 0.72rem;
+    padding: 0.2rem 0.6rem;
+    background: var(--slate-light);
+    color: var(--slate-dark);
+    border-radius: 20px;
+    font-weight: 500;
+}
+
+.place-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--gold-dark);
+    margin-top: auto;
+    transition: var(--transition-fast);
+}
+
+.place-link:hover {
+    color: var(--navy-blue);
+    gap: 0.6rem;
+}
+
+.place-link i { font-size: 0.75rem; }
+
+.place-concierge-cta {
+    display: flex;
+    align-items: flex-start;
+    gap: 0.5rem;
+    font-size: 0.78rem;
+    color: var(--navy-blue);
+    background: rgba(212, 175, 55, 0.08);
+    border: 1px solid rgba(212, 175, 55, 0.25);
+    border-radius: var(--border-radius-sm);
+    padding: 0.625rem 0.875rem;
+    margin-top: auto;
+    line-height: 1.4;
+}
+
+.place-concierge-cta i {
+    color: var(--gold-dark);
+    flex-shrink: 0;
+    margin-top: 1px;
+}
+
+/* ─── Circuit Cards ─── */
+.place-card-circuit {
+    grid-column: span 1;
+}
+
+.circuit-header {
+    background: linear-gradient(135deg, var(--navy-blue) 0%, var(--navy-blue-light) 100%);
+    padding: 1rem 1.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.circuit-meta {
+    display: flex;
+    gap: 1.25rem;
+}
+
+.circuit-duration,
+.circuit-difficulty,
+.circuit-km {
+    display: flex;
+    align-items: center;
+    gap: 0.4rem;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.85);
+}
+
+.circuit-duration i,
+.circuit-difficulty i {
+    color: var(--gold);
+}
+
+.circuit-badge {
+    background: var(--gold);
+    color: var(--navy-blue-dark);
+    font-size: 0.7rem;
+    font-weight: 700;
+    padding: 0.25rem 0.6rem;
+    border-radius: 20px;
+    text-transform: uppercase;
+}
+
+.circuit-body h3 {
+    font-size: 1.1rem;
+}
+
+.circuit-stops {
+    display: flex;
+    flex-direction: column;
+    gap: 0.4rem;
+    margin-bottom: 1rem;
+    margin-top: 0.5rem;
+}
+
+.circuit-stop {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.82rem;
+    color: var(--text-main);
+}
+
+.stop-num {
+    width: 22px;
+    height: 22px;
+    background: var(--navy-blue);
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.7rem;
+    font-weight: 700;
+    flex-shrink: 0;
+}
+
+/* ─── CTA Section ─── */
+.places-cta-section {
+    background: var(--navy-blue-dark);
+    padding: 6rem 0;
+}
+
+.places-cta-card {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 4rem;
+    align-items: center;
+}
+
+.cta-label {
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 1rem;
+}
+
+.places-cta-text h2 {
+    font-size: 2.25rem;
+    color: var(--white);
+    margin-bottom: 1rem;
+    line-height: 1.2;
+}
+
+.places-cta-text p {
+    color: rgba(255,255,255,0.75);
+    font-size: 1rem;
+    line-height: 1.7;
+    margin-bottom: 2rem;
+}
+
+.cta-services-list {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 0.75rem;
+    margin-bottom: 2.5rem;
+}
+
+.cta-service {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.875rem;
+    color: rgba(255,255,255,0.8);
+}
+
+.cta-service i { color: var(--gold); }
+
+.cta-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+}
+
+.places-cta-image {
+    position: relative;
+    border-radius: var(--border-radius-lg);
+    overflow: hidden;
+}
+
+.places-cta-image img {
+    width: 100%;
+    height: 420px;
+    object-fit: cover;
+    border-radius: var(--border-radius-lg);
+}
+
+.cta-image-badge {
+    position: absolute;
+    bottom: 1.5rem;
+    right: 1.5rem;
+    background: var(--navy-blue);
+    color: var(--white);
+    padding: 0.75rem 1.25rem;
+    border-radius: var(--border-radius-md);
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    box-shadow: var(--shadow-md);
+    border: 1px solid var(--gold);
+}
+
+.cta-image-badge i { color: var(--gold); }
+
+/* ─── Responsive ─── */
+@media (max-width: 1200px) {
+    .places-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 1024px) {
+    .places-hero-title { font-size: 3rem; }
+    .places-cta-card { grid-template-columns: 1fr; gap: 2rem; }
+    .places-cta-image img { height: 300px; }
+}
+
+@media (max-width: 768px) {
+    .places-hero-title { font-size: 2.25rem; }
+    .places-hero-stats { gap: 1.5rem; flex-wrap: wrap; }
+    .places-grid { grid-template-columns: 1fr; }
+    .concierge-note-inner { flex-direction: column; text-align: center; }
+    .cta-services-list { grid-template-columns: 1fr; }
+    .cta-actions { flex-direction: column; }
+    .places-cta-image { display: none; }
+    .category-tabs { padding: 0 1rem; }
+    .hero-stat-divider { display: none; }
+    .places-hero-stats { justify-content: center; gap: 2rem; }
+}

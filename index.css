@@ -1117,6 +1117,191 @@ ul {
     color: var(--white);
 }
 
+/* ================= How It Works Section ================= */
+.how-it-works {
+    background: var(--white);
+}
+
+.section-eyebrow {
+    font-family: var(--font-body);
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    color: var(--gold-dark);
+    text-align: center;
+    margin-bottom: 0.5rem;
+    display: block;
+}
+
+.hiw-steps {
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+    margin-bottom: 4rem;
+}
+
+.hiw-step {
+    flex: 1;
+    text-align: center;
+    padding: 2.5rem 1.5rem;
+    border-radius: var(--border-radius-lg);
+    background: var(--off-white);
+    border: 1px solid rgba(0,0,0,0.04);
+    transition: var(--transition-normal);
+    position: relative;
+}
+
+.hiw-step:hover {
+    background: var(--white);
+    box-shadow: var(--shadow-md);
+    transform: translateY(-5px);
+}
+
+.hiw-step-number {
+    font-family: var(--font-heading);
+    font-size: 4rem;
+    font-weight: 700;
+    color: rgba(212, 175, 55, 0.15);
+    position: absolute;
+    top: 1rem;
+    right: 1.5rem;
+    line-height: 1;
+}
+
+.hiw-step-icon {
+    width: 72px;
+    height: 72px;
+    background: var(--navy-blue);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto 1.5rem;
+    font-size: 1.5rem;
+    color: var(--gold);
+    transition: var(--transition-normal);
+}
+
+.hiw-step:hover .hiw-step-icon {
+    background: var(--gold);
+    color: var(--navy-blue-dark);
+}
+
+.hiw-step h3 {
+    font-size: 1.25rem;
+    margin-bottom: 0.75rem;
+    color: var(--navy-blue);
+}
+
+.hiw-step p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+}
+
+.hiw-connector {
+    flex-shrink: 0;
+    color: var(--gold);
+    font-size: 1.5rem;
+    margin-top: 4rem;
+    opacity: 0.5;
+}
+
+.hiw-trust-row {
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+    padding: 2rem;
+    background: var(--slate-light);
+    border-radius: var(--border-radius-md);
+}
+
+.hiw-trust-item {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--navy-blue);
+}
+
+.hiw-trust-item i { color: var(--gold-dark); font-size: 1rem; }
+
+/* ================= Property Price Styles ================= */
+.price-from {
+    font-size: 0.72rem;
+    color: var(--text-muted);
+    display: block;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.price-unit {
+    font-size: 0.8rem;
+    color: var(--text-muted);
+}
+
+.property-price {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.property-price strong {
+    font-size: 1.2rem;
+    color: var(--navy-blue);
+    line-height: 1.1;
+}
+
+/* ================= Tourism Section Enhanced ================= */
+.tourism-featured-cta {
+    margin-top: 3rem;
+    background: var(--white);
+    border-radius: var(--border-radius-lg);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 2rem;
+    box-shadow: var(--shadow-md);
+    border: 1px solid rgba(0,0,0,0.04);
+}
+
+.tourism-cta-text {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.5rem;
+    flex: 1;
+}
+
+.tourism-cta-icon {
+    font-size: 2rem;
+    color: var(--gold);
+    flex-shrink: 0;
+}
+
+.tourism-cta-text h3 {
+    font-size: 1.25rem;
+    color: var(--navy-blue);
+    margin-bottom: 0.5rem;
+}
+
+.tourism-cta-text p {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    margin: 0;
+    line-height: 1.6;
+}
+
+.tourism-cta-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 0.75rem;
+    flex-shrink: 0;
+}
+
 /* ================= Animations ================= */
 @keyframes fadeInUp {
     from {
@@ -1170,6 +1355,17 @@ ul {
     .trust-container {
         gap: 2rem;
     }
+}
+
+@media (max-width: 1024px) {
+    .hiw-steps {
+        flex-direction: column;
+        align-items: center;
+    }
+    .hiw-step { width: 100%; max-width: 500px; }
+    .hiw-connector { margin-top: 0; transform: rotate(90deg); }
+    .tourism-featured-cta { flex-direction: column; }
+    .tourism-cta-actions { flex-direction: row; }
 }
 
 @media (max-width: 768px) {
