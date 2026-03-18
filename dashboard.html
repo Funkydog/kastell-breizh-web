@@ -388,37 +388,49 @@
             </select>
         </div>
 
-        <div class="kpi-grid">
-            <div class="kpi-card">
-                <div class="kpi-icon blue"><i class="fas fa-bed"></i></div>
-                <div class="kpi-details">
-                    <h4>Taux d'occupation (Mars)</h4>
-                    <div class="kpi-value">78%</div>
-                    <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +5% vs mois dernier</div>
+        <div class="kpi-grid" style="grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));">
+            <!-- Occupation -->
+            <div class="kpi-card" style="flex-direction: column; align-items: stretch;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="kpi-icon blue"><i class="fas fa-calendar-check"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600; margin: 0;">Taux d'occupation</h4>
+                        <div class="kpi-value" style="font-size: 1.8rem; margin: 0.2rem 0;">78% <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">ce mois</span></div>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--grey-light); font-size: 0.85rem;">
+                    <div><span style="color: var(--text-muted);">YTD:</span> <strong>65%</strong></div>
+                    <div><span style="color: var(--text-muted);">Haute saison prév.:</span> <strong>92%</strong></div>
                 </div>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-icon green"><i class="fas fa-euro-sign"></i></div>
-                <div class="kpi-details">
-                    <h4>Revenus YTD 2026</h4>
-                    <div class="kpi-value">8 150 €</div>
-                    <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> +12% vs 2025</div>
+
+            <!-- Revenus -->
+            <div class="kpi-card" style="flex-direction: column; align-items: stretch;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="kpi-icon green"><i class="fas fa-euro-sign"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600; margin: 0;">Revenus nets</h4>
+                        <div class="kpi-value" style="font-size: 1.8rem; margin: 0.2rem 0;">3 440 € <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">ce mois</span></div>
+                    </div>
+                </div>
+                <div style="display: flex; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--grey-light); font-size: 0.85rem;">
+                    <div><span style="color: var(--text-muted);">Trimestre actuel:</span> <strong>8 150 €</strong></div>
+                    <div><span style="color: var(--text-muted);">Objectif Annuel:</span> <strong>38 200 €</strong></div>
                 </div>
             </div>
-            <div class="kpi-card">
-                <div class="kpi-icon gold"><i class="fas fa-chart-line"></i></div>
-                <div class="kpi-details">
-                    <h4>Revenus prévisionnels</h4>
-                    <div class="kpi-value">38 200 €</div>
-                    <div class="kpi-trend"><span style="color:var(--text-muted)">Basé sur réserv. actuelles</span></div>
+
+            <!-- Satisfaction -->
+            <div class="kpi-card" style="flex-direction: column; align-items: stretch;">
+                <div style="display: flex; align-items: center; gap: 1rem; margin-bottom: 1rem;">
+                    <div class="kpi-icon purple"><i class="fas fa-star"></i></div>
+                    <div>
+                        <h4 style="color: var(--text-muted); font-size: 0.9rem; font-weight: 600; margin: 0;">Note moyenne</h4>
+                        <div class="kpi-value" style="font-size: 1.8rem; margin: 0.2rem 0;">4.94 <span style="font-size: 0.9rem; font-weight: 400; color: var(--text-muted);">/ 5</span></div>
+                    </div>
                 </div>
-            </div>
-            <div class="kpi-card">
-                <div class="kpi-icon purple"><i class="fas fa-star"></i></div>
-                <div class="kpi-details">
-                    <h4>Note moyenne</h4>
-                    <div class="kpi-value">4.94</div>
-                    <div class="kpi-trend trend-up"><i class="fas fa-star" style="color:var(--gold);"></i> 84 avis</div>
+                <div style="display: flex; justify-content: space-between; padding-top: 1rem; border-top: 1px solid var(--grey-light); font-size: 0.85rem;">
+                    <div><span style="color: var(--text-muted);">Avis totaux:</span> <strong>84</strong></div>
+                    <div class="kpi-trend trend-up"><i class="fas fa-arrow-up"></i> Statut Superhôte</div>
                 </div>
             </div>
         </div>
@@ -491,7 +503,7 @@
     <section class="dash-section" id="section-reservations">
         <div class="topbar">
             <h1 class="page-title">Réservations</h1>
-            <a href="booking.html" class="btn btn-primary btn-sm">+ Nouvelle réservation</a>
+            <a href="property-detail.html" class="btn btn-primary btn-sm">+ Nouvelle réservation</a>
         </div>
 
         <div class="dash-card">
@@ -607,6 +619,41 @@
                             <td></td>
                         </tr>
                     </tfoot>
+                </table>
+            </div>
+        </div>
+
+        <div class="dash-card">
+            <div class="card-header">
+                <h3>Historique des Virements (Complétés)</h3>
+            </div>
+            <div style="overflow-x:auto;">
+                <table class="finance-table">
+                    <thead>
+                        <tr>
+                            <th>Date du virement</th>
+                            <th>Période couverte</th>
+                            <th>Référence bancaire</th>
+                            <th>Montant net viré</th>
+                            <th>Justificatif</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>01 Mars 2026</td>
+                            <td>Février 2026</td>
+                            <td><span style="font-family: monospace; color: var(--text-muted);">TRF-74892-FEB</span></td>
+                            <td style="color: #27ae60; font-weight: 700;">1 572,50 €</td>
+                            <td style="text-align: right;"><button class="btn-sm-icon" title="Télécharger" style="display:inline-flex;"><i class="fas fa-download"></i></button></td>
+                        </tr>
+                        <tr>
+                            <td>02 Février 2026</td>
+                            <td>Janvier 2026</td>
+                            <td><span style="font-family: monospace; color: var(--text-muted);">TRF-69331-JAN</span></td>
+                            <td style="color: #27ae60; font-weight: 700;">1 785,00 €</td>
+                            <td style="text-align: right;"><button class="btn-sm-icon" title="Télécharger" style="display:inline-flex;"><i class="fas fa-download"></i></button></td>
+                        </tr>
+                    </tbody>
                 </table>
             </div>
         </div>
@@ -835,7 +882,7 @@
 const RESERVATIONS = [
     { id:'KB-2601', prop:'Manoir de Kerollivier', propId:'kerollivier', guest:'Jean-Pierre Dupont', checkin:'2026-03-22', checkout:'2026-03-26', guests:4, gross:985, status:'confirmed' },
     { id:'KB-2602', prop:'Gîte de Saint Guy',     propId:'saint-guy',   guest:'Marie Lefèvre',    checkin:'2026-03-28', checkout:'2026-04-01', guests:6, gross:1060, status:'confirmed' },
-    { id:'KB-2603', prop:'Manoir de Kerollivier', propId:'kerollivier', guest:'Thomas Andreani',  checkin:'2026-04-05', checkout:'2026-04-09', guests:2, gross:820, status:'pending' },
+    { id:'KB-2603', prop:'Manoir de Kerollivier', propId:'kerollivier', guest:'Thomas Andreani',  checkin:'2026-04-05', checkout:'2026-04-09', guests:2, gross:0, status:'cancelled' },
     { id:'KB-2604', prop:'Gîte de Saint Guy',     propId:'saint-guy',   guest:'Sarah Beaumont',   checkin:'2026-04-12', checkout:'2026-04-14', guests:4, gross:530, status:'confirmed' },
     { id:'KB-2605', prop:'Manoir de Kerollivier', propId:'kerollivier', guest:'Lucas Martin',     checkin:'2026-04-20', checkout:'2026-04-25', guests:6, gross:1185, status:'completed' },
     { id:'KB-2606', prop:"Maison d'Art et Nature",propId:'maison-art',  guest:'Groupe Le Tallec', checkin:'2026-05-01', checkout:'2026-05-07', guests:16, gross:2100, status:'confirmed' },
@@ -1082,7 +1129,7 @@ function renderAdminProps() {
                     <input type="checkbox" ${p.published ? 'checked' : ''} onchange="toggleAdminProp(${i}, this)">
                     <span class="toggle-slider"></span>
                 </label>
-                <a href="booking.html?property=${p.id}" class="btn-sm-icon" title="Voir la page"><i class="fas fa-external-link-alt"></i></a>
+                <a href="property-detail.html?property=${p.id}" class="btn-sm-icon" title="Voir la page"><i class="fas fa-external-link-alt"></i></a>
             </div>
         </div>
     `).join('');

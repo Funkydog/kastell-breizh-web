@@ -32,7 +32,7 @@
             </nav>
             <div class="nav-actions">
                 <a href="login.html" class="btn btn-outline">Espace Propriétaire</a>
-                <a href="booking.html" class="btn btn-primary">Réserver</a>
+                <a href="property-detail.html" class="btn btn-primary">Réserver</a>
             </div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -48,8 +48,35 @@
                 <a href="index.html#services" class="mobile-link">Nos Services</a>
                 <a href="properties.html" class="mobile-link">Nos Demeures</a>
                 <a href="places.html" class="mobile-link">La Région</a>
-                <a href="booking.html" class="btn btn-primary">Réserver</a>
+                <a href="property-detail.html" class="btn btn-primary">Réserver</a>
             </nav>
+        </div>
+    </div>
+
+    <!-- Booking Search Widget -->
+    <div class="booking-search-wrapper" style="background: var(--white); padding: 1.5rem 0; box-shadow: var(--shadow-sm); border-bottom: 1px solid var(--grey-light);">
+        <div class="container">
+            <div class="booking-widget" style="display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap; background: var(--off-white); padding: 1rem; border-radius: var(--border-radius-lg);">
+                <div class="booking-field" style="display: flex; flex-direction: column;">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--glaz); margin-bottom: 0.25rem;">Arrivée</label>
+                    <input type="date" style="border: 1px solid var(--grey); padding: 0.5rem; border-radius: 4px; font-family: var(--font-body);">
+                </div>
+                <div class="booking-field" style="display: flex; flex-direction: column;">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--glaz); margin-bottom: 0.25rem;">Départ</label>
+                    <input type="date" style="border: 1px solid var(--grey); padding: 0.5rem; border-radius: 4px; font-family: var(--font-body);">
+                </div>
+                <div class="booking-field" style="display: flex; flex-direction: column;">
+                    <label style="font-size: 0.8rem; font-weight: 600; color: var(--glaz); margin-bottom: 0.25rem;">Voyageurs</label>
+                    <select style="border: 1px solid var(--grey); padding: 0.5rem; border-radius: 4px; font-family: var(--font-body);">
+                        <option>1 pers.</option>
+                        <option>2 pers.</option>
+                        <option>3 pers.</option>
+                        <option>4 pers.</option>
+                        <option>5+ pers.</option>
+                    </select>
+                </div>
+                <button class="btn btn-primary" style="align-self: flex-end; padding: 0.6rem 2rem;">Rechercher</button>
+            </div>
         </div>
     </div>
 
@@ -368,7 +395,7 @@
                             <strong>${prop.pricePerNight}€</strong>
                             <span class="popup-night">/nuit</span>
                         </div>
-                        <a href="booking.html?property=${prop.id}" class="btn btn-primary btn-sm map-popup-book">
+                        <a href="property-detail.html?property=${prop.id}" class="btn btn-primary btn-sm map-popup-book">
                             Réserver
                         </a>
                     </div>
@@ -414,46 +441,50 @@
         noResults.style.display = 'none';
 
         container.innerHTML = data.map(prop => `
-            <article class="prop-list-card" data-id="${prop.id}" tabindex="0" role="button" aria-label="Voir ${prop.name}">
-                <div class="prop-list-image">
-                    <img src="${prop.image}" alt="${prop.name}" loading="lazy">
-                    <span class="prop-list-badge ${prop.badgeClass}">${prop.badge}</span>
+            <article class="prop-list-card" data-id="${prop.id}" tabindex="0" role="button" aria-label="Voir ${prop.name}" style="display: flex; flex-direction: row; gap: 1.5rem; padding: 1.5rem; border-radius: var(--border-radius-lg); background: var(--white); box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; border: 1px solid var(--grey-light); transition: var(--transition-normal); align-items: stretch;">
+                
+                <!-- Square Photo -->
+                <div class="prop-list-image" style="width: 220px; height: 220px; flex-shrink: 0; position: relative; border-radius: var(--border-radius-md); overflow: hidden;">
+                    <img src="${prop.image}" alt="${prop.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
+                    <span class="prop-list-badge ${prop.badgeClass}" style="position: absolute; top: 10px; left: 10px;">${prop.badge}</span>
                 </div>
-                <div class="prop-list-content">
-                    <div class="prop-list-header">
-                        <div>
-                            <h3 class="prop-list-title">${prop.name}</h3>
-                            <p class="prop-list-subtitle">${prop.subtitle}</p>
+                
+                <div class="prop-list-content" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
+                    <div>
+                        <div class="prop-list-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+                            <div>
+                                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Maison de caractère</span>
+                                <h3 class="prop-list-title" style="font-size: 1.25rem; font-weight: 600; color: var(--glaz); margin: 0.25rem 0;">${prop.name}</h3>
+                                <p class="prop-list-location" style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt" style="color: var(--cyan);"></i> ${prop.location}</p>
+                            </div>
+                            
+                            <!-- Average Rating Visible Immediately -->
+                            <div class="prop-list-rating" style="display: flex; align-items: center; gap: 0.3rem; font-weight: 600; background: var(--slate-light); padding: 0.3rem 0.6rem; border-radius: 4px; color: var(--glaz);">
+                                <i class="fas fa-star" style="color: var(--cyan-dark);"></i>
+                                <span>${prop.rating}</span>
+                                <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-muted);">(${prop.reviews})</span>
+                            </div>
                         </div>
-                        <div class="prop-list-rating">
-                            <i class="fas fa-star"></i>
-                            <span>${prop.rating}</span>
-                            <span class="prop-list-reviews">(${prop.reviews})</span>
+
+                        <!-- Specific Highlight -->
+                        <div class="prop-list-highlight" style="margin-top: 1rem; color: var(--text-main); font-size: 0.95rem;">
+                            <span style="background: var(--off-white); padding: 0.4rem 0.75rem; border-radius: var(--border-radius-sm); border-left: 3px solid var(--cyan); display: inline-flex; align-items: center; gap: 0.5rem;">
+                                <i class="${prop.features[0]?.icon || 'fas fa-check'}" style="color: var(--cyan-dark);"></i> 
+                                ${prop.features[0]?.label || 'Charme breton'}
+                            </span>
                         </div>
                     </div>
 
-                    <p class="prop-list-location"><i class="fas fa-map-marker-alt"></i> ${prop.location}</p>
-                    <p class="prop-list-desc">${prop.description}</p>
-
-                    <div class="prop-list-features">
-                        <span class="prop-feat"><i class="fas fa-user"></i> ${prop.capacity} pers. max.</span>
-                        <span class="prop-feat"><i class="fas fa-bed"></i> ${prop.beds} chambres</span>
-                        <span class="prop-feat"><i class="fas fa-bath"></i> ${prop.baths} SDB</span>
-                        ${prop.features.map(f => `<span class="prop-feat"><i class="${f.icon}"></i> ${f.label}</span>`).join('')}
-                    </div>
-
-                    <div class="prop-list-footer">
+                    <div class="prop-list-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--grey-light);">
                         <div class="prop-list-price">
-                            <span class="price-from">à partir de</span>
-                            <strong>${prop.pricePerNight} €</strong>
-                            <span class="price-unit">/nuit</span>
-                            <span class="prop-cleaning">+ ${prop.cleaningFee}€ ménage</span>
+                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--glaz);">${prop.pricePerNight} €</span>
+                            <span style="font-size: 0.875rem; color: var(--text-muted);">/nuit</span>
                         </div>
-                        <div class="prop-list-actions">
-                            <button class="btn-map-focus" onclick="focusOnMap('${prop.id}')" title="Voir sur la carte">
+                        <div class="prop-list-actions" style="display: flex; gap: 0.5rem;">
+                            <button class="btn btn-outline btn-sm btn-map-focus" onclick="focusOnMap('${prop.id}'); event.stopPropagation();" title="Voir sur la carte" style="padding: 0.5rem 0.75rem;">
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>
-                            <a href="booking.html?property=${prop.id}" class="btn btn-primary btn-sm">
+                            <a href="property-detail.html?property=${prop.id}" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">
                                 Réserver
                             </a>
                         </div>
@@ -480,7 +511,7 @@
             });
             card.addEventListener('keydown', (e) => {
                 if (e.key === 'Enter') {
-                    window.location.href = `booking.html?property=${id}`;
+                    window.location.href = `property-detail.html?property=${id}`;
                 }
             });
         });
