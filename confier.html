@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Confier votre bien | Kastell Breizh</title>
+    <meta name="description" content="Confiez-nous la gestion de votre bien d'exception en Bretagne et maximisez votre rentabilité.">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .confier-section {
+            padding: 8rem 0 4rem 0;
+            background-color: var(--off-white);
+            min-height: 100vh;
+        }
+
+        .confier-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .confier-form-container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: var(--white);
+            padding: 3rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .form-section-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--glaz);
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.75rem;
+            border-bottom: 2px solid var(--grey-light);
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            margin-top: 3rem;
+        }
+
+        .form-section-title:first-child {
+            margin-top: 0;
+        }
+
+        .form-section-title i {
+            color: var(--cyan-dark);
+        }
+
+        .form-grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+        .form-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1.5rem; margin-bottom: 1.5rem; }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--grey);
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background: var(--white);
+            transition: var(--transition-fast);
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--cyan);
+            box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .amenity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 0.95rem;
+            color: var(--text-muted);
+            cursor: pointer;
+        }
+
+        .checkbox-label input[type="checkbox"] {
+            width: 18px;
+            height: 18px;
+            accent-color: var(--cyan);
+            cursor: pointer;
+        }
+
+        .submit-wrapper {
+            margin-top: 3rem;
+            text-align: center;
+            padding-top: 2rem;
+            border-top: 1px solid var(--grey-light);
+        }
+
+        @media (max-width: 768px) {
+            .form-grid-2, .form-grid-3 { grid-template-columns: 1fr; }
+            .confier-form-container { padding: 2rem 1.5rem; }
+            .amenity-grid { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Navbar -->
+    <header class="navbar scrolled" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="logo-light logo-img">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="properties.html">Trouver votre séjour</a>
+                <a href="confier.html">Confier votre bien</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline light">Espace Propriétaire</a>
+                <a href="#contact" class="btn btn-primary">Contactez-nous</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <section class="confier-section">
+        <div class="container">
+            <div class="confier-header">
+                <h1 class="section-title" style="color: var(--glaz);">Confier votre bien</h1>
+                <p class="section-subtitle">Complétez ce formulaire pour nous proposer votre propriété. Notre équipe vous recontactera sous 48h.</p>
+            </div>
+
+            <div class="confier-form-container">
+                <form id="confier-form" onsubmit="event.preventDefault(); alert('Votre demande a été envoyée !'); window.location.href='index.html';">
+                    
+                    <!-- Identification -->
+                    <h2 class="form-section-title"><i class="fas fa-home"></i> Identification du bien</h2>
+                    
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Nom du bien *</label>
+                            <input type="text" class="form-control" placeholder="Manoir de..." required>
+                        </div>
+                        <div class="form-group">
+                            <label>Type de bien *</label>
+                            <select class="form-control" required>
+                                <option value="">Sélectionner…</option>
+                                <option>Manoir</option>
+                                <option>Maison de caractère isolée</option>
+                                <option>Maison mitoyenne</option>
+                                <option>Maison de ville</option>
+                                <option>Appartement</option>
+                                <option>Villa</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 1.5rem;">
+                        <label>Adresse complète *</label>
+                        <input type="text" class="form-control" placeholder="123 Rue de la Côte" required>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Coordonnées GPS (Optionnel)</label>
+                            <input type="text" class="form-control" placeholder="48.563, -3.149">
+                        </div>
+                        <div class="form-group">
+                            <label>Lien vers les photos (Google Drive, Dropbox, etc.)</label>
+                            <input type="url" class="form-control" placeholder="https://...">
+                        </div>
+                    </div>
+
+                    <div class="form-group">
+                        <label>Description détaillée *</label>
+                        <textarea class="form-control" placeholder="Décrivez l'histoire, le charme, et l'environnement de votre bien..." required></textarea>
+                    </div>
+
+                    <!-- Specificities & Equipment -->
+                    <h2 class="form-section-title"><i class="fas fa-star"></i> Spécificités & Équipements</h2>
+
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label>Spécificités (Cochez celles qui s'appliquent)</label>
+                        <div class="amenity-grid">
+                            <label class="checkbox-label"><input type="checkbox"> Climatisation</label>
+                            <label class="checkbox-label"><input type="checkbox"> Vue montagne / campagne</label>
+                            <label class="checkbox-label"><input type="checkbox"> Logement écoresponsable</label>
+                            <label class="checkbox-label"><input type="checkbox"> Proche transports en commun</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label>Équipements de cuisine & Pratiques</label>
+                        <div class="amenity-grid">
+                            <label class="checkbox-label"><input type="checkbox"> Four</label>
+                            <label class="checkbox-label"><input type="checkbox"> Micro-ondes</label>
+                            <label class="checkbox-label"><input type="checkbox"> Réfrigérateur / Congélateur</label>
+                            <label class="checkbox-label"><input type="checkbox"> Fer à repasser</label>
+                            <label class="checkbox-label"><input type="checkbox"> Sèche-cheveux</label>
+                        </div>
+                        <div style="margin-top: 1rem;">
+                            <input type="text" class="form-control" placeholder="Précisez le type de machine à café (Nespresso, Filtre, etc.)">
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label>Équipements Bébé / Enfants</label>
+                        <div class="amenity-grid">
+                            <label class="checkbox-label"><input type="checkbox"> Lit parapluie / Lit voyage</label>
+                            <label class="checkbox-label"><input type="checkbox"> Chaise haute</label>
+                            <label class="checkbox-label"><input type="checkbox"> Baignoire bébé</label>
+                            <label class="checkbox-label"><input type="checkbox"> Jeux de société / Livres</label>
+                        </div>
+                    </div>
+
+                    <div class="form-group" style="margin-bottom: 2rem;">
+                        <label>Sécurité</label>
+                        <div class="amenity-grid">
+                            <label class="checkbox-label"><input type="checkbox"> Détecteur de fumée</label>
+                            <label class="checkbox-label"><input type="checkbox"> Extincteur</label>
+                            <label class="checkbox-label"><input type="checkbox"> Trousse de premiers secours</label>
+                        </div>
+                    </div>
+
+                    <!-- Rules & Finance -->
+                    <h2 class="form-section-title"><i class="fas fa-file-invoice-dollar"></i> Règles & Infos Pratiques</h2>
+
+                    <div class="form-grid-3">
+                        <div class="form-group">
+                            <label>Heure de Check-in</label>
+                            <input type="time" class="form-control" value="16:00">
+                        </div>
+                        <div class="form-group">
+                            <label>Heure de Check-out</label>
+                            <input type="time" class="form-control" value="10:00">
+                        </div>
+                        <div class="form-group">
+                            <label>Caution (en €)</label>
+                            <input type="number" class="form-control" placeholder="e.g., 500">
+                        </div>
+                    </div>
+
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Frais de ménage (en €)</label>
+                            <input type="text" class="form-control" placeholder="E.g., 80 € ou 'Inclus'">
+                        </div>
+                        <div class="form-group">
+                            <label>Taxe de séjour / nuit / pers.</label>
+                            <input type="text" class="form-control" placeholder="E.g., 1.50 €">
+                        </div>
+                    </div>
+
+                    <!-- Contacts -->
+                    <h2 class="form-section-title"><i class="fas fa-user"></i> Vos Coordonnées</h2>
+                    
+                    <div class="form-grid-2">
+                        <div class="form-group">
+                            <label>Prénom & Nom *</label>
+                            <input type="text" class="form-control" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Téléphone *</label>
+                            <input type="tel" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Adresse E-mail *</label>
+                        <input type="email" class="form-control" required>
+                    </div>
+
+                    <div class="submit-wrapper">
+                        <button type="submit" class="btn btn-primary btn-large" style="width: 100%; max-width: 400px;">
+                            Soumettre la proposition <i class="fas fa-paper-plane" style="margin-left: 0.5rem;"></i>
+                        </button>
+                        <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.875rem;">Vos données sont sécurisées et destinées uniquement à notre équipe pour évaluer votre bien.</p>
+                    </div>
+
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer id="contact" class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kastell Breizh Conciergerie. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+</html>

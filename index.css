@@ -4,24 +4,30 @@
 */
 
 :root {
-    /* Colors */
-    --navy-blue: #1A2B4C;
-    --navy-blue-light: #2A3F6A;
-    --navy-blue-dark: #0D182E;
+    /* Colors - Authentic Brittany Palette */
+    --glaz: #115E59;         /* Teal 800 */
+    --glaz-dark: #0F3F3E;    /* Dark teal */
+    --cyan: #06B6D4;         /* Cyan 500 for CTAs */
+    --cyan-dark: #0891B2;    /* Cyan 600 hover */
 
-    --slate-grey: #6B7A8F;
-    --slate-light: #F4F6F9;
-    --slate-dark: #3E4B5E;
-
-    --gold: #D4AF37;
-    --gold-light: #E8CA6B;
-    --gold-dark: #A68623;
+    --grey: #4B5563;         /* Slate 600 */
+    --grey-light: #F3F4F6;   /* Slate 100 */
+    --grey-dark: #1F2937;    /* Slate 800 */
 
     --white: #FFFFFF;
-    --off-white: #FAF9F6;
+    --off-white: #FAFAFA;
 
-    --text-main: #2C3E50;
-    --text-muted: #6B7A8F;
+    --text-main: #111827;    /* Very dark gray */
+    --text-muted: #4B5563;   /* Slate 600 */
+    --text-inverse: #FFFFFF; /* Text on dark bg */
+
+    /* Legacy Variables mapped to new Design System */
+    --navy-blue: var(--grey-dark);
+    --navy-blue-light: var(--grey);
+    --navy-blue-dark: #111827; /* Very dark gray */
+    --gold: var(--cyan);
+    --gold-light: var(--cyan);
+    --gold-dark: var(--cyan-dark);
 
     /* Typography */
     --font-heading: 'Playfair Display', serif;
@@ -36,7 +42,8 @@
     /* Shadows & Transitions */
     --shadow-sm: 0 4px 6px rgba(0, 0, 0, 0.05);
     --shadow-md: 0 10px 20px rgba(0, 0, 0, 0.08);
-    --shadow-lg: 0 20px 40px rgba(26, 43, 76, 0.12);
+    --shadow-lg: 0 20px 40px rgba(17, 94, 89, 0.12); /* Subtle glaz shadow */
+    --shadow-text: 0 2px 4px rgba(0, 0, 0, 0.5); /* For text on imgs w/o overlay */
     --transition-fast: 0.2s ease;
     --transition-normal: 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
 }
@@ -101,7 +108,7 @@ ul {
 }
 
 .section-dark {
-    background-color: var(--navy-blue-dark);
+    background-color: var(--glaz);
     color: var(--white);
 }
 
@@ -147,36 +154,35 @@ ul {
 }
 
 .btn-primary {
-    background-color: var(--navy-blue);
+    background-color: var(--cyan);
     color: var(--white);
 }
 
 .btn-primary:hover {
-    background-color: var(--gold);
-    color: var(--navy-blue-dark);
+    background-color: var(--cyan-dark);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
 }
 
 .btn-secondary {
-    background-color: var(--gold);
-    color: var(--navy-blue-dark);
+    background-color: var(--grey-light);
+    color: var(--glaz-dark);
 }
 
 .btn-secondary:hover {
-    background-color: var(--gold-light);
+    background-color: var(--white);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(212, 175, 55, 0.4);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .btn-outline {
     background-color: transparent;
-    border: 1px solid var(--navy-blue);
-    color: var(--navy-blue);
+    border: 1px solid var(--glaz);
+    color: var(--glaz);
 }
 
 .btn-outline:hover {
-    background-color: var(--navy-blue);
+    background-color: var(--glaz);
     color: var(--white);
 }
 
@@ -187,7 +193,7 @@ ul {
 
 .btn-outline.light:hover {
     background-color: var(--white);
-    color: var(--navy-blue);
+    color: var(--glaz);
 }
 
 .btn-large {
@@ -265,7 +271,7 @@ ul {
 }
 
 .navbar.scrolled .nav-links a {
-    color: var(--navy-blue);
+    color: var(--glaz);
 }
 
 .nav-links a::after {
@@ -275,7 +281,7 @@ ul {
     left: 0;
     width: 0;
     height: 2px;
-    background-color: var(--gold);
+    background-color: var(--cyan);
     transition: var(--transition-normal);
 }
 
@@ -295,12 +301,12 @@ ul {
 }
 
 .navbar.scrolled .btn-outline {
-    border-color: var(--navy-blue);
-    color: var(--navy-blue);
+    border-color: var(--glaz);
+    color: var(--glaz);
 }
 
 .navbar.scrolled .btn-outline:hover {
-    background-color: var(--navy-blue);
+    background-color: var(--glaz);
     color: var(--white);
 }
 
@@ -314,7 +320,7 @@ ul {
 }
 
 .navbar.scrolled .menu-toggle {
-    color: var(--navy-blue);
+    color: var(--glaz);
 }
 
 /* ================= Mobile Menu ================= */
@@ -324,7 +330,7 @@ ul {
     right: -100%;
     width: 100%;
     height: 100vh;
-    background-color: var(--navy-blue);
+    background-color: var(--glaz);
     z-index: 2000;
     transition: 0.4s ease-in-out;
     display: flex;
@@ -374,20 +380,17 @@ ul {
     min-height: 800px;
     display: flex;
     align-items: center;
-    background-color: var(--navy-blue-dark);
-    background-image: url('images/Le_rest.png');
+    background-color: #dddddd;
+    /* Set dynamic scrolling for the title, keeping image fixed */
+    background-attachment: fixed;
+    background-image: url('images/Photo_libre_droits/Photo de Pedro Lastra sur Unsplash-pedro-lastra-5g8dJvtYRYA-unsplash.jpg');
     background-size: cover;
     background-position: center;
     padding-top: 5rem;
 }
 
 .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(26, 43, 76, 0.9) 0%, rgba(26, 43, 76, 0.5) 100%);
+    display: none; /* Removed as requested: NO dark overlays */
 }
 
 .hero-content {
@@ -398,6 +401,8 @@ ul {
     margin-right: auto;
     text-align: center;
     color: var(--white);
+    /* Add text-shadow so text is readable without overlay */
+    text-shadow: var(--shadow-text);
 }
 
 .hero-subtitle {
@@ -405,7 +410,8 @@ ul {
     font-weight: 500;
     letter-spacing: 2px;
     text-transform: uppercase;
-    color: var(--gold);
+    color: var(--white);
+    text-shadow: var(--shadow-text);
     margin-bottom: 1rem;
     animation: fadeInUp 0.8s ease forwards;
     opacity: 0;
@@ -416,15 +422,17 @@ ul {
     line-height: 1.1;
     margin-bottom: 1.5rem;
     color: var(--white);
+    text-shadow: var(--shadow-text);
     animation: fadeInUp 0.8s ease 0.2s forwards;
     opacity: 0;
 }
 
 .hero-description {
     font-size: 1.25rem;
-    font-weight: 300;
+    font-weight: 600; /* Bolder due to lack of overlay */
     margin-bottom: 3rem;
-    color: rgba(255, 255, 255, 0.9);
+    color: var(--white);
+    text-shadow: var(--shadow-text);
     animation: fadeInUp 0.8s ease 0.4s forwards;
     opacity: 0;
 }
@@ -450,22 +458,19 @@ ul {
     text-align: center;
     padding-top: 5rem;
     /* Account for navbar */
+    background-attachment: fixed; /* Keep consistency */
 }
 
 .page-banner::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(to right, rgba(26, 43, 76, 0.9) 0%, rgba(26, 43, 76, 0.5) 100%);
+    display: none; /* NO overlay */
 }
 
 .page-banner-content {
     position: relative;
     z-index: 10;
     color: var(--white);
+    text-shadow: var(--shadow-text);
+    font-weight: 600;
     max-width: 800px;
     margin: 0 auto;
 }
@@ -520,7 +525,7 @@ ul {
 .booking-field label {
     font-size: 0.875rem;
     font-weight: 600;
-    color: var(--navy-blue);
+    color: var(--glaz);
     margin-bottom: 0.5rem;
     display: flex;
     align-items: center;
@@ -531,7 +536,7 @@ ul {
 .booking-field input {
     width: 100%;
     border: none;
-    border-bottom: 1px solid var(--slate-grey);
+    border-bottom: 1px solid var(--grey);
     background: transparent;
     padding: 0.5rem 0;
     font-family: var(--font-body);
@@ -543,7 +548,7 @@ ul {
 
 .booking-field select:focus,
 .booking-field input:focus {
-    border-bottom-color: var(--gold);
+    border-bottom-color: var(--cyan);
 }
 
 .booking-submit {
@@ -577,25 +582,26 @@ ul {
     transform: translateY(-10px);
     box-shadow: var(--shadow-md);
     background: var(--white);
+    border-color: var(--cyan);
 }
 
 .service-icon {
     width: 80px;
     height: 80px;
-    background-color: var(--slate-light);
+    background-color: var(--grey-light);
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     margin: 0 auto 1.5rem auto;
-    color: var(--navy-blue);
+    color: var(--glaz);
     font-size: 2rem;
     transition: var(--transition-normal);
 }
 
 .service-card:hover .service-icon {
-    background-color: var(--navy-blue);
-    color: var(--gold);
+    background-color: var(--cyan);
+    color: var(--white);
 }
 
 .service-title {
@@ -614,7 +620,7 @@ ul {
     justify-content: center;
     gap: 0.5rem;
     font-weight: 600;
-    color: var(--gold-dark);
+    color: var(--cyan-dark);
 }
 
 .service-link i {
@@ -661,7 +667,7 @@ ul {
 
 .property-image {
     height: 250px;
-    background-color: var(--slate-grey);
+    background-color: var(--grey-light);
     position: relative;
     background-size: cover;
     background-position: center;
@@ -674,32 +680,32 @@ ul {
 
 /* Hero Background (Placeholder generated by UI tool) */
 .hero-placeholder {
-    background-image: linear-gradient(rgba(26, 43, 76, 0.4), rgba(26, 43, 76, 0.6)), url('images/hero_breizh_manor_1772298469242.png');
+    background-image: url('images/hero_breizh_manor_1772298469242.png');
     background-size: cover;
     background-position: center;
 }
 
 /* Property Placholders generated by UI Tool */
 .placeholder-img-1 {
-    background-image: url('images/Kerollivier.jpg');
+    background-image: url('images/Photos principales/Conciergerie Guingamp Manoir Toul An Golet 2.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .placeholder-img-2 {
-    background-image: url('images/StGuy.jpg');
+    background-image: url('images/Photos principales/Conciergerie Guingamp Marques Pommerit le Vicomte 12.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .placeholder-img-3 {
-    background-image: url('images/MaieBail.jpg');
+    background-image: url('images/Photos principales/IMG_6508 copie.jpg');
     background-size: cover;
     background-position: center;
 }
 
 .placeholder-img-4 {
-    background-image: url('images/Pont Dorniol.jpg');
+    background-image: url('images/Photos principales/01072022-IMG_0697.jpg');
     background-size: cover;
     background-position: center;
 }
@@ -733,8 +739,8 @@ ul {
 }
 
 .badge-primary {
-    background-color: var(--gold);
-    color: var(--navy-blue-dark);
+    background-color: var(--cyan);
+    color: var(--white);
 }
 
 .property-content {
@@ -758,7 +764,7 @@ ul {
 .property-card .property-title {
     font-size: 1.25rem;
     margin-bottom: 0;
-    color: var(--navy-blue) !important;
+    color: var(--glaz) !important;
 }
 
 .property-rating {
@@ -769,7 +775,7 @@ ul {
 }
 
 .property-rating i {
-    color: var(--gold);
+    color: var(--cyan);
 }
 
 .property-location {

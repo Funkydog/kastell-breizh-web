@@ -391,33 +391,34 @@
 }
 
 .map-price-pill {
-    background-color: var(--navy-blue);
-    color: white;
-    font-family: 'Inter', sans-serif;
-    font-size: 13px;
+    background-color: var(--glaz);
+    color: var(--white);
+    font-family: var(--font-body);
+    font-size: 15px;
     font-weight: 700;
-    padding: 6px 14px;
+    padding: 8px 16px;
     border-radius: 20px;
     white-space: nowrap;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.25);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
     transition: all 0.2s ease;
     cursor: pointer;
-    border: 2px solid transparent;
+    border: 2px solid var(--white);
     display: inline-block;
-    letter-spacing: 0.2px;
+    letter-spacing: 0.5px;
 }
 
 .map-price-pill:hover {
     transform: scale(1.08);
-    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.3);
+    background-color: var(--cyan-dark);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.4);
 }
 
 .map-price-pill.active {
-    background-color: white;
-    color: var(--navy-blue);
-    border-color: var(--navy-blue);
+    background-color: var(--cyan);
+    color: var(--white);
+    border-color: var(--white);
     transform: scale(1.1);
-    box-shadow: 0 4px 20px rgba(26, 43, 76, 0.35);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
     z-index: 1000;
 }
 

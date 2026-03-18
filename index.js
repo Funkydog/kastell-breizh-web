@@ -29,7 +29,7 @@ window.addEventListener('scroll', () => {
     }
 });
 
-// Booking widget — redirect to booking.html with URL params
+// Booking widget — redirect to property-detail.html with URL params
 const bookingForm = document.getElementById('reservation');
 if (bookingForm) {
     const bookingSubmit = document.getElementById('booking-widget-submit') || bookingForm.querySelector('.booking-submit');
@@ -57,7 +57,7 @@ if (bookingForm) {
             if (checkOut) params.set('checkout', checkOut);
             if (guests) params.set('guests', guests);
 
-            const bookingUrl = 'booking.html' + (params.toString() ? '?' + params.toString() : '');
+            const bookingUrl = 'property-detail.html' + (params.toString() ? '?' + params.toString() : '');
 
             // Loading animation then redirect
             const originalText = bookingSubmit.innerHTML;

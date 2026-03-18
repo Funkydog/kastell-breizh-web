@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Détails de la propriété | Kastell Breizh</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="index.css">
+    <style>
+        .detail-page {
+            background-color: var(--white);
+            padding-top: 6rem;
+            color: var(--text-main);
+        }
+
+        .property-header {
+            margin-bottom: 2rem;
+        }
+
+        .property-title {
+            font-size: 2.5rem;
+            color: var(--glaz);
+            margin-bottom: 0.5rem;
+        }
+
+        .property-meta {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            color: var(--text-muted);
+            font-size: 1rem;
+            font-weight: 500;
+        }
+
+        .property-meta i {
+            color: var(--cyan);
+        }
+
+        /* --- Photo Mosaic (Airbnb Style) --- */
+        .photo-mosaic {
+            display: grid;
+            grid-template-columns: 2fr 1fr 1fr;
+            grid-template-rows: 250px 250px;
+            gap: 10px;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            margin-bottom: 3rem;
+            position: relative;
+        }
+
+        .photo-mosaic img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: var(--transition-normal);
+            cursor: pointer;
+        }
+
+        .photo-mosaic img:hover {
+            filter: brightness(0.9);
+        }
+
+        .mosaic-main {
+            grid-column: 1 / 2;
+            grid-row: 1 / 3;
+        }
+
+        .show-all-btn {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            background: var(--white);
+            border: 1px solid var(--grey-dark);
+            padding: 0.5rem 1rem;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-fast);
+        }
+
+        .show-all-btn:hover {
+            background: var(--grey-light);
+        }
+
+        /* --- Main Content Layout --- */
+        .content-grid {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 4rem;
+            margin-bottom: 4rem;
+        }
+
+        .overview-badges {
+            display: flex;
+            gap: 2rem;
+            padding: 1.5rem 0;
+            border-top: 1px solid var(--grey-light);
+            border-bottom: 1px solid var(--grey-light);
+            margin-bottom: 2rem;
+        }
+
+        .badge-item {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-weight: 500;
+        }
+
+        .badge-item i {
+            font-size: 1.25rem;
+            color: var(--glaz);
+        }
+
+        .description {
+            font-size: 1.05rem;
+            line-height: 1.8;
+            color: var(--text-main);
+            margin-bottom: 3rem;
+        }
+
+        .section-title-small {
+            font-size: 1.5rem;
+            color: var(--glaz);
+            margin-bottom: 1.5rem;
+        }
+
+        /* --- Amenities --- */
+        .amenities-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 3rem;
+        }
+
+        .amenity-item {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            font-size: 1rem;
+            color: var(--text-main);
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid var(--off-white);
+        }
+
+        .amenity-item i {
+            width: 24px;
+            text-align: center;
+            color: var(--cyan-dark);
+            font-size: 1.25rem;
+        }
+
+        /* --- About Hosts --- */
+        .host-block {
+            background: var(--slate-light);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            display: flex;
+            gap: 2rem;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+        }
+
+        .host-photo {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 3px solid var(--white);
+            box-shadow: var(--shadow-sm);
+            flex-shrink: 0;
+        }
+
+        .host-info h4 {
+            font-size: 1.25rem;
+            color: var(--glaz);
+            margin-bottom: 0.5rem;
+        }
+        
+        .host-info p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+            line-height: 1.6;
+        }
+
+        /* --- Sticky Booking Widget --- */
+        .booking-sidebar {
+            position: sticky;
+            top: 100px;
+            background: var(--white);
+            border: 1px solid var(--grey-light);
+            border-radius: var(--border-radius-lg);
+            padding: 2rem;
+            box-shadow: var(--shadow-md);
+        }
+
+        .booking-price {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--glaz);
+            margin-bottom: 1.5rem;
+        }
+        
+        .booking-price span {
+            font-size: 1rem;
+            font-weight: 400;
+            color: var(--text-muted);
+        }
+
+        .booking-form .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .booking-form label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            color: var(--text-muted);
+        }
+
+        .booking-form input, .booking-form select, .booking-form textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--grey);
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-body);
+            background: var(--off-white);
+            box-sizing: border-box;
+        }
+        
+        .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus {
+            outline: none;
+            border-color: var(--cyan);
+            background: var(--white);
+        }
+
+        .extra-services {
+            background: var(--slate-light);
+            padding: 1rem;
+            border-radius: var(--border-radius-md);
+            margin: 1.5rem 0;
+        }
+
+        .extra-services h4 {
+            font-size: 0.9rem;
+            margin-bottom: 0.75rem;
+            color: var(--glaz);
+        }
+
+        .service-checkbox {
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+
+        .service-checkbox input {
+            width: auto;
+            margin-top: 0.2rem;
+            accent-color: var(--cyan);
+        }
+
+        .btn-reserve {
+            width: 100%;
+            padding: 1rem;
+            font-size: 1.1rem;
+            background-color: var(--cyan);
+            color: var(--white);
+            border: none;
+            border-radius: var(--border-radius-md);
+            font-weight: 600;
+            cursor: pointer;
+            transition: var(--transition-fast);
+        }
+
+        .btn-reserve:hover {
+            background-color: var(--cyan-dark);
+            box-shadow: var(--shadow-md);
+        }
+
+        @media (max-width: 1024px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .photo-mosaic {
+                grid-template-rows: 200px 200px;
+            }
+            .booking-sidebar {
+                position: static;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .photo-mosaic {
+                grid-template-columns: 1fr;
+                grid-template-rows: 300px;
+            }
+            .photo-mosaic img:not(.mosaic-main) {
+                display: none;
+            }
+            .amenities-grid {
+                grid-template-columns: 1fr;
+            }
+            .overview-badges {
+                flex-wrap: wrap;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body class="detail-page">
+
+    <!-- Navbar -->
+    <header class="navbar scrolled" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="properties.html" style="color: var(--cyan-dark); font-weight: 600;">Trouver votre séjour</a>
+                <a href="confier.html">Confier votre bien</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Espace Propriétaire</a>
+                <a href="#booking" class="btn btn-primary">Réserver</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="container" style="padding-bottom: 5rem;">
+        
+        <div class="property-header">
+            <h1 class="property-title">Manoir de Kerollivier</h1>
+            <div class="property-meta">
+                <span><i class="fas fa-star"></i> 4.96 · 48 avis</span>
+                <span><i class="fas fa-medal"></i> Superhôte</span>
+                <span><i class="fas fa-map-marker-alt"></i> Saint-Gilles-Pligeaux, Bretagne, France</span>
+            </div>
+        </div>
+
+        <!-- Photo Mosaic -->
+        <div class="photo-mosaic">
+            <img src="images/Kerollivier.jpg" alt="Manoir extérieur" class="mosaic-main">
+            <img src="images/Photo_libre_droits/the-living-room-with-a-tv-in-a-beautiful-house.jpg" alt="Salon intérieur">
+            <img src="images/Photo_libre_droits/empty-white-room-with-window.jpg" alt="Chambre principale">
+            <img src="images/Photo_libre_droits/modern-bathroom.jpg" alt="Salle de bain">
+            <img src="images/Photo_libre_droits/beautiful-house-interior.jpg" alt="Cuisine">
+            <button class="show-all-btn"><i class="fas fa-th"></i> Afficher toutes les photos</button>
+        </div>
+
+        <div class="content-grid">
+            <!-- Left Info -->
+            <div class="property-info">
+                
+                <h2 class="section-title-small">Demeure entière · Hébergé par Kastell Breizh</h2>
+                <div class="overview-badges">
+                    <div class="badge-item"><i class="fas fa-user-friends"></i> 6 voyageurs</div>
+                    <div class="badge-item"><i class="fas fa-bed"></i> 3 chambres</div>
+                    <div class="badge-item"><i class="fas fa-bath"></i> 2 salles de bain</div>
+                    <div class="badge-item"><i class="fas fa-wifi"></i> WiFi Rapide</div>
+                </div>
+
+                <div class="description">
+                    <p>Manoir du XVIIIe siècle niché dans un écrin de verdure, avec un charme breton authentique. Composé de pierres apparentes, de cheminées d'époque et d'un grand parc arboré, c'est l'endroit idéal pour se ressourcer en famille ou entre amis au calme absolu, à seulement 10 minutes de Guingamp.</p>
+                    <p><br>L'intérieur a été entièrement rénové pour offrir tout le confort moderne sans dénaturer l'histoire des lieux. Vous profiterez d'un grand salon lumineux, d'une cuisine entièrement équipée ouvrant sur la terrasse, et de literies de qualité hôtelière.</p>
+                </div>
+
+                <h2 class="section-title-small">Ce que propose ce logement</h2>
+                <div class="amenities-grid">
+                    <div class="amenity-item"><i class="fas fa-wifi"></i> Connexion Wi-Fi rapide</div>
+                    <div class="amenity-item"><i class="fas fa-parking"></i> Parking gratuit sur place</div>
+                    <div class="amenity-item"><i class="fas fa-tv"></i> Télévision avec Netflix</div>
+                    <div class="amenity-item"><i class="fas fa-fire"></i> Cheminée intérieure</div>
+                    <div class="amenity-item"><i class="fas fa-utensils"></i> Cuisine suréquipée</div>
+                    <div class="amenity-item"><i class="fas fa-tshirt"></i> Lave-linge & Sèche-linge</div>
+                    <div class="amenity-item"><i class="fas fa-baby-carriage"></i> Équipements bébé (sur dmd)</div>
+                    <div class="amenity-item"><i class="fas fa-tree"></i> Grand jardin privé</div>
+                </div>
+
+                <h2 class="section-title-small">À propos de l'hôte</h2>
+                <div class="host-block">
+                    <img src="images/Logo/Logo 1.png" alt="Kastell Breizh" class="host-photo" style="background:#000; padding:10px;">
+                    <div class="host-info">
+                        <h4>Kastell Breizh Conciergerie</h4>
+                        <p>Kastell Breizh est une conciergerie privée locale dédiée à l'excellence. Nous gérons des demeures de charme et de caractère sur le territoire de Guingamp et du littoral. Notre équipe locale est disponible 24/7 pour s'assurer que votre séjour soit inoubliable, de votre arrivée parfaitement préparée jusqu'à la recommandation des meilleures adresses secrètes de la région.</p>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- Right Booking Form (Sticky) -->
+            <div class="booking-wrapper" id="booking">
+                <div class="booking-sidebar">
+                    <div class="booking-price">185€ <span>/ nuit</span></div>
+                    
+                    <form class="booking-form" onsubmit="event.preventDefault(); alert('Demande de réservation envoyée ! Un membre de la Kastell Team vous contactera dans les plus brefs délais.'); window.location.href='index.html';">
+                        
+                        <div style="display: flex; gap: 1rem;">
+                            <div class="form-group" style="flex:1;">
+                                <label>Arrivée</label>
+                                <input type="date" required>
+                            </div>
+                            <div class="form-group" style="flex:1;">
+                                <label>Départ</label>
+                                <input type="date" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Voyageurs</label>
+                            <select required>
+                                <option>1 voyageur</option>
+                                <option>2 voyageurs</option>
+                                <option>3 voyageurs</option>
+                                <option>4 voyageurs</option>
+                                <option>5 voyageurs</option>
+                                <option>6 voyageurs</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Vos coordonnées *</label>
+                            <input type="text" placeholder="Prénom et Nom" required style="margin-bottom: 0.5rem;">
+                            <input type="email" placeholder="Adresse email" required style="margin-bottom: 0.5rem;">
+                            <input type="tel" placeholder="Numéro de téléphone" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Heure d'arrivée prévue (Optionnel)</label>
+                            <input type="time" placeholder="E.g., 17:00">
+                        </div>
+
+                        <div class="extra-services">
+                            <h4>Services Extra (Optionnels)</h4>
+                            <label class="service-checkbox">
+                                <input type="checkbox"> 
+                                <span><strong>Panier d'accueil Breton</strong> (+35€)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Cidre artisanal, galettes, caramel beurre salé.</span></span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox"> 
+                                <span><strong>Frigo plein à l'arrivée</strong> (+50€ + courses)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Vos courses locales pré-rangées.</span></span>
+                            </label>
+                            <label class="service-checkbox">
+                                <input type="checkbox"> 
+                                <span><strong>Kit bébé confort</strong> (Gratuit)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Lit parapluie, chaise haute, baignoire.</span></span>
+                            </label>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Demandes spéciales</label>
+                            <textarea rows="2" placeholder="Anniversaire, demande en mariage, allergies..."></textarea>
+                        </div>
+
+                        <button type="submit" class="btn-reserve">Demander une réservation</button>
+                        <p style="text-align: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.85rem;">Aucun montant ne vous sera débité pour le moment.</p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kastell Breizh Conciergerie. Tous droits réservés.</p>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>

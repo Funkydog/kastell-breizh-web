@@ -1171,6 +1171,15 @@
 .mini-map-gmaps-btn:hover i { color: white; }
 
 /* ─── Leaflet custom KB marker ─── */
+#booking-mini-map {
+    height: 300px;
+    width: 100%;
+    border-radius: var(--border-radius-md);
+    background: #e8edf2;
+    margin-bottom: 1rem;
+    z-index: 1;
+}
+
 .kb-map-marker {
     background: none !important;
     border: none !important;
