@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Equipe conciergerie Bretagne | Kastell Breizh</title>
+    <meta name="description"
+        content="Une equipe passionnee par les biens de caractere et le service sur mesure en Bretagne. Expertise, proximite et exigence.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* Team Page Specific Styles */
+        .team-hero {
+            position: relative;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            background-image: url('images/Photo_libre_droits/Photo de Alex sur Unsplash-alex-UleigwfztOg-unsplash.jpg');
+            background-size: cover;
+            background-position: center;
+            padding-top: 6rem;
+        }
+
+        .team-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(90, 125, 155, 0.7);
+        }
+
+        .team-hero-content {
+            position: relative;
+            z-index: 10;
+            color: var(--white);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .team-hero-content h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .team-hero-content p {
+            font-size: 1.25rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .vision-section {
+            background: var(--white);
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .vision-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-top: 3rem;
+        }
+
+        .vision-item {
+            padding: 2rem;
+        }
+
+        .vision-item i {
+            font-size: 2.5rem;
+            color: var(--button);
+            margin-bottom: 1rem;
+        }
+
+        .vision-item h3 {
+            color: var(--primary-bg);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-intro {
+            background: var(--off-white);
+            padding: 5rem 0;
+        }
+
+        .team-intro-content {
+            max-width: 900px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .team-intro-content p {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+            color: var(--text-muted);
+        }
+
+        .founders-section {
+            background: var(--white);
+            padding: 5rem 0;
+        }
+
+        .founders-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .founder-card {
+            background: var(--off-white);
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .founder-image {
+            height: 350px;
+            background-size: cover;
+            background-position: center;
+            position: relative;
+        }
+
+        .founder-image.anne-marie {
+            background-image: url('images/Photos team/Photo_anne_marie.jpg');
+        }
+
+        .founder-image.romuald {
+            background-image: url('images/Photos team/Photo_romuald.jpg');
+        }
+
+        .founder-image::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: linear-gradient(to top, rgba(90, 125, 155, 0.8), transparent);
+        }
+
+        .founder-content {
+            padding: 2rem;
+        }
+
+        .founder-content h3 {
+            color: var(--primary-bg);
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .founder-role {
+            color: var(--button);
+            font-weight: 600;
+            margin-bottom: 1rem;
+        }
+
+        .founder-content p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            font-size: 0.95rem;
+        }
+
+        .team-section {
+            background: var(--off-white);
+            padding: 5rem 0;
+        }
+
+        .team-section h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-bg);
+        }
+
+        .team-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+        }
+
+        .team-card {
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            padding: 2rem;
+            text-align: center;
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+        }
+
+        .team-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .team-avatar {
+            width: 100px;
+            height: 100px;
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary) 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.5rem;
+            font-size: 2.5rem;
+            color: var(--white);
+        }
+
+        .team-card h3 {
+            color: var(--primary-bg);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .team-role {
+            color: var(--button);
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 1rem;
+        }
+
+        .team-card p {
+            color: var(--text-muted);
+            font-size: 0.9rem;
+            line-height: 1.6;
+        }
+
+        .expertise-list {
+            background: var(--white);
+            padding: 5rem 0;
+        }
+
+        .expertise-content {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .expertise-content h2 {
+            text-align: center;
+            margin-bottom: 3rem;
+            color: var(--primary-bg);
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .expertise-card {
+            background: var(--white);
+            padding: 2rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+            transition: var(--transition-normal);
+            display: flex;
+            align-items: flex-start;
+            gap: 1.25rem;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-5px);
+            box-shadow: var(--shadow-md);
+        }
+
+        .expertise-icon {
+            width: 50px;
+            height: 50px;
+            background: var(--primary-bg);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            color: var(--white);
+            font-size: 1.25rem;
+        }
+
+        .expertise-content p {
+            color: var(--text-muted);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .closing-section {
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 5rem 0;
+            text-align: center;
+        }
+
+        .closing-section h2 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+        }
+
+        .closing-section p {
+            font-size: 1.1rem;
+            max-width: 700px;
+            margin: 0 auto 2rem;
+            opacity: 0.95;
+        }
+
+        @media (max-width: 768px) {
+            .founders-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .team-hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="nos-services.html">Nos services</a>
+                <a href="notre-equipe.html" class="active">Notre equipe</a>
+                <a href="properties.html">Nos logements</a>
+                <a href="places.html">La region</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contactez nous</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Espace proprietaire</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="close-menu" id="close-menu-btn" aria-label="Fermer le menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="mobile-nav-links">
+                <a href="index.html" class="mobile-link">Accueil</a>
+                <a href="nos-services.html" class="mobile-link">Nos services</a>
+                <a href="notre-equipe.html" class="mobile-link">Notre equipe</a>
+                <a href="properties.html" class="mobile-link">Nos logements</a>
+                <a href="places.html" class="mobile-link">La region</a>
+                <a href="faq.html" class="mobile-link">FAQ</a>
+                <a href="contact.html" class="mobile-link">Contactez nous</a>
+                <a href="login.html" class="mobile-link">Espace proprietaire</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="team-hero">
+        <div class="container team-hero-content">
+            <h1>Une equipe engagee</h1>
+            <p>Kastell Breizh Conciergerie repose sur une equipe passionnee par le patrimoine, l'accueil et le service.</p>
+        </div>
+    </section>
+
+    <!-- Vision Section -->
+    <section class="vision-section">
+        <div class="container">
+            <h2 style="color: var(--primary-bg); margin-bottom: 1rem;">Notre vision</h2>
+            <p style="color: var(--text-muted); font-size: 1.1rem; max-width: 700px; margin: 0 auto;">Allier exigence
+                professionnelle et approche humaine, pour offrir un accompagnement fiable, efficace et personnalise.</p>
+
+            <div class="vision-grid">
+                <div class="vision-item">
+                    <i class="fas fa-map-marker-alt"></i>
+                    <h3>Proximite</h3>
+                </div>
+                <div class="vision-item">
+                    <i class="fas fa-bolt"></i>
+                    <h3>Reactivite</h3>
+                </div>
+                <div class="vision-item">
+                    <i class="fas fa-user-secret"></i>
+                    <h3>Discretion</h3>
+                </div>
+                <div class="vision-item">
+                    <i class="fas fa-search"></i>
+                    <h3>Sens du detail</h3>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section class="expertise-list">
+        <div class="container">
+            <div class="expertise-content">
+                <h2>Notre expertise a votre service</h2>
+
+                <div class="expertise-grid">
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-quote-left"></i></div>
+                        <div class="expertise-content">
+                            <p>Les equipes de Kastell Breizh Conciergerie ont l'expertise dont vous avez besoin, du conseil lorsqu'un
+                                projet de vente ou d'acquisition nait, a la gestion des locations de meubles touristiques. <strong>Champs d'action :</strong> Pays de
+                                Guingamp, Tregor et Cotes d'Armor.</p>
+                        </div>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-home"></i></div>
+                        <div class="expertise-content">
+                            <p>Des experts et agents commerciaux, specialises dans l'immobilier de caractere et de charme, qui vous
+                                accompagnent jusqu'a la signature.</p>
+                        </div>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-paint-roller"></i></div>
+                        <div class="expertise-content">
+                            <p>Des conseillers pour votre projet de renovation avec ou sans projet de mise en location.</p>
+                        </div>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="expertise-content">
+                            <p>Des specialistes pour vous aider dans vos choix autour d'un projet de creation de location touristique
+                                ou d'evenementiel.</p>
+                        </div>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-tools"></i></div>
+                        <div class="expertise-content">
+                            <p>Des techniciens pour assurer le suivi de vos travaux et l'entretien de votre bien. La pierre, le patrimoine,
+                                l'authenticite, le caractere et le charme sont nos passions.</p>
+                        </div>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-laptop"></i></div>
+                        <div class="expertise-content">
+                            <p>Des assistants pour mettre vos gites en ligne, valoriser vos locations, optimiser vos annonces, gerer vos
+                                calendriers et assurer l'accueil de vos voyageurs.</p>
+                        </div>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-hands"></i></div>
+                        <div class="expertise-content">
+                            <p>Des petites mains pour embellir, amenager, ameliorer, ranger, nettoyer, preparer vos maisons qu'elles soient
+                                modestes, surprenantes ou emblematiques.</p>
+                        </div>
+                    </div>
+
+                    <div class="expertise-card">
+                        <div class="expertise-icon"><i class="fas fa-compass"></i></div>
+                        <div class="expertise-content">
+                            <p>Des conseillers pour organiser vos sejours au mieux dans une region qu'ils connaissent pour y vivre. Du Tregor
+                                au Kreiz Breizh, le Centre de la Bretagne, le lac de Guerledan et surtout le Pays de Guingamp.</p>
+                        </div>
+                    </div>
+
+                    <div class="expertise-card" style="grid-column: 1 / -1; background: var(--primary-bg); color: var(--white);">
+                        <div class="expertise-icon" style="background: var(--white); color: var(--primary-bg);"><i class="fas fa-heart"></i></div>
+                        <div class="expertise-content">
+                            <p style="color: var(--white);">Et tout ca avec empathie, disponibilite, efficacite, adaptabilite, serieux et fiabilite pour votre tranquillite
+                                et celle des voyageurs qui passeront chez nous.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Founders Section -->
+    <section class="founders-section">
+        <div class="container">
+            <div class="section-header" style="text-align: center; margin-bottom: 3rem;">
+                <h2 class="section-title" style="color: var(--primary-bg);">Les fondateurs</h2>
+                <p class="section-subtitle">Anne-Marie et Romuald possedent tous deux une expertise dans le domaine de
+                    l'immobilier de prestige, passionnes de patrimoine et d'histoire, avec un amour pour la Bretagne.</p>
+            </div>
+
+            <div class="founders-grid">
+                <div class="founder-card">
+                    <div class="founder-image anne-marie"></div>
+                    <div class="founder-content">
+                        <h3>Anne-Marie</h3>
+                        <p class="founder-role">Co-fondatrice</p>
+                        <p>Specialiste de l'hospitalite, possede un talent inne pour creer des experiences uniques et
+                            sur mesure. Biculturelle franco-norvegienne, elle a traverse une variete de metiers au cours
+                            de ces 30 annees, creant une experience unique mise a votre service.</p>
+                        <p style="margin-top: 1rem;">Avec 10 ans dans l'hotellerie haut de gamme, suivis d'une decennie a
+                            organiser des voyages sur mesure pour des milliers de voyageurs, Anne-Marie a ensuite
+                            consacre sa passion du patrimoine breton construit en pierre de pays par nos ancetres. Son
+                            empathie, sa fiabilite et son efficacite sont a votre service pour garantir votre succes.</p>
+                    </div>
+                </div>
+
+                <div class="founder-card">
+                    <div class="founder-image romuald"></div>
+                    <div class="founder-content">
+                        <h3>Romuald</h3>
+                        <p class="founder-role">Co-fondateur</p>
+                        <p>Après une carriere remarquable dans le domaine du Ministere de la Defense, a accumule 20 ans
+                            d'experience franco-belge notamment dans le secteur de la surete-securite et de
+                            l'immobilier.</p>
+                        <p style="margin-top: 1rem;">Double depuis 4 ans d'une connaissance approfondie du marche
+                            immobilier local breton, il a su developper un reseau de partenaires fiables. Sa
+                            comprehension approfondie des biens historiques, son amour pour le jardinage, ainsi que de
+                            la preservation du charme authentique des proprietes, tout en repondant aux exigences
+                            pratiques et de confort contemporain, font de lui un atout majeur pour la reussite de votre
+                            projet.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div style="max-width: 800px; margin: 3rem auto 0; text-align: center; padding: 2rem; background: var(--off-white); border-radius: var(--border-radius-md);">
+                <p style="color: var(--text-muted); font-style: italic;">Tous deux sont determines a faire de votre
+                    experience immobiliere un voyage dans le temps, ou la magie du patrimoine breton se marie avec le
+                    luxe et le raffinement du confort moderne.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Team Section -->
+    <section class="team-section">
+        <div class="container">
+            <h2>Ils ont egalement le plaisir de compter parmi eux 4 autres membres essentiels</h2>
+
+            <div class="team-grid">
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Charlene</h3>
+                    <p class="team-role">Decoration & Finitions</p>
+                    <p>Amoureuse des vieilles pierres, elle met son experience en decoration a votre service pour vous
+                        guider dans vos choix d'ambiances. Manuelle et precautionneuse, elle effectue tous les travaux
+                        de finition de votre maison, allant du sol au plafond. Ayant egalement fait des etudes de
+                        tapissiere ameublement, elle saura vous accompagner sur la personnalisation de tous les
+                        textiles. Elle veille attentivement au confort des voyageurs, a la propreté des lieux et a
+                        l'entretien de votre bien.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Johnathan</h3>
+                    <p class="team-role">Connectivite & Electricite</p>
+                    <p>Un anglais pur souche, il a choisi la Bretagne pour y poser ses valises après de nombreuses annees
+                        d'experience en Afrique du Sud ou il a developpe la connectivite des fermes tres isolees. Son
+                        experience est precieuse pour nos biens isoles et ruraux bretons. Suivant de pres ses chantiers,
+                        son efficacite n'a d'egale que sa fiabilite. Ses competences en electricite sont egalement
+                        precieuses.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Anne-Laure</h3>
+                    <p class="team-role">Equipe Kastell Breizh</p>
+                    <p>Membre essentiel de l'equipe completant efficacement les competences necessaires a l'entreprise.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Veronique</h3>
+                    <p class="team-role">Equipe Kastell Breizh</p>
+                    <p>Membre essentiel de l'equipe completant efficacement les competences necessaires a l'entreprise.</p>
+                </div>
+
+                <div class="team-card">
+                    <div class="team-avatar">
+                        <i class="fas fa-user"></i>
+                    </div>
+                    <h3>Ingrid</h3>
+                    <p class="team-role">Equipe Kastell Breizh</p>
+                    <p>Membre essentiel de l'equipe completant efficacement les competences necessaires a l'entreprise.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Closing Section -->
+    <section class="closing-section">
+        <div class="container">
+            <h2>Nous avons hate de vous accueillir</h2>
+            <p>Dans notre univers Kastell Breizh Conciergerie, ou le charme d'antan rencontre l'elegance intemporelle.</p>
+            <a href="contact.html" class="btn btn-secondary btn-large">Contactez-nous</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo light">
+                        <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="logo-img">
+                    </a>
+                    <p class="footer-desc">Votre partenaire de confiance pour la gestion et la valorisation de biens
+                        immobiliers de caractere en Bretagne.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="nos-services.html">Nos services</a></li>
+                        <li><a href="notre-equipe.html">Notre equipe</a></li>
+                        <li><a href="properties.html">Nos logements</a></li>
+                        <li><a href="places.html">La region</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contactez nous</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Services</h4>
+                    <ul>
+                        <li><a href="nos-services.html#services-proprietaires">Proprietaires</a></li>
+                        <li><a href="nos-services.html#services-voyageurs">Voyageurs</a></li>
+                        <li><a href="login.html">Espace proprietaire</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> <a
+                                href="mailto:contact@kastellbreizh.fr">contact@kastellbreizh.fr</a></li>
+                        <li><i class="fas fa-phone"></i> +33 (0)6 51 26 50 93</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Pays de Guingamp, Cotes d'Armor</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kastell Breizh Conciergerie. Tous droits reserves.</p>
+                <div class="legal-links">
+                    <a href="mentions-legales.html">Mentions legales</a>
+                    <a href="cgs.html">CGS</a>
+                    <a href="rgpd.html">RGPD</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+</body>
+
+</html>

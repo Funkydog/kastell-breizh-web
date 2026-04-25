@@ -4,9 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kastell Breizh | Conciergerie Privée et Immobilier de Prestige en Bretagne</title>
+    <title>Conciergerie Bretagne | Biens de caractère & gestion locative – Kastell Breizh</title>
     <meta name="description"
-        content="Kastell Breizh Conciergerie : Votre partenaire de confiance en Bretagne pour la gestion de biens d'exception, locations saisonnières et séjours haut de gamme.">
+        content="Conciergerie privée en Bretagne spécialisée dans les maisons de caractère. Gestion, intendance et séjours sur mesure autour de Guingamp.">
 
     <!-- Google Fonts: Playfair Display (Serif) & Inter (Sans-Serif) -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -32,12 +32,21 @@
             </a>
             <nav class="nav-links">
                 <a href="index.html">Accueil</a>
-                <a href="properties.html">Trouver votre séjour</a>
-                <a href="confier.html">Confier votre bien</a>
+                <div class="nav-dropdown">
+                    <a href="services-proprietaires.html">Nos services</a>
+                    <div class="dropdown-menu">
+                        <a href="services-proprietaires.html">Propriétaires</a>
+                        <a href="services-voyageurs.html">Voyageurs</a>
+                    </div>
+                </div>
+                <a href="notre-equipe.html">Notre équipe</a>
+                <a href="properties.html">Nos logements</a>
+                <a href="places.html">La région</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contactez nous</a>
             </nav>
             <div class="nav-actions">
-                <a href="login.html" class="btn btn-outline light">Espace Propriétaire</a>
-                <a href="#contact" class="btn btn-primary">Contactez-nous</a>
+                <a href="login.html" class="btn btn-outline light">Espace propriétaire</a>
             </div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -53,10 +62,14 @@
             </button>
             <nav class="mobile-nav-links">
                 <a href="index.html" class="mobile-link">Accueil</a>
-                <a href="properties.html" class="mobile-link">Trouver votre séjour</a>
-                <a href="confier.html" class="mobile-link">Confier votre bien</a>
-                <a href="login.html" class="mobile-link">Espace Propriétaire</a>
-                <a href="#contact" class="btn btn-primary">Contactez-nous</a>
+                <a href="services-proprietaires.html" class="mobile-link">Services Propriétaires</a>
+                <a href="services-voyageurs.html" class="mobile-link">Services Voyageurs</a>
+                <a href="notre-equipe.html" class="mobile-link">Notre équipe</a>
+                <a href="properties.html" class="mobile-link">Nos logements</a>
+                <a href="places.html" class="mobile-link">La région</a>
+                <a href="faq.html" class="mobile-link">FAQ</a>
+                <a href="contact.html" class="mobile-link">Contactez nous</a>
+                <a href="login.html" class="mobile-link">Espace propriétaire</a>
             </nav>
         </div>
     </div>
@@ -133,7 +146,7 @@
                     </div>
                     <h3 class="service-title">Propriétaires</h3>
                     <p class="service-desc">Optimisez votre rentabilité en toute sérénité. Gestion dynamique des prix, ménage professionnel de qualité hôtelière, logistique et entretien de vos espaces. Nous gérons tout de A à Z.</p>
-                    <a href="gestion.html" class="service-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+                    <a href="services-proprietaires.html" class="service-link">Découvrir <i class="fas fa-arrow-right"></i></a>
                 </div>
 
                 <!-- Service Voyageurs -->
@@ -143,7 +156,7 @@
                     </div>
                     <h3 class="service-title">Voyageurs</h3>
                     <p class="service-desc">Un séjour hors du temps avec une assistance 24/7. Livret d'accueil personnalisé, recommandations locales et organisation d'expériences sur mesure sur le territoire breton.</p>
-                    <a href="voyageurs.html" class="service-link">Découvrir <i class="fas fa-arrow-right"></i></a>
+                    <a href="services-voyageurs.html" class="service-link">Découvrir <i class="fas fa-arrow-right"></i></a>
                 </div>
             </div>
         </div>
@@ -278,7 +291,8 @@
         </div>
     </section>
 
-    <!-- Comment ça marche -->
+    <!-- [HIDDEN FOR FUTURE VERSION WITH PAYMENT]
+    Comment ça marche - Hidden until payment feature is available
     <section class="how-it-works section">
         <div class="container">
             <div class="section-header">
@@ -332,6 +346,7 @@
             </div>
         </div>
     </section>
+    END HIDDEN SECTION] -->
 
     <!-- Tourisme / Découvrir la Région Section -->
     <section id="tourisme" class="tourism section">
@@ -521,23 +536,24 @@
                 </div>
 
                 <div class="footer-links">
-                    <h4 class="footer-title">Découvrir</h4>
+                    <h4 class="footer-title">Navigation</h4>
                     <ul>
-                        <li><a href="properties.html">Nos demeures sur carte</a></li>
-                        <li><a href="gestion.html">Services Propriétaires</a></li>
-                        <li><a href="voyageurs.html">Services Voyageurs</a></li>
-                        <li><a href="logistique.html">Logistique & Entretien</a></li>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="nos-services.html">Nos services</a></li>
+                        <li><a href="notre-equipe.html">Notre équipe</a></li>
+                        <li><a href="properties.html">Nos logements</a></li>
+                        <li><a href="places.html">La région</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contactez nous</a></li>
                     </ul>
                 </div>
 
                 <div class="footer-links">
-                    <h4 class="footer-title">La Région</h4>
+                    <h4 class="footer-title">Services</h4>
                     <ul>
-                        <li><a href="places.html?cat=gastro">Gastronomie étoilée</a></li>
-                        <li><a href="places.html?cat=heritage">Visites & Patrimoine</a></li>
-                        <li><a href="places.html?cat=nature">Nature & Randonnées</a></li>
-                        <li><a href="places.html?cat=activities">Sports & Activités</a></li>
-                        <li><a href="places.html?cat=circuits">Circuits sur mesure</a></li>
+                        <li><a href="services-proprietaires.html">Propriétaires</a></li>
+                        <li><a href="services-voyageurs.html">Voyageurs</a></li>
+                        <li><a href="login.html">Espace propriétaire</a></li>
                     </ul>
                 </div>
 
@@ -546,18 +562,18 @@
                     <ul>
                         <li><i class="fas fa-envelope"></i> <a
                                 href="mailto:contact@kastellbreizh.fr">contact@kastellbreizh.fr</a></li>
-                        <li><i class="fas fa-map-marker-alt"></i> Opérant en Pays de Guingamp et toute la Bretagne.</li>
+                        <li><i class="fas fa-phone"></i> +33 (0)6 51 26 50 93</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Pays de Guingamp, Côtes d'Armor</li>
                     </ul>
-                    <a href="mailto:contact@kastellbreizh.fr" class="btn btn-primary" style="margin-top: 1rem;">Nous Contacter</a>
                 </div>
             </div>
 
             <div class="footer-bottom">
                 <p>&copy; 2026 Kastell Breizh Conciergerie. Tous droits réservés.</p>
                 <div class="legal-links">
-                    <a href="mailto:contact@kastellbreizh.fr?subject=Mentions légales">Mentions Légales</a>
-                    <a href="https://www.google.com/policies/technologies/cookies/" target="_blank">Politique de
-                        Cookies</a>
+                    <a href="mentions-legales.html">Mentions légales</a>
+                    <a href="cgs.html">CGS</a>
+                    <a href="rgpd.html">RGPD</a>
                 </div>
             </div>
         </div>
