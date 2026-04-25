@@ -321,6 +321,198 @@
         }
         .inline-success i { margin-right: 0.4rem; }
 
+        /* ─── Edit Modal ─── */
+        .modal-overlay {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.6);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+        }
+
+        .modal-overlay.active {
+            display: flex;
+        }
+
+        .modal-container {
+            background: white;
+            border-radius: 16px;
+            width: 100%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            animation: modalSlideIn 0.3s ease;
+        }
+
+        @keyframes modalSlideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .modal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1.25rem 1.5rem;
+            border-bottom: 1px solid #f0f2f5;
+        }
+
+        .modal-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+            color: var(--navy-blue);
+        }
+
+        .modal-close {
+            background: none;
+            border: none;
+            font-size: 1.25rem;
+            color: var(--text-muted);
+            cursor: pointer;
+            padding: 0.5rem;
+            border-radius: 8px;
+            transition: all 0.2s;
+        }
+
+        .modal-close:hover {
+            background: var(--slate-light);
+            color: var(--navy-blue);
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+            overflow-y: auto;
+            max-height: calc(90vh - 140px);
+        }
+
+        .modal-footer {
+            display: flex;
+            justify-content: flex-end;
+            gap: 1rem;
+            padding: 1rem 1.5rem;
+            border-top: 1px solid #f0f2f5;
+            background: #fafbfc;
+        }
+
+        .edit-section {
+            margin-bottom: 1.5rem;
+        }
+
+        .edit-section-title {
+            font-size: 1rem;
+            font-weight: 600;
+            color: var(--navy-blue);
+            margin-bottom: 1rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .edit-section-title i {
+            color: var(--gold-dark);
+        }
+
+        .edit-gallery-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+            gap: 1rem;
+        }
+
+        .edit-gallery-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 8px;
+            overflow: hidden;
+            cursor: pointer;
+        }
+
+        .edit-gallery-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s;
+        }
+
+        .edit-gallery-overlay {
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.5);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .edit-gallery-item:hover .edit-gallery-overlay {
+            opacity: 1;
+        }
+
+        .edit-gallery-overlay button {
+            width: 32px;
+            height: 32px;
+            border-radius: 6px;
+            border: none;
+            background: white;
+            color: var(--navy-blue);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .edit-gallery-overlay button:hover {
+            background: var(--gold);
+        }
+
+        .edit-gallery-add {
+            aspect-ratio: 4/3;
+            border: 2px dashed rgba(0, 0, 0, 0.15);
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            color: var(--text-muted);
+        }
+
+        .edit-gallery-add:hover {
+            border-color: var(--gold);
+            background: rgba(212, 175, 55, 0.05);
+            color: var(--navy-blue);
+        }
+
+        .edit-gallery-add i {
+            font-size: 1.5rem;
+            margin-bottom: 0.25rem;
+        }
+
+        .edit-gallery-add span {
+            font-size: 0.75rem;
+        }
+
+        .edit-hint {
+            font-size: 0.8rem;
+            color: var(--text-muted);
+            margin-top: 0.75rem;
+        }
+
+        .edit-hint i {
+            color: var(--gold-dark);
+            margin-right: 0.25rem;
+        }
+
         /* ─── Responsive ─── */
         @media (max-width: 1100px) {
             .dash-grid-2 { grid-template-columns: 1fr; }
@@ -338,6 +530,46 @@
 </head>
 
 <body>
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="nos-services.html">Nos services</a>
+                <a href="notre-equipe.html">Notre équipe</a>
+                <a href="properties.html">Nos logements</a>
+                <a href="places.html">La région</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contactez nous</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline active">Espace propriétaire</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="close-menu" id="close-menu-btn"><i class="fas fa-times"></i></button>
+            <nav class="mobile-nav-links">
+                <a href="index.html" class="mobile-link">Accueil</a>
+                <a href="nos-services.html" class="mobile-link">Nos services</a>
+                <a href="notre-equipe.html" class="mobile-link">Notre équipe</a>
+                <a href="properties.html" class="mobile-link">Nos logements</a>
+                <a href="places.html" class="mobile-link">La région</a>
+                <a href="faq.html" class="mobile-link">FAQ</a>
+                <a href="contact.html" class="mobile-link">Contactez nous</a>
+                <a href="login.html" class="mobile-link">Espace propriétaire</a>
+            </nav>
+        </div>
+    </div>
+
 <div class="dash-layout">
 
 <!-- ─── Sidebar ─── -->
@@ -694,6 +926,87 @@
         <div class="prop-cards-grid" id="my-properties-grid"></div>
     </section>
 
+    <!-- Property Edit Modal -->
+    <div class="modal-overlay" id="property-edit-modal">
+        <div class="modal-container">
+            <div class="modal-header">
+                <h3><i class="fas fa-edit" style="margin-right:0.5rem;color:var(--gold-dark);"></i>Modifier la propriété</h3>
+                <button class="modal-close" onclick="closePropertyEdit()"><i class="fas fa-times"></i></button>
+            </div>
+            <form class="modal-body" id="edit-property-form" onsubmit="savePropertyEdit(event)">
+                <!-- Photos Section -->
+                <div class="edit-section">
+                    <h4 class="edit-section-title"><i class="fas fa-images"></i> Photos</h4>
+                    <div class="edit-gallery-grid" id="edit-gallery-grid">
+                        <!-- Gallery populated by JS -->
+                    </div>
+                    <input type="file" id="edit-photo-upload" multiple accept="image/*" style="display:none;" onchange="handleEditPhotoUpload(this)">
+                    <p class="edit-hint"><i class="fas fa-info-circle"></i> La première photo sera utilisée comme image principale. Glissez pour réorganiser.</p>
+                </div>
+
+                <!-- Basic Info -->
+                <div class="edit-section">
+                    <h4 class="edit-section-title"><i class="fas fa-info-circle"></i> Informations de base</h4>
+                    <div class="form-grid-2">
+                        <div class="add-form-group">
+                            <label>Nom du bien *</label>
+                            <input type="text" class="add-form-control" id="edit-prop-name" required>
+                        </div>
+                        <div class="add-form-group">
+                            <label>Localisation *</label>
+                            <input type="text" class="add-form-control" id="edit-prop-loc" required>
+                        </div>
+                    </div>
+                    <div class="add-form-group">
+                        <label>Description *</label>
+                        <textarea class="add-form-control" id="edit-prop-desc" rows="3" required></textarea>
+                    </div>
+                </div>
+
+                <!-- Pricing -->
+                <div class="edit-section">
+                    <h4 class="edit-section-title"><i class="fas fa-euro-sign"></i> Tarification</h4>
+                    <div class="form-grid-3">
+                        <div class="add-form-group">
+                            <label>Prix / nuit (€) *</label>
+                            <input type="number" class="add-form-control" id="edit-prop-price" min="1" required>
+                        </div>
+                        <div class="add-form-group">
+                            <label>Frais de ménage (€)</label>
+                            <input type="number" class="add-form-control" id="edit-prop-cleaning" min="0">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Capacity -->
+                <div class="edit-section">
+                    <h4 class="edit-section-title"><i class="fas fa-users"></i> Capacité</h4>
+                    <div class="form-grid-3">
+                        <div class="add-form-group">
+                            <label>Voyageurs max *</label>
+                            <input type="number" class="add-form-control" id="edit-prop-capacity" min="1" required>
+                        </div>
+                        <div class="add-form-group">
+                            <label>Chambres *</label>
+                            <input type="number" class="add-form-control" id="edit-prop-beds" min="1" required>
+                        </div>
+                        <div class="add-form-group">
+                            <label>Salles de bain *</label>
+                            <input type="number" class="add-form-control" id="edit-prop-baths" min="1" required>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-outline" onclick="closePropertyEdit()">Annuler</button>
+                    <button type="submit" class="btn btn-primary">
+                        <i class="fas fa-save"></i> Enregistrer les modifications
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
     <!-- ══════════════ ADD PROPERTY ══════════════ -->
     <section class="dash-section" id="section-add-property">
         <div class="topbar">
@@ -907,9 +1220,29 @@ const FINANCE_DATA = [
 
 const MY_PROPS = [
     { id:'kerollivier', name:'Manoir de Kerollivier', loc:'Saint-Gilles-Pligeaux, Côtes d\'Armor',
-      img:'images/Kerollivier.jpg', status:'published', occupancy:'78%', avgRate:'185€', ytd:'4 820€', next:'22 Mars 2026' },
+      img:'images/properties/kerollivier/01-main.jpg', status:'published', occupancy:'78%', avgRate:'185€', ytd:'4 820€', next:'22 Mars 2026',
+      images: [
+          'images/properties/kerollivier/01-main.jpg',
+          'images/properties/kerollivier/02-exterior.jpg',
+          'images/properties/kerollivier/03-living.jpg',
+          'images/properties/kerollivier/04-bedroom.jpg',
+          'images/properties/kerollivier/05-bathroom.jpg',
+          'images/properties/kerollivier/06-kitchen.jpg'
+      ],
+      description: 'Manoir du XVIIIe siècle niché dans un écrin de verdure, avec un charme breton authentique.',
+      pricePerNight: 185, cleaningFee: 80, capacity: 6, beds: 3, baths: 2 },
     { id:'saint-guy', name:'Le Gîte de Saint Guy', loc:'Gommenec\'h, Côtes d\'Armor',
-      img:'images/StGuy.jpg', status:'published', occupancy:'65%', avgRate:'220€', ytd:'3 330€', next:'28 Mars 2026' },
+      img:'images/properties/saint-guy/01-main.jpg', status:'published', occupancy:'65%', avgRate:'220€', ytd:'3 330€', next:'28 Mars 2026',
+      images: [
+          'images/properties/saint-guy/01-main.jpg',
+          'images/properties/saint-guy/02-exterior.jpg',
+          'images/properties/saint-guy/03-living.jpg',
+          'images/properties/saint-guy/04-bedroom.jpg',
+          'images/properties/saint-guy/05-garden.jpg',
+          'images/properties/saint-guy/06-pool.jpg'
+      ],
+      description: 'Gîte chaleureux et bien équipé au cœur du pays de Guingamp. Piscine privée chauffée.',
+      pricePerNight: 220, cleaningFee: 90, capacity: 6, beds: 3, baths: 2 },
 ];
 
 const ADMIN_PROPS = [
@@ -1060,14 +1393,18 @@ function renderFinance() {
 // ─────────────────────────────────────
 function renderMyProperties() {
     const grid = document.getElementById('my-properties-grid');
-    grid.innerHTML = MY_PROPS.map(p => `
-        <div class="prop-dash-card">
+    grid.innerHTML = MY_PROPS.map((p, idx) => `
+        <div class="prop-dash-card" data-prop-id="${p.id}">
             <div class="prop-dash-img">
                 <img src="${p.img}" alt="${p.name}" loading="lazy">
                 <span class="badge ${p.status === 'published' ? 'badge-published' : 'badge-review'}"
                     style="position:absolute;top:0.75rem;left:0.75rem;">
                     ${p.status === 'published' ? 'Publié' : 'En révision'}
                 </span>
+                <button class="btn-sm-icon" style="position:absolute;top:0.75rem;right:0.75rem;background:white;"
+                    onclick="openPropertyEdit(${idx})" title="Gérer les photos et détails">
+                    <i class="fas fa-edit"></i>
+                </button>
             </div>
             <div class="prop-dash-body">
                 <h3 class="prop-dash-name">${p.name}</h3>
@@ -1090,9 +1427,12 @@ function renderMyProperties() {
                     <button class="btn btn-outline btn-sm" onclick="switchSection('reservations')">
                         <i class="fas fa-calendar"></i> Réservations
                     </button>
-                    <a href="properties.html" class="btn btn-primary btn-sm">
+                    <a href="property-detail.html?property=${p.id}" class="btn btn-primary btn-sm">
                         <i class="fas fa-eye"></i> Voir
                     </a>
+                    <button class="btn btn-outline btn-sm" onclick="openPropertyEdit(${idx})">
+                        <i class="fas fa-cog"></i>
+                    </button>
                 </div>
             </div>
         </div>
@@ -1103,6 +1443,122 @@ function renderMyProperties() {
             <p style="margin:0;font-size:0.78rem;color:var(--text-muted);">Soumettez votre propriété pour examen par notre équipe</p>
         </div>
     `;
+}
+
+let editingPropertyIndex = null;
+let editingPropertyImages = [];
+
+function openPropertyEdit(index) {
+    editingPropertyIndex = index;
+    const prop = MY_PROPS[index];
+    editingPropertyImages = [...(prop.images || [prop.img])];
+
+    // Populate form
+    document.getElementById('edit-prop-name').value = prop.name;
+    document.getElementById('edit-prop-loc').value = prop.loc;
+    document.getElementById('edit-prop-desc').value = prop.description || '';
+    document.getElementById('edit-prop-price').value = prop.pricePerNight || '';
+    document.getElementById('edit-prop-cleaning').value = prop.cleaningFee || '';
+    document.getElementById('edit-prop-capacity').value = prop.capacity || '';
+    document.getElementById('edit-prop-beds').value = prop.beds || '';
+    document.getElementById('edit-prop-baths').value = prop.baths || '';
+
+    renderEditGallery();
+
+    document.getElementById('property-edit-modal').classList.add('active');
+    document.body.style.overflow = 'hidden';
+}
+
+function closePropertyEdit() {
+    document.getElementById('property-edit-modal').classList.remove('active');
+    document.body.style.overflow = '';
+    editingPropertyIndex = null;
+    editingPropertyImages = [];
+}
+
+function renderEditGallery() {
+    const container = document.getElementById('edit-gallery-grid');
+    container.innerHTML = editingPropertyImages.map((img, idx) => `
+        <div class="edit-gallery-item">
+            <img src="${img}" alt="Photo ${idx + 1}">
+            <div class="edit-gallery-overlay">
+                <button type="button" onclick="removeImage(${idx})" title="Supprimer">
+                    <i class="fas fa-trash"></i>
+                </button>
+                ${idx > 0 ? `<button type="button" onclick="moveImage(${idx}, -1)" title="Déplacer gauche"><i class="fas fa-arrow-left"></i></button>` : ''}
+                ${idx < editingPropertyImages.length - 1 ? `<button type="button" onclick="moveImage(${idx}, 1)" title="Déplacer droite"><i class="fas fa-arrow-right"></i></button>` : ''}
+            </div>
+        </div>
+    `).join('') + `
+        <div class="edit-gallery-add" onclick="document.getElementById('edit-photo-upload').click()">
+            <i class="fas fa-plus"></i>
+            <span>Ajouter une photo</span>
+        </div>
+    `;
+}
+
+function removeImage(index) {
+    if (editingPropertyImages.length <= 1) {
+        alert('Vous devez conserver au moins une photo.');
+        return;
+    }
+    if (confirm('Supprimer cette photo ?')) {
+        editingPropertyImages.splice(index, 1);
+        renderEditGallery();
+    }
+}
+
+function moveImage(index, direction) {
+    const newIndex = index + direction;
+    if (newIndex < 0 || newIndex >= editingPropertyImages.length) return;
+    const temp = editingPropertyImages[index];
+    editingPropertyImages[index] = editingPropertyImages[newIndex];
+    editingPropertyImages[newIndex] = temp;
+    renderEditGallery();
+}
+
+function handleEditPhotoUpload(input) {
+    const files = Array.from(input.files);
+    if (files.length === 0) return;
+
+    // Simulate upload - in real app, this would upload to server
+    files.forEach(file => {
+        const reader = new FileReader();
+        reader.onload = (e) => {
+            editingPropertyImages.push(e.target.result);
+            renderEditGallery();
+        };
+        reader.readAsDataURL(file);
+    });
+
+    input.value = ''; // Reset input
+}
+
+function savePropertyEdit(e) {
+    e.preventDefault();
+
+    if (editingPropertyIndex === null) return;
+
+    const prop = MY_PROPS[editingPropertyIndex];
+
+    // Update property data
+    prop.name = document.getElementById('edit-prop-name').value;
+    prop.loc = document.getElementById('edit-prop-loc').value;
+    prop.description = document.getElementById('edit-prop-desc').value;
+    prop.pricePerNight = parseInt(document.getElementById('edit-prop-price').value);
+    prop.cleaningFee = parseInt(document.getElementById('edit-prop-cleaning').value);
+    prop.capacity = parseInt(document.getElementById('edit-prop-capacity').value);
+    prop.beds = parseInt(document.getElementById('edit-prop-beds').value);
+    prop.baths = parseInt(document.getElementById('edit-prop-baths').value);
+    prop.images = [...editingPropertyImages];
+    prop.img = editingPropertyImages[0]; // Update main image
+
+    // Re-render
+    renderMyProperties();
+    closePropertyEdit();
+
+    // Show success message
+    alert('Modifications enregistrées avec succès !');
 }
 
 // ─────────────────────────────────────

@@ -4,30 +4,36 @@
 */
 
 :root {
-    /* Colors - Authentic Brittany Palette */
-    --glaz: #115E59;         /* Teal 800 */
-    --glaz-dark: #0F3F3E;    /* Dark teal */
-    --cyan: #06B6D4;         /* Cyan 500 for CTAs */
-    --cyan-dark: #0891B2;    /* Cyan 600 hover */
+    /* Colors - New Design 2026 */
+    --primary-bg: #5a7d9b;      /* Main background color */
+    --secondary: #749194;       /* Secondary color */
+    --button: #55abc7;          /* Button color */
+    --button-hover: #3d94b0;    /* Button hover state */
 
-    --grey: #4B5563;         /* Slate 600 */
-    --grey-light: #F3F4F6;   /* Slate 100 */
-    --grey-dark: #1F2937;    /* Slate 800 */
+    /* Supporting colors */
+    --glaz: #5a7d9b;            /* Mapped to primary-bg */
+    --glaz-dark: #4a6a85;       /* Darker shade */
+    --cyan: #55abc7;            /* Mapped to button */
+    --cyan-dark: #3d94b0;       /* Mapped to button-hover */
+
+    --grey: #4B5563;
+    --grey-light: #F3F4F6;
+    --grey-dark: #1F2937;
 
     --white: #FFFFFF;
     --off-white: #FAFAFA;
 
-    --text-main: #111827;    /* Very dark gray */
-    --text-muted: #4B5563;   /* Slate 600 */
-    --text-inverse: #FFFFFF; /* Text on dark bg */
+    --text-main: #111827;
+    --text-muted: #4B5563;
+    --text-inverse: #FFFFFF;
 
     /* Legacy Variables mapped to new Design System */
-    --navy-blue: var(--grey-dark);
-    --navy-blue-light: var(--grey);
-    --navy-blue-dark: #111827; /* Very dark gray */
-    --gold: var(--cyan);
-    --gold-light: var(--cyan);
-    --gold-dark: var(--cyan-dark);
+    --navy-blue: #5a7d9b;
+    --navy-blue-light: #749194;
+    --navy-blue-dark: #3d5a73;
+    --gold: #55abc7;
+    --gold-light: #55abc7;
+    --gold-dark: #3d94b0;
 
     /* Typography */
     --font-heading: 'Playfair Display', serif;
@@ -154,14 +160,14 @@ ul {
 }
 
 .btn-primary {
-    background-color: var(--cyan);
+    background-color: var(--button);
     color: var(--white);
 }
 
 .btn-primary:hover {
-    background-color: var(--cyan-dark);
+    background-color: var(--button-hover);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(6, 182, 212, 0.4);
+    box-shadow: 0 4px 12px rgba(85, 171, 199, 0.4);
 }
 
 .btn-secondary {
@@ -177,12 +183,12 @@ ul {
 
 .btn-outline {
     background-color: transparent;
-    border: 1px solid var(--glaz);
-    color: var(--glaz);
+    border: 1px solid var(--primary-bg);
+    color: var(--primary-bg);
 }
 
 .btn-outline:hover {
-    background-color: var(--glaz);
+    background-color: var(--primary-bg);
     color: var(--white);
 }
 
@@ -287,6 +293,59 @@ ul {
 
 .nav-links a:hover::after {
     width: 100%;
+}
+
+/* Dropdown Menu */
+.nav-dropdown {
+    position: relative;
+}
+
+.nav-dropdown > a::after {
+    content: '\f107';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    margin-left: 0.5rem;
+    font-size: 0.75rem;
+}
+
+.dropdown-menu {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    background: var(--white);
+    border-radius: var(--border-radius-md);
+    box-shadow: var(--shadow-lg);
+    padding: 0.5rem 0;
+    min-width: 180px;
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-10px);
+    transition: all 0.2s ease;
+    z-index: 1000;
+}
+
+.nav-dropdown:hover .dropdown-menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+}
+
+.dropdown-menu a {
+    display: block;
+    padding: 0.75rem 1.25rem;
+    color: var(--glaz);
+    font-weight: 500;
+    white-space: nowrap;
+    transition: background 0.2s ease;
+}
+
+.dropdown-menu a:hover {
+    background: var(--off-white);
+}
+
+.dropdown-menu a.active {
+    color: var(--button);
+    background: var(--off-white);
 }
 
 .nav-actions {

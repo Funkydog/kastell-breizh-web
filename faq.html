@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FAQ conciergerie Bretagne | Questions frequentes</title>
+    <meta name="description"
+        content="Toutes les reponses sur nos services de conciergerie en Bretagne : gestion, locations, intendance et sejours.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* FAQ Page Specific Styles */
+        .faq-hero {
+            position: relative;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            background-image: url('images/Photo_libre_droits/paul_henri-flow-4371328.jpg');
+            background-size: cover;
+            background-position: center;
+            padding-top: 6rem;
+        }
+
+        .faq-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(90, 125, 155, 0.7);
+        }
+
+        .faq-hero-content {
+            position: relative;
+            z-index: 10;
+            color: var(--white);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .faq-hero-content h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .faq-hero-content p {
+            font-size: 1.25rem;
+            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+        }
+
+        .faq-section {
+            background: var(--off-white);
+            padding: 5rem 0;
+        }
+
+        .faq-container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .faq-item {
+            background: var(--white);
+            border-radius: var(--border-radius-md);
+            margin-bottom: 1rem;
+            overflow: hidden;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .faq-question {
+            width: 100%;
+            padding: 1.5rem;
+            background: none;
+            border: none;
+            text-align: left;
+            font-family: var(--font-heading);
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--primary-bg);
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: var(--transition-fast);
+        }
+
+        .faq-question:hover {
+            background: var(--off-white);
+        }
+
+        .faq-question i {
+            color: var(--button);
+            transition: var(--transition-fast);
+        }
+
+        .faq-question.active i {
+            transform: rotate(180deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-answer-content {
+            padding: 0 1.5rem 1.5rem;
+            color: var(--text-muted);
+            line-height: 1.7;
+        }
+
+        .faq-answer-content p {
+            margin-bottom: 1rem;
+        }
+
+        .faq-answer-content p:last-child {
+            margin-bottom: 0;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 500px;
+        }
+
+        .cta-section {
+            background: linear-gradient(135deg, var(--primary-bg) 0%, var(--secondary) 100%);
+            color: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .cta-section h2 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .cta-section p {
+            margin-bottom: 2rem;
+            opacity: 0.95;
+        }
+
+        @media (max-width: 768px) {
+            .faq-hero-content h1 {
+                font-size: 2.5rem;
+            }
+
+            .faq-question {
+                font-size: 1rem;
+                padding: 1.25rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="nos-services.html">Nos services</a>
+                <a href="notre-equipe.html">Notre equipe</a>
+                <a href="properties.html">Nos logements</a>
+                <a href="places.html">La region</a>
+                <a href="faq.html" class="active">FAQ</a>
+                <a href="contact.html">Contactez nous</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Espace proprietaire</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="close-menu" id="close-menu-btn" aria-label="Fermer le menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="mobile-nav-links">
+                <a href="index.html" class="mobile-link">Accueil</a>
+                <a href="nos-services.html" class="mobile-link">Nos services</a>
+                <a href="notre-equipe.html" class="mobile-link">Notre equipe</a>
+                <a href="properties.html" class="mobile-link">Nos logements</a>
+                <a href="places.html" class="mobile-link">La region</a>
+                <a href="faq.html" class="mobile-link">FAQ</a>
+                <a href="contact.html" class="mobile-link">Contactez nous</a>
+                <a href="login.html" class="mobile-link">Espace proprietaire</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="faq-hero">
+        <div class="container faq-hero-content">
+            <h1>Questions frequentes</h1>
+            <p>Retrouvez ici les reponses aux questions les plus courantes concernant nos services.</p>
+        </div>
+    </section>
+
+    <!-- FAQ Section -->
+    <section class="faq-section">
+        <div class="container faq-container">
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Choisir Kastell Breizh Conciergerie, combien ca coute ?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Choisir Kastell Breizh Conciergerie, c'est vous garantir que le service ne vous coutera rien tant
+                            qu'il n'aura pas commence a generer des revenus. Nous fonctionnons sur un modele de commission
+                            base sur le chiffre d'affaires genere par les reservations effectuees grace aux annonces que
+                            nous gerons.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Ou seront diffusees mes annonces ?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Nous prenons en charge l'integralite du processus de publication de vos annonces sur 20 a 40
+                            plateformes en France et a l'international.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Qui gere les interactions avec les locataires ?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Nous nous occupons de la gestion des calendriers de reservation ainsi que de l'ensemble des
+                            interactions avec les locataires que nous trouvons pour vous, vous liberant ainsi de toute
+                            contrainte.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Comment suis-je paye ?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Les revenus issus des reservations seront directement verses sur votre compte bancaire, a
+                            mesure que les sejours se realisent. De notre cote, nous facturons une commission mensuellement.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Qui s'occupe du menage et de l'entretien ?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Nous coordonnons avec le personnel d'entretien que vous avez selectionne pour garantir que
+                            votre bien soit toujours pret a accueillir les voyageurs dans les meilleures conditions. Ces
+                            frais d'entretien restent a votre charge.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Quelle est la duree d'engagement ?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Un engagement initial d'un an est requis a la signature du contrat, non resoluble pendant
+                            les 12 premiers mois. Le contrat ne se renouvellera pas automatiquement, vous laissant libre
+                            de le reconduire ou non.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                    Puis-je utiliser ma residence secondaire pour moi-meme ?
+                    <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Vous pouvez bloquer a tout moment, sans restriction, les dates de votre calendrier afin de
+                            profiter de votre residence a votre convenance. Nous sommes egalement a votre disposition pour
+                            gerer a distance votre residence secondaire selon vos besoins. Vous etes libre de definir
+                            l'etendue de la mission que vous souhaitez nous confier.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                            Que se passe-t-il en cas de degats ?
+                            <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Vous serez immediatement informe en cas de dommages causes a votre propriete. Un systeme de
+                            caution permet de facturer aux voyageurs le montant des reparations pour les degats occasionnes,
+                            a l'exception des petits incidents tels que la casse d'un verre ou d'autres legers
+                            desagrements.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                            Mes effets personnels sont-ils en securite ?
+                            <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Nous vous aidons egalement a trouver une solution pour securiser vos effets personnels afin
+                            que ceux-ci restent inaccessibles aux voyageurs.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                            Pourquoi louer en meuble touristique ?
+                            <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Opter pour la location en meuble touristique permet de garantir des visites regulieres a
+                            votre domicile, assurant ainsi son entretien. Les maisons en pierre necessitent d'etre
+                            habitees et chauffees regulierement. Cela vous offrira plus de confort lorsque vous y sejournerez.
+                            Notre objectif est de vous accompagner pour generer des revenus suffisants pour couvrir les
+                            frais de gestion de votre residence secondaire, tout en la protegeant contre le vieillissement
+                            premature, souvent observe dans les maisons inoccupees sur de longues periodes.</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="faq-item">
+                <button class="faq-question">
+                            Comment maximisez-vous la valeur de mon investissement ?
+                            <i class="fas fa-chevron-down"></i>
+                </button>
+                <div class="faq-answer">
+                    <div class="faq-answer-content">
+                        <p>Vous serez accompagne a chaque etape pour maximiser la valeur de votre investissement et
+                            faire en sorte qu'il s'autofinance autant que possible.</p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </section>
+
+    <!-- CTA Section -->
+    <section class="cta-section">
+        <div class="container">
+            <h2>Vous avez d'autres questions ?</h2>
+            <p>Notre equipe est a votre disposition pour repondre a toutes vos questions.</p>
+            <a href="contact.html" class="btn btn-secondary btn-large">Contactez-nous</a>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo light">
+                        <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="logo-img">
+                    </a>
+                    <p class="footer-desc">Votre partenaire de confiance pour la gestion et la valorisation de biens
+                        immobiliers de caractere en Bretagne.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="nos-services.html">Nos services</a></li>
+                        <li><a href="notre-equipe.html">Notre equipe</a></li>
+                        <li><a href="properties.html">Nos logements</a></li>
+                        <li><a href="places.html">La region</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contactez nous</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Services</h4>
+                    <ul>
+                        <li><a href="nos-services.html#services-proprietaires">Proprietaires</a></li>
+                        <li><a href="nos-services.html#services-voyageurs">Voyageurs</a></li>
+                        <li><a href="login.html">Espace proprietaire</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> <a
+                                href="mailto:contact@kastellbreizh.fr">contact@kastellbreizh.fr</a></li>
+                        <li><i class="fas fa-phone"></i> +33 (0)6 51 26 50 93</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Pays de Guingamp, Cotes d'Armor</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kastell Breizh Conciergerie. Tous droits reserves.</p>
+                <div class="legal-links">
+                    <a href="mentions-legales.html">Mentions legales</a>
+                    <a href="cgs.html">CGS</a>
+                    <a href="rgpd.html">RGPD</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+    <script>
+        document.querySelectorAll('.faq-question').forEach(button => {
+            button.addEventListener('click', () => {
+                const faqItem = button.parentElement;
+                const isActive = faqItem.classList.contains('active');
+
+                // Close all FAQ items
+                document.querySelectorAll('.faq-item').forEach(item => {
+                    item.classList.remove('active');
+                    item.querySelector('.faq-question').classList.remove('active');
+                });
+
+                // Open clicked item if it wasn't active
+                if (!isActive) {
+                    faqItem.classList.add('active');
+                    button.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+
+</html>

@@ -4,12 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Détails de la propriété | Kastell Breizh</title>
-    
+
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+
     <link rel="stylesheet" href="index.css">
     <style>
         .detail-page {
@@ -35,6 +35,7 @@
             color: var(--text-muted);
             font-size: 1rem;
             font-weight: 500;
+            flex-wrap: wrap;
         }
 
         .property-meta i {
@@ -70,22 +71,30 @@
             grid-row: 1 / 3;
         }
 
+        .mosaic-secondary {
+            position: relative;
+        }
+
         .show-all-btn {
             position: absolute;
             bottom: 20px;
             right: 20px;
             background: var(--white);
             border: 1px solid var(--grey-dark);
-            padding: 0.5rem 1rem;
+            padding: 0.75rem 1.25rem;
             border-radius: var(--border-radius-md);
             font-weight: 600;
             cursor: pointer;
             box-shadow: var(--shadow-sm);
             transition: var(--transition-fast);
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
         }
 
         .show-all-btn:hover {
             background: var(--grey-light);
+            transform: translateY(-2px);
         }
 
         /* --- Main Content Layout --- */
@@ -103,6 +112,7 @@
             border-top: 1px solid var(--grey-light);
             border-bottom: 1px solid var(--grey-light);
             margin-bottom: 2rem;
+            flex-wrap: wrap;
         }
 
         .badge-item {
@@ -181,7 +191,7 @@
             color: var(--glaz);
             margin-bottom: 0.5rem;
         }
-        
+
         .host-info p {
             color: var(--text-muted);
             font-size: 0.95rem;
@@ -205,7 +215,7 @@
             color: var(--glaz);
             margin-bottom: 1.5rem;
         }
-        
+
         .booking-price span {
             font-size: 1rem;
             font-weight: 400;
@@ -234,7 +244,7 @@
             background: var(--off-white);
             box-sizing: border-box;
         }
-        
+
         .booking-form input:focus, .booking-form select:focus, .booking-form textarea:focus {
             outline: none;
             border-color: var(--cyan);
@@ -287,6 +297,186 @@
             box-shadow: var(--shadow-md);
         }
 
+        /* --- Gallery Modal --- */
+        .gallery-modal {
+            display: none;
+            position: fixed;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.95);
+            z-index: 1000;
+            overflow: hidden;
+        }
+
+        .gallery-modal.active {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .gallery-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 2rem;
+            color: white;
+        }
+
+        .gallery-header h3 {
+            margin: 0;
+            font-size: 1.25rem;
+        }
+
+        .gallery-close {
+            background: none;
+            border: none;
+            color: white;
+            font-size: 1.5rem;
+            cursor: pointer;
+            padding: 0.5rem;
+            transition: transform 0.2s;
+        }
+
+        .gallery-close:hover {
+            transform: scale(1.1);
+        }
+
+        .gallery-main {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem;
+            position: relative;
+        }
+
+        .gallery-image {
+            max-width: 90%;
+            max-height: 70vh;
+            object-fit: contain;
+            border-radius: var(--border-radius-md);
+        }
+
+        .gallery-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.25rem;
+            transition: background 0.2s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .gallery-nav:hover {
+            background: rgba(255, 255, 255, 0.25);
+        }
+
+        .gallery-nav.prev { left: 2rem; }
+        .gallery-nav.next { right: 2rem; }
+
+        .gallery-counter {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 0.9rem;
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+        }
+
+        .gallery-thumbs {
+            display: flex;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            overflow-x: auto;
+            background: rgba(0, 0, 0, 0.5);
+        }
+
+        .gallery-thumb {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 4px;
+            cursor: pointer;
+            opacity: 0.6;
+            transition: opacity 0.2s, transform 0.2s;
+            border: 2px solid transparent;
+        }
+
+        .gallery-thumb:hover,
+        .gallery-thumb.active {
+            opacity: 1;
+            border-color: var(--cyan);
+            transform: scale(1.05);
+        }
+
+        /* --- Property Switcher --- */
+        .property-switcher {
+            background: var(--slate-light);
+            padding: 1rem 0;
+            margin-bottom: 2rem;
+        }
+
+        .property-switcher-inner {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .property-switcher-inner::-webkit-scrollbar {
+            display: none;
+        }
+
+        .property-switcher-label {
+            font-size: 0.875rem;
+            color: var(--text-muted);
+            white-space: nowrap;
+            font-weight: 500;
+        }
+
+        .property-chip {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: white;
+            border: 2px solid transparent;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: all 0.2s;
+            white-space: nowrap;
+            font-size: 0.875rem;
+            text-decoration: none;
+            color: var(--text-main);
+        }
+
+        .property-chip:hover {
+            border-color: var(--cyan);
+        }
+
+        .property-chip.active {
+            border-color: var(--cyan);
+            background: var(--cyan);
+            color: white;
+        }
+
+        .property-chip img {
+            width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            object-fit: cover;
+        }
+
         @media (max-width: 1024px) {
             .content-grid {
                 grid-template-columns: 1fr;
@@ -297,14 +487,25 @@
             .booking-sidebar {
                 position: static;
             }
+            .gallery-nav.prev { left: 1rem; }
+            .gallery-nav.next { right: 1rem; }
         }
 
         @media (max-width: 768px) {
-            .photo-mosaic {
-                grid-template-columns: 1fr;
-                grid-template-rows: 300px;
+            .property-title {
+                font-size: 1.75rem;
             }
-            .photo-mosaic img:not(.mosaic-main) {
+            .photo-mosaic {
+                grid-template-columns: 1fr 1fr;
+                grid-template-rows: 200px 150px;
+                gap: 6px;
+            }
+            .mosaic-main {
+                grid-column: 1 / 3;
+                grid-row: 1 / 2;
+            }
+            .photo-mosaic img:nth-child(4),
+            .photo-mosaic img:nth-child(5) {
                 display: none;
             }
             .amenities-grid {
@@ -314,77 +515,106 @@
                 flex-wrap: wrap;
                 gap: 1rem;
             }
+            .host-block {
+                flex-direction: column;
+                text-align: center;
+            }
+            .gallery-thumb {
+                width: 60px;
+                height: 45px;
+            }
         }
     </style>
 </head>
 <body class="detail-page">
 
     <!-- Navbar -->
-    <header class="navbar scrolled" id="navbar">
+    <header class="navbar" id="navbar">
         <div class="container navbar-container">
             <a href="index.html" class="logo">
-                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-img">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
             </a>
             <nav class="nav-links">
                 <a href="index.html">Accueil</a>
-                <a href="properties.html" style="color: var(--cyan-dark); font-weight: 600;">Trouver votre séjour</a>
-                <a href="confier.html">Confier votre bien</a>
+                <a href="nos-services.html">Nos services</a>
+                <a href="notre-equipe.html">Notre équipe</a>
+                <a href="properties.html" class="active">Nos logements</a>
+                <a href="places.html">La région</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contactez nous</a>
             </nav>
             <div class="nav-actions">
-                <a href="login.html" class="btn btn-outline">Espace Propriétaire</a>
-                <a href="#booking" class="btn btn-primary">Réserver</a>
+                <a href="login.html" class="btn btn-outline">Espace propriétaire</a>
             </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="close-menu" id="close-menu-btn"><i class="fas fa-times"></i></button>
+            <nav class="mobile-nav-links">
+                <a href="index.html" class="mobile-link">Accueil</a>
+                <a href="nos-services.html" class="mobile-link">Nos services</a>
+                <a href="notre-equipe.html" class="mobile-link">Notre équipe</a>
+                <a href="properties.html" class="mobile-link">Nos logements</a>
+                <a href="places.html" class="mobile-link">La région</a>
+                <a href="faq.html" class="mobile-link">FAQ</a>
+                <a href="contact.html" class="mobile-link">Contactez nous</a>
+                <a href="login.html" class="mobile-link">Espace propriétaire</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Property Switcher -->
+    <div class="property-switcher">
+        <div class="container property-switcher-inner" id="property-chips">
+            <span class="property-switcher-label">Changer de propriété :</span>
+            <!-- Chips populated by JS -->
+        </div>
+    </div>
+
     <main class="container" style="padding-bottom: 5rem;">
-        
+
         <div class="property-header">
-            <h1 class="property-title">Manoir de Kerollivier</h1>
+            <h1 class="property-title" id="property-name">Chargement...</h1>
             <div class="property-meta">
-                <span><i class="fas fa-star"></i> 4.96 · 48 avis</span>
+                <span><i class="fas fa-star"></i> <span id="property-rating">-</span> · <span id="property-reviews">-</span> avis</span>
                 <span><i class="fas fa-medal"></i> Superhôte</span>
-                <span><i class="fas fa-map-marker-alt"></i> Saint-Gilles-Pligeaux, Bretagne, France</span>
+                <span><i class="fas fa-map-marker-alt"></i> <span id="property-location">-</span></span>
             </div>
         </div>
 
         <!-- Photo Mosaic -->
-        <div class="photo-mosaic">
-            <img src="images/Kerollivier.jpg" alt="Manoir extérieur" class="mosaic-main">
-            <img src="images/Photo_libre_droits/the-living-room-with-a-tv-in-a-beautiful-house.jpg" alt="Salon intérieur">
-            <img src="images/Photo_libre_droits/empty-white-room-with-window.jpg" alt="Chambre principale">
-            <img src="images/Photo_libre_droits/modern-bathroom.jpg" alt="Salle de bain">
-            <img src="images/Photo_libre_droits/beautiful-house-interior.jpg" alt="Cuisine">
-            <button class="show-all-btn"><i class="fas fa-th"></i> Afficher toutes les photos</button>
+        <div class="photo-mosaic" id="photo-mosaic">
+            <img src="" alt="Photo principale" class="mosaic-main" id="mosaic-main" onclick="openGallery(0)">
+            <img src="" alt="Photo 2" class="mosaic-secondary" id="mosaic-2" onclick="openGallery(1)">
+            <img src="" alt="Photo 3" class="mosaic-secondary" id="mosaic-3" onclick="openGallery(2)">
+            <img src="" alt="Photo 4" class="mosaic-secondary" id="mosaic-4" onclick="openGallery(3)">
+            <img src="" alt="Photo 5" class="mosaic-secondary" id="mosaic-5" onclick="openGallery(4)">
+            <button class="show-all-btn" onclick="openGallery(0)">
+                <i class="fas fa-th"></i> Afficher toutes les photos
+            </button>
         </div>
 
         <div class="content-grid">
             <!-- Left Info -->
             <div class="property-info">
-                
-                <h2 class="section-title-small">Demeure entière · Hébergé par Kastell Breizh</h2>
-                <div class="overview-badges">
-                    <div class="badge-item"><i class="fas fa-user-friends"></i> 6 voyageurs</div>
-                    <div class="badge-item"><i class="fas fa-bed"></i> 3 chambres</div>
-                    <div class="badge-item"><i class="fas fa-bath"></i> 2 salles de bain</div>
-                    <div class="badge-item"><i class="fas fa-wifi"></i> WiFi Rapide</div>
+
+                <h2 class="section-title-small" id="property-subtitle">Demeure entière · Hébergé par Kastell Breizh</h2>
+                <div class="overview-badges" id="property-badges">
+                    <!-- Populated by JS -->
                 </div>
 
-                <div class="description">
-                    <p>Manoir du XVIIIe siècle niché dans un écrin de verdure, avec un charme breton authentique. Composé de pierres apparentes, de cheminées d'époque et d'un grand parc arboré, c'est l'endroit idéal pour se ressourcer en famille ou entre amis au calme absolu, à seulement 10 minutes de Guingamp.</p>
-                    <p><br>L'intérieur a été entièrement rénové pour offrir tout le confort moderne sans dénaturer l'histoire des lieux. Vous profiterez d'un grand salon lumineux, d'une cuisine entièrement équipée ouvrant sur la terrasse, et de literies de qualité hôtelière.</p>
+                <div class="description" id="property-description">
+                    <!-- Populated by JS -->
                 </div>
 
                 <h2 class="section-title-small">Ce que propose ce logement</h2>
-                <div class="amenities-grid">
-                    <div class="amenity-item"><i class="fas fa-wifi"></i> Connexion Wi-Fi rapide</div>
-                    <div class="amenity-item"><i class="fas fa-parking"></i> Parking gratuit sur place</div>
-                    <div class="amenity-item"><i class="fas fa-tv"></i> Télévision avec Netflix</div>
-                    <div class="amenity-item"><i class="fas fa-fire"></i> Cheminée intérieure</div>
-                    <div class="amenity-item"><i class="fas fa-utensils"></i> Cuisine suréquipée</div>
-                    <div class="amenity-item"><i class="fas fa-tshirt"></i> Lave-linge & Sèche-linge</div>
-                    <div class="amenity-item"><i class="fas fa-baby-carriage"></i> Équipements bébé (sur dmd)</div>
-                    <div class="amenity-item"><i class="fas fa-tree"></i> Grand jardin privé</div>
+                <div class="amenities-grid" id="property-amenities">
+                    <!-- Populated by JS -->
                 </div>
 
                 <h2 class="section-title-small">À propos de l'hôte</h2>
@@ -401,38 +631,33 @@
             <!-- Right Booking Form (Sticky) -->
             <div class="booking-wrapper" id="booking">
                 <div class="booking-sidebar">
-                    <div class="booking-price">185€ <span>/ nuit</span></div>
-                    
-                    <form class="booking-form" onsubmit="event.preventDefault(); alert('Demande de réservation envoyée ! Un membre de la Kastell Team vous contactera dans les plus brefs délais.'); window.location.href='index.html';">
-                        
+                    <div class="booking-price"><span id="property-price">-</span>€ <span>/ nuit</span></div>
+
+                    <form class="booking-form" onsubmit="event.preventDefault(); submitBooking();">
+
                         <div style="display: flex; gap: 1rem;">
                             <div class="form-group" style="flex:1;">
                                 <label>Arrivée</label>
-                                <input type="date" required>
+                                <input type="date" id="checkin-date" required>
                             </div>
                             <div class="form-group" style="flex:1;">
                                 <label>Départ</label>
-                                <input type="date" required>
+                                <input type="date" id="checkout-date" required>
                             </div>
                         </div>
 
                         <div class="form-group">
                             <label>Voyageurs</label>
-                            <select required>
-                                <option>1 voyageur</option>
-                                <option>2 voyageurs</option>
-                                <option>3 voyageurs</option>
-                                <option>4 voyageurs</option>
-                                <option>5 voyageurs</option>
-                                <option>6 voyageurs</option>
+                            <select id="guests-select" required>
+                                <!-- Populated by JS -->
                             </select>
                         </div>
 
                         <div class="form-group">
                             <label>Vos coordonnées *</label>
-                            <input type="text" placeholder="Prénom et Nom" required style="margin-bottom: 0.5rem;">
-                            <input type="email" placeholder="Adresse email" required style="margin-bottom: 0.5rem;">
-                            <input type="tel" placeholder="Numéro de téléphone" required>
+                            <input type="text" id="contact-name" placeholder="Prénom et Nom" required style="margin-bottom: 0.5rem;">
+                            <input type="email" id="contact-email" placeholder="Adresse email" required style="margin-bottom: 0.5rem;">
+                            <input type="tel" id="contact-phone" placeholder="Numéro de téléphone" required>
                         </div>
 
                         <div class="form-group">
@@ -443,22 +668,22 @@
                         <div class="extra-services">
                             <h4>Services Extra (Optionnels)</h4>
                             <label class="service-checkbox">
-                                <input type="checkbox"> 
+                                <input type="checkbox" id="service-welcome">
                                 <span><strong>Panier d'accueil Breton</strong> (+35€)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Cidre artisanal, galettes, caramel beurre salé.</span></span>
                             </label>
                             <label class="service-checkbox">
-                                <input type="checkbox"> 
+                                <input type="checkbox" id="service-fridge">
                                 <span><strong>Frigo plein à l'arrivée</strong> (+50€ + courses)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Vos courses locales pré-rangées.</span></span>
                             </label>
                             <label class="service-checkbox">
-                                <input type="checkbox"> 
+                                <input type="checkbox" id="service-baby">
                                 <span><strong>Kit bébé confort</strong> (Gratuit)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Lit parapluie, chaise haute, baignoire.</span></span>
                             </label>
                         </div>
 
                         <div class="form-group">
                             <label>Demandes spéciales</label>
-                            <textarea rows="2" placeholder="Anniversaire, demande en mariage, allergies..."></textarea>
+                            <textarea rows="2" id="special-requests" placeholder="Anniversaire, demande en mariage, allergies..."></textarea>
                         </div>
 
                         <button type="submit" class="btn-reserve">Demander une réservation</button>
@@ -469,6 +694,23 @@
         </div>
     </main>
 
+    <!-- Gallery Modal -->
+    <div class="gallery-modal" id="gallery-modal">
+        <div class="gallery-header">
+            <h3 id="gallery-title">Galerie photos</h3>
+            <button class="gallery-close" onclick="closeGallery()"><i class="fas fa-times"></i></button>
+        </div>
+        <div class="gallery-main">
+            <button class="gallery-nav prev" onclick="prevImage()"><i class="fas fa-chevron-left"></i></button>
+            <img src="" alt="Gallery image" class="gallery-image" id="gallery-image">
+            <button class="gallery-nav next" onclick="nextImage()"><i class="fas fa-chevron-right"></i></button>
+            <div class="gallery-counter"><span id="current-image">1</span> / <span id="total-images">-</span></div>
+        </div>
+        <div class="gallery-thumbs" id="gallery-thumbs">
+            <!-- Thumbnails populated by JS -->
+        </div>
+    </div>
+
     <!-- Footer -->
     <footer class="footer">
         <div class="container">
@@ -478,5 +720,358 @@
         </div>
     </footer>
 
+    <script src="index.js"></script>
+    <script>
+        // ═══════════════════════════════════════════════════════
+        // PROPERTY DATA
+        // ═══════════════════════════════════════════════════════
+        const PROPERTIES = {
+            'kerollivier': {
+                id: 'kerollivier',
+                name: 'Manoir de Kerollivier',
+                subtitle: '2 gîtes de caractère · XVIIIe siècle',
+                location: 'Saint-Gilles-Pligeaux, Côtes d\'Armor',
+                description: `<p>Manoir du XVIIIe siècle niché dans un écrin de verdure, avec un charme breton authentique. Composé de pierres apparentes, de cheminées d'époque et d'un grand parc arboré, c'est l'endroit idéal pour se ressourcer en famille ou entre amis au calme absolu, à seulement 10 minutes de Guingamp.</p>
+                <p>L'intérieur a été entièrement rénové pour offrir tout le confort moderne sans dénaturer l'histoire des lieux. Vous profiterez d'un grand salon lumineux, d'une cuisine entièrement équipée ouvrant sur la terrasse, et de literies de qualité hôtelière.</p>`,
+                pricePerNight: 185,
+                cleaningFee: 80,
+                rating: 4.96,
+                reviews: 48,
+                capacity: 6,
+                beds: 3,
+                baths: 2,
+                images: [
+                    'images/properties/kerollivier/01-main.jpg',
+                    'images/properties/kerollivier/02-exterior.jpg',
+                    'images/properties/kerollivier/03-living.jpg',
+                    'images/properties/kerollivier/04-bedroom.jpg',
+                    'images/properties/kerollivier/05-bathroom.jpg',
+                    'images/properties/kerollivier/06-kitchen.jpg'
+                ],
+                amenities: [
+                    { icon: 'fas fa-wifi', label: 'Connexion Wi-Fi rapide' },
+                    { icon: 'fas fa-parking', label: 'Parking gratuit sur place' },
+                    { icon: 'fas fa-tv', label: 'Télévision avec Netflix' },
+                    { icon: 'fas fa-fire', label: 'Cheminée intérieure' },
+                    { icon: 'fas fa-utensils', label: 'Cuisine suréquipée' },
+                    { icon: 'fas fa-tshirt', label: 'Lave-linge & Sèche-linge' },
+                    { icon: 'fas fa-baby-carriage', label: 'Équipements bébé (sur dmd)' },
+                    { icon: 'fas fa-tree', label: 'Grand jardin privé' },
+                ]
+            },
+            'saint-guy': {
+                id: 'saint-guy',
+                name: 'Le Gîte de Saint Guy',
+                subtitle: 'Gîte familial · Argoat',
+                location: 'Gommenec\'h, Côtes d\'Armor',
+                description: `<p>Gîte chaleureux et bien équipé au cœur du pays de Guingamp. Cette maison de caractère offre tout le confort moderne dans un cadre authentique de l'Argoat breton.</p>
+                <p>Vous apprécierez la piscine privée chauffée, le potager mis à disposition, et l'accès direct aux sentiers de randonnée. Idéal pour des vacances en famille ou entre amis, loin du stress quotidien.</p>`,
+                pricePerNight: 220,
+                cleaningFee: 90,
+                rating: 4.88,
+                reviews: 36,
+                capacity: 6,
+                beds: 3,
+                baths: 2,
+                images: [
+                    'images/properties/saint-guy/01-main.jpg',
+                    'images/properties/saint-guy/02-exterior.jpg',
+                    'images/properties/saint-guy/03-living.jpg',
+                    'images/properties/saint-guy/04-bedroom.jpg',
+                    'images/properties/saint-guy/05-garden.jpg',
+                    'images/properties/saint-guy/06-pool.jpg'
+                ],
+                amenities: [
+                    { icon: 'fas fa-wifi', label: 'Connexion Wi-Fi rapide' },
+                    { icon: 'fas fa-swimming-pool', label: 'Piscine privée chauffée' },
+                    { icon: 'fas fa-tree', label: 'Grand jardin avec potager' },
+                    { icon: 'fas fa-parking', label: 'Parking privé' },
+                    { icon: 'fas fa-fire', label: 'Barbecue & Feu extérieur' },
+                    { icon: 'fas fa-child', label: 'Adapté aux enfants' },
+                    { icon: 'fas fa-dog', label: 'Animaux acceptés' },
+                    { icon: 'fas fa-hiking', label: 'Accès sentiers randonnée' },
+                ]
+            },
+            'maison-art': {
+                id: 'maison-art',
+                name: 'Maison d\'Art et Nature',
+                subtitle: '3 gîtes indépendants · 18 pers.',
+                location: 'Saint-Connan, Côtes d\'Armor',
+                description: `<p>Ensemble unique de 3 gîtes indépendants sur un domaine de 5 hectares. Cette propriété d'exception allie créativité artistique et cadre naturel préservé.</p>
+                <p>L'atelier d'art est accessible aux hôtes, les sentiers privés serpentent à travers bois et prairies. Parfait pour les séminaires, mariages et grandes réunions familiales. Un lieu d'inspiration et de partage.</p>`,
+                pricePerNight: 280,
+                cleaningFee: 120,
+                rating: 5.0,
+                reviews: 22,
+                capacity: 18,
+                beds: 8,
+                baths: 4,
+                images: [
+                    'images/properties/maison-art/01-main.jpg',
+                    'images/properties/maison-art/02-exterior.jpg',
+                    'images/properties/maison-art/03-living.jpg',
+                    'images/properties/maison-art/04-bedroom.jpg',
+                    'images/properties/maison-art/05-art.jpg',
+                    'images/properties/maison-art/06-nature.jpg'
+                ],
+                amenities: [
+                    { icon: 'fas fa-wifi', label: 'Connexion Wi-Fi rapide' },
+                    { icon: 'fas fa-palette', label: 'Atelier d\'art' },
+                    { icon: 'fas fa-hiking', label: 'Sentiers privés' },
+                    { icon: 'fas fa-users', label: 'Groupes jusqu\'à 18 pers.' },
+                    { icon: 'fas fa-glass-cheers', label: 'Salle de réception' },
+                    { icon: 'fas fa-utensils', label: 'Cuisine professionnelle' },
+                    { icon: 'fas fa-music', label: 'Sono & Projecteur' },
+                    { icon: 'fas fa-campground', label: 'Espace extérieur événementiel' },
+                ]
+            },
+            'pont-dorniol': {
+                id: 'pont-dorniol',
+                name: 'Manoir de Pont Dorniol',
+                subtitle: 'Demeure d\'exception · Noblayau',
+                location: 'Laniscat, Côtes d\'Armor',
+                description: `<p>Manoir de caractère au bord de la rivière Dorniol, entouré d'une forêt privée. Ce domaine exclusif offre intimité et luxe absolu pour des séjours d'exception.</p>
+                <p>Le sauna et le spa extérieur surplombent les gorges. Chaque chambre offre une vue panoramique unique. Un havre de paix pour se reconnecter à la nature dans le confort le plus raffiné.</p>`,
+                pricePerNight: 250,
+                cleaningFee: 100,
+                rating: 4.95,
+                reviews: 41,
+                capacity: 8,
+                beds: 4,
+                baths: 3,
+                images: [
+                    'images/properties/pont-dorniol/01-main.jpg',
+                    'images/properties/pont-dorniol/02-exterior.jpg',
+                    'images/properties/pont-dorniol/03-living.jpg',
+                    'images/properties/pont-dorniol/04-bedroom.jpg',
+                    'images/properties/pont-dorniol/05-spa.jpg',
+                    'images/properties/pont-dorniol/06-forest.jpg'
+                ],
+                amenities: [
+                    { icon: 'fas fa-wifi', label: 'Connexion Wi-Fi rapide' },
+                    { icon: 'fas fa-spa', label: 'Sauna & Spa' },
+                    { icon: 'fas fa-water', label: 'Accès rivière Dorniol' },
+                    { icon: 'fas fa-tree', label: 'Forêt privée' },
+                    { icon: 'fas fa-hot-tub', label: 'Jacuzzi extérieur' },
+                    { icon: 'fas fa-binoculars', label: 'Vue panoramique gorges' },
+                    { icon: 'fas fa-fish', label: 'Pêche privée' },
+                    { icon: 'fas fa-mountain', label: 'Terrasses paysagées' },
+                ]
+            }
+        };
+
+        // ═══════════════════════════════════════════════════════
+        // STATE
+        // ═══════════════════════════════════════════════════════
+        let currentProperty = null;
+        let currentImageIndex = 0;
+        let galleryImages = [];
+
+        // ═══════════════════════════════════════════════════════
+        // INIT
+        // ═══════════════════════════════════════════════════════
+        document.addEventListener('DOMContentLoaded', () => {
+            initProperty();
+            initPropertySwitcher();
+            initDateInputs();
+        });
+
+        function initProperty() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const propertyId = urlParams.get('property') || 'kerollivier';
+
+            currentProperty = PROPERTIES[propertyId];
+
+            if (!currentProperty) {
+                currentProperty = PROPERTIES['kerollivier'];
+            }
+
+            renderProperty();
+        }
+
+        function renderProperty() {
+            // Update title and meta
+            document.getElementById('property-name').textContent = currentProperty.name;
+            document.getElementById('property-subtitle').textContent = currentProperty.subtitle;
+            document.getElementById('property-location').textContent = currentProperty.location;
+            document.getElementById('property-rating').textContent = currentProperty.rating;
+            document.getElementById('property-reviews').textContent = currentProperty.reviews;
+            document.getElementById('property-price').textContent = currentProperty.pricePerNight;
+
+            // Update images
+            galleryImages = currentProperty.images;
+
+            // Set main mosaic images
+            document.getElementById('mosaic-main').src = galleryImages[0] || '';
+            document.getElementById('mosaic-2').src = galleryImages[1] || '';
+            document.getElementById('mosaic-3').src = galleryImages[2] || '';
+            document.getElementById('mosaic-4').src = galleryImages[3] || '';
+            document.getElementById('mosaic-5').src = galleryImages[4] || '';
+
+            // Update description
+            document.getElementById('property-description').innerHTML = currentProperty.description;
+
+            // Update badges
+            const badgesHtml = `
+                <div class="badge-item"><i class="fas fa-user-friends"></i> ${currentProperty.capacity} voyageurs</div>
+                <div class="badge-item"><i class="fas fa-bed"></i> ${currentProperty.beds} chambres</div>
+                <div class="badge-item"><i class="fas fa-bath"></i> ${currentProperty.baths} salles de bain</div>
+                <div class="badge-item"><i class="fas fa-wifi"></i> WiFi Rapide</div>
+            `;
+            document.getElementById('property-badges').innerHTML = badgesHtml;
+
+            // Update amenities
+            const amenitiesHtml = currentProperty.amenities.map(a =>
+                `<div class="amenity-item"><i class="${a.icon}"></i> ${a.label}</div>`
+            ).join('');
+            document.getElementById('property-amenities').innerHTML = amenitiesHtml;
+
+            // Update guest select options
+            const guestsSelect = document.getElementById('guests-select');
+            guestsSelect.innerHTML = '';
+            for (let i = 1; i <= currentProperty.capacity; i++) {
+                const option = document.createElement('option');
+                option.value = i;
+                option.textContent = i === 1 ? '1 voyageur' : `${i} voyageurs`;
+                guestsSelect.appendChild(option);
+            }
+
+            // Update gallery thumbnails
+            updateGalleryThumbs();
+
+            // Update document title
+            document.title = `${currentProperty.name} | Kastell Breizh`;
+        }
+
+        function initPropertySwitcher() {
+            const container = document.getElementById('property-chips');
+
+            Object.values(PROPERTIES).forEach(prop => {
+                const chip = document.createElement('a');
+                chip.href = `property-detail.html?property=${prop.id}`;
+                chip.className = `property-chip ${prop.id === currentProperty.id ? 'active' : ''}`;
+                chip.innerHTML = `
+                    <img src="${prop.images[0]}" alt="${prop.name}">
+                    <span>${prop.name}</span>
+                `;
+                container.appendChild(chip);
+            });
+        }
+
+        function initDateInputs() {
+            const today = new Date();
+            const tomorrow = new Date(today);
+            tomorrow.setDate(tomorrow.getDate() + 1);
+
+            document.getElementById('checkin-date').min = today.toISOString().split('T')[0];
+            document.getElementById('checkout-date').min = tomorrow.toISOString().split('T')[0];
+
+            // Auto-update checkout min when checkin changes
+            document.getElementById('checkin-date').addEventListener('change', function() {
+                const checkin = new Date(this.value);
+                const nextDay = new Date(checkin);
+                nextDay.setDate(nextDay.getDate() + 1);
+                document.getElementById('checkout-date').min = nextDay.toISOString().split('T')[0];
+            });
+        }
+
+        // ═══════════════════════════════════════════════════════
+        // GALLERY
+        // ═══════════════════════════════════════════════════════
+        function openGallery(index) {
+            currentImageIndex = index;
+            document.getElementById('gallery-modal').classList.add('active');
+            document.body.style.overflow = 'hidden';
+            updateGalleryImage();
+            document.getElementById('gallery-title').textContent = currentProperty.name;
+        }
+
+        function closeGallery() {
+            document.getElementById('gallery-modal').classList.remove('active');
+            document.body.style.overflow = '';
+        }
+
+        function updateGalleryImage() {
+            document.getElementById('gallery-image').src = galleryImages[currentImageIndex];
+            document.getElementById('current-image').textContent = currentImageIndex + 1;
+            document.getElementById('total-images').textContent = galleryImages.length;
+
+            // Update active thumbnail
+            document.querySelectorAll('.gallery-thumb').forEach((thumb, i) => {
+                thumb.classList.toggle('active', i === currentImageIndex);
+            });
+        }
+
+        function updateGalleryThumbs() {
+            const container = document.getElementById('gallery-thumbs');
+            container.innerHTML = galleryImages.map((img, i) =>
+                `<img src="${img}" alt="Thumbnail ${i + 1}" class="gallery-thumb" onclick="goToImage(${i})">`
+            ).join('');
+        }
+
+        function nextImage() {
+            currentImageIndex = (currentImageIndex + 1) % galleryImages.length;
+            updateGalleryImage();
+        }
+
+        function prevImage() {
+            currentImageIndex = (currentImageIndex - 1 + galleryImages.length) % galleryImages.length;
+            updateGalleryImage();
+        }
+
+        function goToImage(index) {
+            currentImageIndex = index;
+            updateGalleryImage();
+        }
+
+        // Keyboard navigation for gallery
+        document.addEventListener('keydown', (e) => {
+            if (!document.getElementById('gallery-modal').classList.contains('active')) return;
+
+            if (e.key === 'Escape') closeGallery();
+            if (e.key === 'ArrowRight') nextImage();
+            if (e.key === 'ArrowLeft') prevImage();
+        });
+
+        // ═══════════════════════════════════════════════════════
+        // BOOKING
+        // ═══════════════════════════════════════════════════════
+        function submitBooking() {
+            const checkin = document.getElementById('checkin-date').value;
+            const checkout = document.getElementById('checkout-date').value;
+            const guests = document.getElementById('guests-select').value;
+            const name = document.getElementById('contact-name').value;
+            const email = document.getElementById('contact-email').value;
+            const phone = document.getElementById('contact-phone').value;
+
+            // Calculate total
+            const start = new Date(checkin);
+            const end = new Date(checkout);
+            const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
+            const total = nights * currentProperty.pricePerNight + currentProperty.cleaningFee;
+
+            // Get extras
+            const extras = [];
+            if (document.getElementById('service-welcome').checked) extras.push('Panier d\'accueil');
+            if (document.getElementById('service-fridge').checked) extras.push('Frigo plein');
+            if (document.getElementById('service-baby').checked) extras.push('Kit bébé');
+
+            const message = `Demande de réservation envoyée !
+
+${currentProperty.name}
+Du ${checkin} au ${checkout} (${nights} nuits)
+${guests} voyageur(s)
+
+Montant estimé : ${total}€
+${extras.length > 0 ? 'Extras : ' + extras.join(', ') : ''}
+
+Un membre de la Kastell Team vous contactera dans les plus brefs délais pour confirmer votre réservation.`;
+
+            alert(message);
+
+            // Reset form
+            document.querySelector('.booking-form').reset();
+        }
+    </script>
 </body>
 </html>

@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact conciergerie Bretagne | Kastell Breizh</title>
+    <meta name="description"
+        content="Contactez Kastell Breizh Conciergerie pour votre bien ou votre sejour en Bretagne. Reponse rapide et service personnalise.">
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Playfair+Display:ital,wght@0,400;0,600;0,700;1,400&display=swap"
+        rel="stylesheet">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="index.css">
+    <style>
+        /* Contact Page Specific Styles */
+        .contact-hero {
+            position: relative;
+            height: 50vh;
+            min-height: 400px;
+            display: flex;
+            align-items: center;
+            background-image: url('images/Photo_libre_droits/pascal-bernardon-FvhaTSraM7w-unsplash.jpg');
+            background-size: cover;
+            background-position: center;
+            padding-top: 6rem;
+        }
+
+        .contact-hero::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(90, 125, 155, 0.7);
+        }
+
+        .contact-hero-content {
+            position: relative;
+            z-index: 10;
+            color: var(--white);
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-hero-content h1 {
+            font-size: 3.5rem;
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .contact-section {
+            background: var(--off-white);
+            padding: 5rem 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.5fr;
+            gap: 4rem;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .contact-info {
+            background: var(--primary-bg);
+            color: var(--white);
+            padding: 3rem;
+            border-radius: var(--border-radius-lg);
+            height: fit-content;
+        }
+
+        .contact-info h2 {
+            color: var(--white);
+            margin-bottom: 1.5rem;
+            font-size: 1.75rem;
+        }
+
+        .contact-info p {
+            margin-bottom: 2rem;
+            line-height: 1.7;
+            opacity: 0.95;
+        }
+
+        .contact-details {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+
+        .contact-detail-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+        }
+
+        .contact-detail-item i {
+            font-size: 1.25rem;
+            color: var(--button);
+            margin-top: 0.25rem;
+        }
+
+        .contact-detail-item a {
+            color: var(--white);
+            text-decoration: underline;
+        }
+
+        .contact-hours {
+            margin-top: 2rem;
+            padding-top: 2rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .contact-hours h4 {
+            color: var(--white);
+            margin-bottom: 1rem;
+        }
+
+        .contact-form-container {
+            background: var(--white);
+            padding: 3rem;
+            border-radius: var(--border-radius-lg);
+            box-shadow: var(--shadow-sm);
+        }
+
+        .contact-form-container h2 {
+            color: var(--primary-bg);
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-form-container>p {
+            color: var(--text-muted);
+            margin-bottom: 2rem;
+        }
+
+        .form-grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: var(--text-main);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-group label .required {
+            color: var(--button);
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 0.875rem 1rem;
+            border: 1px solid var(--grey);
+            border-radius: var(--border-radius-md);
+            font-family: var(--font-body);
+            font-size: 1rem;
+            background: var(--white);
+            transition: var(--transition-fast);
+            box-sizing: border-box;
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--button);
+            box-shadow: 0 0 0 3px rgba(85, 171, 199, 0.1);
+        }
+
+        textarea.form-control {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .submit-wrapper {
+            text-align: center;
+            padding-top: 1rem;
+        }
+
+        .benefits-section {
+            background: var(--white);
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .benefits-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+            max-width: 900px;
+            margin: 3rem auto 0;
+        }
+
+        .benefit-item {
+            padding: 1.5rem;
+        }
+
+        .benefit-item i {
+            font-size: 2.5rem;
+            color: var(--button);
+            margin-bottom: 1rem;
+        }
+
+        .benefit-item h3 {
+            color: var(--primary-bg);
+            font-size: 1.25rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .benefit-item p {
+            color: var(--text-muted);
+            font-size: 0.95rem;
+        }
+
+        @media (max-width: 768px) {
+            .contact-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .form-grid-2 {
+                grid-template-columns: 1fr;
+            }
+
+            .benefits-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-hero-content h1 {
+                font-size: 2.5rem;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <!-- Navbar -->
+    <header class="navbar" id="navbar">
+        <div class="container navbar-container">
+            <a href="index.html" class="logo">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
+            </a>
+            <nav class="nav-links">
+                <a href="index.html">Accueil</a>
+                <a href="nos-services.html">Nos services</a>
+                <a href="notre-equipe.html">Notre equipe</a>
+                <a href="properties.html">Nos logements</a>
+                <a href="places.html">La region</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html" class="active">Contactez nous</a>
+            </nav>
+            <div class="nav-actions">
+                <a href="login.html" class="btn btn-outline">Espace proprietaire</a>
+            </div>
+            <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <!-- Mobile Menu -->
+    <div class="mobile-menu" id="mobile-menu">
+        <div class="mobile-menu-content">
+            <button class="close-menu" id="close-menu-btn" aria-label="Fermer le menu">
+                <i class="fas fa-times"></i>
+            </button>
+            <nav class="mobile-nav-links">
+                <a href="index.html" class="mobile-link">Accueil</a>
+                <a href="nos-services.html" class="mobile-link">Nos services</a>
+                <a href="notre-equipe.html" class="mobile-link">Notre equipe</a>
+                <a href="properties.html" class="mobile-link">Nos logements</a>
+                <a href="places.html" class="mobile-link">La region</a>
+                <a href="faq.html" class="mobile-link">FAQ</a>
+                <a href="contact.html" class="mobile-link">Contactez nous</a>
+                <a href="login.html" class="mobile-link">Espace proprietaire</a>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Hero Section -->
+    <section class="contact-hero">
+        <div class="container contact-hero-content">
+            <h1>Contactez-nous</h1>
+            <p>Un projet, une question ou un besoin specifique ? Nous sommes a votre ecoute.</p>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact-section">
+        <div class="container">
+            <div class="contact-grid">
+                <div class="contact-info">
+                    <h2>Kastell Breizh Conciergerie vous facilite l'existence</h2>
+                    <p>Contactez-nous par telephone ou envoyez-nous un courriel. Notre equipe attentionnee est a votre
+                        ecoute.</p>
+
+                    <div class="contact-details">
+                        <div class="contact-detail-item">
+                            <i class="fas fa-phone"></i>
+                            <div>
+                                <strong>Telephone</strong><br>
+                                <a href="tel:+33651265093">+33 (0)6 51 26 50 93</a>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fas fa-envelope"></i>
+                            <div>
+                                <strong>Email</strong><br>
+                                <a href="mailto:contact@kastellbreizh.fr">contact@kastellbreizh.fr</a>
+                            </div>
+                        </div>
+                        <div class="contact-detail-item">
+                            <i class="fas fa-map-marker-alt"></i>
+                            <div>
+                                <strong>Zone d'intervention</strong><br>
+                                Pays de Guingamp, Tregor et Cotes d'Armor
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="contact-hours">
+                        <h4><i class="fas fa-clock" style="margin-right: 0.5rem;"></i> Horaires d'ouverture</h4>
+                        <p>24h / 24h<br>7j / 7j</p>
+                    </div>
+                </div>
+
+                <div class="contact-form-container">
+                    <h2>Envoyez-nous un message</h2>
+                    <p>Completez le formulaire ci-dessous et nous vous repondrons dans les plus brefs delais.</p>
+
+                    <form id="contact-form" action="#" method="POST">
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>Nom <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="nom" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Prenom <span class="required">*</span></label>
+                                <input type="text" class="form-control" name="prenom" required>
+                            </div>
+                        </div>
+
+                        <div class="form-grid-2">
+                            <div class="form-group">
+                                <label>Telephone <span class="required">*</span></label>
+                                <input type="tel" class="form-control" name="telephone" required>
+                            </div>
+                            <div class="form-group">
+                                <label>Email <span class="required">*</span></label>
+                                <input type="email" class="form-control" name="email" required>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Adresse</label>
+                            <input type="text" class="form-control" name="adresse">
+                        </div>
+
+                        <div class="form-group">
+                            <label>Raison <span class="required">*</span></label>
+                            <select class="form-control" name="raison" required>
+                                <option value="">Selectionnez...</option>
+                                <option value="sejour">Contact pour un sejour</option>
+                                <option value="bien">Contact pour proposer un bien</option>
+                                <option value="autre">Autre</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label>Commentaire</label>
+                            <textarea class="form-control" name="commentaire" rows="5"
+                                placeholder="Decrivez votre projet ou votre question..."></textarea>
+                        </div>
+
+                        <div class="submit-wrapper">
+                            <button type="submit" class="btn btn-primary btn-large" style="width: 100%;">
+                                <i class="fas fa-paper-plane"></i> Envoyer le message
+                            </button>
+                            <p style="margin-top: 1rem; color: var(--text-muted); font-size: 0.875rem;">
+                                <i class="fas fa-shield-alt"></i> Vos donnees sont securisees et confidentielles.
+                            </p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Benefits Section -->
+    <section class="benefits-section">
+        <div class="container">
+            <h2 style="color: var(--primary-bg);">Pourquoi nous contacter ?</h2>
+
+            <div class="benefits-grid">
+                <div class="benefit-item">
+                    <i class="fas fa-chart-line"></i>
+                    <h3>Notre efficacite</h3>
+                    <p>Notre efficacite servira votre rentabilite</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-handshake"></i>
+                    <h3>Notre flexibilite</h3>
+                    <p>Notre flexibilite assurera votre serenite</p>
+                </div>
+                <div class="benefit-item">
+                    <i class="fas fa-cogs"></i>
+                    <h3>Adaptation</h3>
+                    <p>Nous nous adaptons a vos besoins</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-grid">
+                <div class="footer-brand">
+                    <a href="index.html" class="logo light">
+                        <img src="Logo/K B complet gris blanc fond noir.png" alt="Kastell Breizh" class="logo-img">
+                    </a>
+                    <p class="footer-desc">Votre partenaire de confiance pour la gestion et la valorisation de biens
+                        immobiliers de caractere en Bretagne.</p>
+                    <div class="social-links">
+                        <a href="#" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                        <a href="#" aria-label="Facebook"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" aria-label="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Navigation</h4>
+                    <ul>
+                        <li><a href="index.html">Accueil</a></li>
+                        <li><a href="nos-services.html">Nos services</a></li>
+                        <li><a href="notre-equipe.html">Notre equipe</a></li>
+                        <li><a href="properties.html">Nos logements</a></li>
+                        <li><a href="places.html">La region</a></li>
+                        <li><a href="faq.html">FAQ</a></li>
+                        <li><a href="contact.html">Contactez nous</a></li>
+                    </ul>
+                </div>
+                <div class="footer-links">
+                    <h4 class="footer-title">Services</h4>
+                    <ul>
+                        <li><a href="nos-services.html#services-proprietaires">Proprietaires</a></li>
+                        <li><a href="nos-services.html#services-voyageurs">Voyageurs</a></li>
+                        <li><a href="login.html">Espace proprietaire</a></li>
+                    </ul>
+                </div>
+                <div class="footer-contact">
+                    <h4 class="footer-title">Contact</h4>
+                    <ul>
+                        <li><i class="fas fa-envelope"></i> <a
+                                href="mailto:contact@kastellbreizh.fr">contact@kastellbreizh.fr</a></li>
+                        <li><i class="fas fa-phone"></i> +33 (0)6 51 26 50 93</li>
+                        <li><i class="fas fa-map-marker-alt"></i> Pays de Guingamp, Cotes d'Armor</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2026 Kastell Breizh Conciergerie. Tous droits reserves.</p>
+                <div class="legal-links">
+                    <a href="mentions-legales.html">Mentions legales</a>
+                    <a href="cgs.html">CGS</a>
+                    <a href="rgpd.html">RGPD</a>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script src="index.js"></script>
+    <script>
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
+            e.preventDefault();
+            alert('Merci pour votre message ! Nous vous repondrons dans les plus brefs delais.');
+            this.reset();
+        });
+    </script>
+</body>
+
+</html>

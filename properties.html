@@ -15,24 +15,55 @@
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="">
     <link rel="stylesheet" href="index.css">
     <link rel="stylesheet" href="properties.css">
+    <style>
+        /* Properties page has no hero - navbar starts scrolled */
+        .properties-page .navbar {
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+        .properties-page .navbar .logo-light {
+            display: none;
+        }
+        .properties-page .navbar .logo-dark {
+            display: block;
+        }
+        .properties-page .navbar .nav-links a {
+            color: var(--glaz);
+        }
+        .properties-page .navbar .btn-outline {
+            border-color: var(--glaz);
+            color: var(--glaz);
+        }
+        .properties-page .navbar .btn-outline:hover {
+            background-color: var(--glaz);
+            color: var(--white);
+        }
+        .properties-page .navbar .menu-toggle {
+            color: var(--glaz);
+        }
+    </style>
 </head>
 
 <body class="properties-page">
 
     <!-- Navbar -->
-    <header class="navbar scrolled" id="navbar">
+    <header class="navbar" id="navbar">
         <div class="container navbar-container">
             <a href="index.html" class="logo">
-                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-img">
+                <img src="Logo/Logo 1.png" alt="Kastell Breizh" class="logo-dark logo-img">
             </a>
             <nav class="nav-links">
-                <a href="index.html#services">Nos Services</a>
-                <a href="properties.html" style="color: var(--gold); font-weight: 600;">Nos Demeures</a>
-                <a href="places.html">La Région</a>
+                <a href="index.html">Accueil</a>
+                <a href="nos-services.html">Nos services</a>
+                <a href="notre-equipe.html">Notre équipe</a>
+                <a href="properties.html" class="active">Nos logements</a>
+                <a href="places.html">La région</a>
+                <a href="faq.html">FAQ</a>
+                <a href="contact.html">Contactez nous</a>
             </nav>
             <div class="nav-actions">
-                <a href="login.html" class="btn btn-outline">Espace Propriétaire</a>
-                <a href="property-detail.html" class="btn btn-primary">Réserver</a>
+                <a href="login.html" class="btn btn-outline">Espace propriétaire</a>
             </div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
@@ -45,10 +76,14 @@
         <div class="mobile-menu-content">
             <button class="close-menu" id="close-menu-btn"><i class="fas fa-times"></i></button>
             <nav class="mobile-nav-links">
-                <a href="index.html#services" class="mobile-link">Nos Services</a>
-                <a href="properties.html" class="mobile-link">Nos Demeures</a>
-                <a href="places.html" class="mobile-link">La Région</a>
-                <a href="property-detail.html" class="btn btn-primary">Réserver</a>
+                <a href="index.html" class="mobile-link">Accueil</a>
+                <a href="nos-services.html" class="mobile-link">Nos services</a>
+                <a href="notre-equipe.html" class="mobile-link">Notre équipe</a>
+                <a href="properties.html" class="mobile-link">Nos logements</a>
+                <a href="places.html" class="mobile-link">La région</a>
+                <a href="faq.html" class="mobile-link">FAQ</a>
+                <a href="contact.html" class="mobile-link">Contactez nous</a>
+                <a href="login.html" class="mobile-link">Espace propriétaire</a>
             </nav>
         </div>
     </div>
@@ -171,6 +206,7 @@
     <script>
     // ─────────────────────────────────────────────
     // PROPERTY DATA (coordinates verified on OSM)
+    // Only published properties are shown on public pages
     // ─────────────────────────────────────────────
     const PROPERTIES_MAP_DATA = [
         {
@@ -189,7 +225,7 @@
             reviews: 48,
             badge: 'Coup de cœur',
             badgeClass: 'badge-gold',
-            image: 'images/Kerollivier.jpg',
+            image: 'images/properties/kerollivier/01-main.jpg',
             description: 'Manoir du XVIIIe siècle niché dans un écrin de verdure, avec deux gîtes indépendants. Jardin clos, cheminées d\'époque et calme absolu à 10 min de Guingamp.',
             features: [
                 { icon: 'fas fa-wifi', label: 'WiFi' },
@@ -197,6 +233,7 @@
                 { icon: 'fas fa-fire', label: 'Cheminée' },
                 { icon: 'fas fa-parking', label: 'Parking' },
             ],
+            published: true,
         },
         {
             id: 'saint-guy',
@@ -214,7 +251,7 @@
             reviews: 36,
             badge: 'Familial',
             badgeClass: 'badge-navy',
-            image: 'images/StGuy.jpg',
+            image: 'images/properties/saint-guy/01-main.jpg',
             description: 'Gîte chaleureux et bien équipé au cœur du pays de Guingamp. Piscine privée chauffée, potager, et accès direct aux sentiers de randonnée de l\'Argoat.',
             features: [
                 { icon: 'fas fa-wifi', label: 'WiFi' },
@@ -222,6 +259,7 @@
                 { icon: 'fas fa-child', label: 'Enfants' },
                 { icon: 'fas fa-seedling', label: 'Potager' },
             ],
+            published: true,
         },
         {
             id: 'maison-art',
@@ -239,7 +277,7 @@
             reviews: 22,
             badge: '5 étoiles',
             badgeClass: 'badge-gold',
-            image: 'images/MaieBail.jpg',
+            image: 'images/properties/maison-art/01-main.jpg',
             description: 'Ensemble de 3 gîtes indépendants sur un domaine de 5 hectares. Atelier d\'art, sentiers privés, idéal pour séminaires, mariages et grandes réunions familiales.',
             features: [
                 { icon: 'fas fa-wifi', label: 'WiFi' },
@@ -247,6 +285,7 @@
                 { icon: 'fas fa-hiking', label: 'Sentiers' },
                 { icon: 'fas fa-users', label: 'Groupes' },
             ],
+            published: true,
         },
         {
             id: 'pont-dorniol',
@@ -264,7 +303,7 @@
             reviews: 41,
             badge: 'Exclusif',
             badgeClass: 'badge-navy',
-            image: 'images/Pont Dorniol.jpg',
+            image: 'images/properties/pont-dorniol/01-main.jpg',
             description: 'Manoir de caractère au bord de la rivière Dorniol, entouré d\'une forêt privée. Sauna, spa extérieur et vue panoramique sur les gorges. Intimité et luxe absolu.',
             features: [
                 { icon: 'fas fa-wifi', label: 'WiFi' },
@@ -272,16 +311,20 @@
                 { icon: 'fas fa-water', label: 'Rivière' },
                 { icon: 'fas fa-tree', label: 'Forêt' },
             ],
+            published: false, // Unpublished property - won't show on public pages
         },
     ];
 
     // ─────────────────────────────────────────────
     // STATE
     // ─────────────────────────────────────────────
+    // Filter to only show published properties on public pages
+    const PUBLISHED_PROPERTIES = PROPERTIES_MAP_DATA.filter(p => p.published !== false);
+
     let mapInstance = null;
     let markers = {};         // id → Leaflet marker
     let activeMarkerId = null;
-    let filteredData = [...PROPERTIES_MAP_DATA];
+    let filteredData = [...PUBLISHED_PROPERTIES];
     let currentView = 'list'; // 'list' | 'map'
 
     // ─────────────────────────────────────────────
@@ -328,7 +371,7 @@
             maxZoom: 19,
         }).addTo(mapInstance);
 
-        PROPERTIES_MAP_DATA.forEach(prop => addMarker(prop));
+        PUBLISHED_PROPERTIES.forEach(prop => addMarker(prop));
 
         requestAnimationFrame(() => requestAnimationFrame(() => mapInstance.invalidateSize()));
 
@@ -407,13 +450,13 @@
     function setActiveMarker(id) {
         // Reset previous
         if (activeMarkerId && markers[activeMarkerId]) {
-            const prev = PROPERTIES_MAP_DATA.find(p => p.id === activeMarkerId);
+            const prev = PUBLISHED_PROPERTIES.find(p => p.id === activeMarkerId);
             if (prev) markers[activeMarkerId].setIcon(buildPriceIcon(prev.pricePerNight, false));
         }
         activeMarkerId = id;
         // Activate new
         if (id && markers[id]) {
-            const curr = PROPERTIES_MAP_DATA.find(p => p.id === id);
+            const curr = PUBLISHED_PROPERTIES.find(p => p.id === id);
             if (curr) {
                 markers[id].setIcon(buildPriceIcon(curr.pricePerNight, true));
                 markers[id].setZIndexOffset(1000);
@@ -441,47 +484,38 @@
         noResults.style.display = 'none';
 
         container.innerHTML = data.map(prop => `
-            <article class="prop-list-card" data-id="${prop.id}" tabindex="0" role="button" aria-label="Voir ${prop.name}" style="display: flex; flex-direction: row; gap: 1.5rem; padding: 1.5rem; border-radius: var(--border-radius-lg); background: var(--white); box-shadow: var(--shadow-sm); margin-bottom: 1.5rem; border: 1px solid var(--grey-light); transition: var(--transition-normal); align-items: stretch;">
-                
-                <!-- Square Photo -->
-                <div class="prop-list-image" style="width: 220px; height: 220px; flex-shrink: 0; position: relative; border-radius: var(--border-radius-md); overflow: hidden;">
-                    <img src="${prop.image}" alt="${prop.name}" loading="lazy" style="width: 100%; height: 100%; object-fit: cover;">
-                    <span class="prop-list-badge ${prop.badgeClass}" style="position: absolute; top: 10px; left: 10px;">${prop.badge}</span>
+            <article class="prop-list-card" data-id="${prop.id}" tabindex="0" role="button" aria-label="Voir ${prop.name}">
+                <div class="prop-list-image">
+                    <img src="${prop.image}" alt="${prop.name}" loading="lazy">
+                    <span class="prop-list-badge ${prop.badgeClass}">${prop.badge}</span>
                 </div>
-                
-                <div class="prop-list-content" style="flex: 1; display: flex; flex-direction: column; justify-content: space-between;">
-                    <div>
-                        <div class="prop-list-header" style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
-                            <div>
-                                <span style="font-size: 0.75rem; color: var(--text-muted); text-transform: uppercase; font-weight: 600; letter-spacing: 1px;">Maison de caractère</span>
-                                <h3 class="prop-list-title" style="font-size: 1.25rem; font-weight: 600; color: var(--glaz); margin: 0.25rem 0;">${prop.name}</h3>
-                                <p class="prop-list-location" style="font-size: 0.9rem; color: var(--text-muted);"><i class="fas fa-map-marker-alt" style="color: var(--cyan);"></i> ${prop.location}</p>
-                            </div>
-                            
-                            <!-- Average Rating Visible Immediately -->
-                            <div class="prop-list-rating" style="display: flex; align-items: center; gap: 0.3rem; font-weight: 600; background: var(--slate-light); padding: 0.3rem 0.6rem; border-radius: 4px; color: var(--glaz);">
-                                <i class="fas fa-star" style="color: var(--cyan-dark);"></i>
-                                <span>${prop.rating}</span>
-                                <span style="font-size: 0.8rem; font-weight: 400; color: var(--text-muted);">(${prop.reviews})</span>
-                            </div>
+                <div class="prop-list-content">
+                    <div class="prop-list-header">
+                        <div>
+                            <h3 class="prop-list-title">${prop.name}</h3>
+                            <p class="prop-list-subtitle">${prop.subtitle}</p>
+                            <p class="prop-list-location"><i class="fas fa-map-marker-alt"></i> ${prop.location}</p>
                         </div>
-
-                        <!-- Specific Highlight -->
-                        <div class="prop-list-highlight" style="margin-top: 1rem; color: var(--text-main); font-size: 0.95rem;">
-                            <span style="background: var(--off-white); padding: 0.4rem 0.75rem; border-radius: var(--border-radius-sm); border-left: 3px solid var(--cyan); display: inline-flex; align-items: center; gap: 0.5rem;">
-                                <i class="${prop.features[0]?.icon || 'fas fa-check'}" style="color: var(--cyan-dark);"></i> 
-                                ${prop.features[0]?.label || 'Charme breton'}
-                            </span>
+                        <div class="prop-list-rating">
+                            <i class="fas fa-star"></i>
+                            <span>${prop.rating}</span>
+                            <span class="prop-list-reviews">(${prop.reviews} avis)</span>
                         </div>
                     </div>
 
-                    <div class="prop-list-footer" style="display: flex; justify-content: space-between; align-items: flex-end; margin-top: 1rem; padding-top: 1rem; border-top: 1px solid var(--grey-light);">
+                    <p class="prop-list-desc">${prop.description}</p>
+
+                    <div class="prop-list-features">
+                        ${prop.features.map(f => `<span class="prop-feat"><i class="${f.icon}"></i> ${f.label}</span>`).join('')}
+                    </div>
+
+                    <div class="prop-list-footer">
                         <div class="prop-list-price">
-                            <span style="font-size: 1.5rem; font-weight: 700; color: var(--glaz);">${prop.pricePerNight} €</span>
-                            <span style="font-size: 0.875rem; color: var(--text-muted);">/nuit</span>
+                            <strong>${prop.pricePerNight} €</strong>
+                            <span class="prop-cleaning">+ ${prop.cleaningFee} € de ménage</span>
                         </div>
-                        <div class="prop-list-actions" style="display: flex; gap: 0.5rem;">
-                            <button class="btn btn-outline btn-sm btn-map-focus" onclick="focusOnMap('${prop.id}'); event.stopPropagation();" title="Voir sur la carte" style="padding: 0.5rem 0.75rem;">
+                        <div class="prop-list-actions">
+                            <button class="btn-map-focus" onclick="focusOnMap('${prop.id}'); event.stopPropagation();" title="Voir sur la carte">
                                 <i class="fas fa-map-marker-alt"></i>
                             </button>
                             <a href="property-detail.html?property=${prop.id}" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">
@@ -518,7 +552,7 @@
     }
 
     function focusOnMap(id) {
-        const prop = PROPERTIES_MAP_DATA.find(p => p.id === id);
+        const prop = PUBLISHED_PROPERTIES.find(p => p.id === id);
         if (!prop || !mapInstance) return;
 
         // On mobile: switch to map view
@@ -561,7 +595,7 @@
         const priceFilter = parseInt(document.getElementById('filter-price').value);
         const sortVal = document.getElementById('filter-sort').value;
 
-        let result = [...PROPERTIES_MAP_DATA];
+        let result = [...PUBLISHED_PROPERTIES];
 
         if (guestFilter > 0) {
             result = result.filter(p => p.capacity >= guestFilter);
@@ -591,7 +625,7 @@
         }
 
         // Show/hide map markers
-        PROPERTIES_MAP_DATA.forEach(prop => {
+        PUBLISHED_PROPERTIES.forEach(prop => {
             const visible = result.some(r => r.id === prop.id);
             if (markers[prop.id]) {
                 if (visible) {
