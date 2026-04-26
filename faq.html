@@ -24,33 +24,26 @@
         /* FAQ Page Specific Styles */
         .faq-hero {
             position: relative;
-            height: 50vh;
-            min-height: 400px;
+            height: 60vh;
+            min-height: 500px;
             display: flex;
             align-items: center;
             background-image: url('images/Photo_libre_droits/paul_henri-flow-4371328.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             padding-top: 6rem;
         }
 
-        .faq-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(90, 125, 155, 0.7);
-        }
+        /* No blue overlay - image shows naturally with text shadow for readability */
 
         .faq-hero-content {
             position: relative;
             z-index: 10;
-            color: var(--white);
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            padding: 2rem;
         }
 
         .faq-hero-content h1 {

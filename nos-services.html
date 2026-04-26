@@ -24,45 +24,39 @@
         /* Services Page Specific Styles */
         .services-hero {
             position: relative;
-            height: 50vh;
-            min-height: 400px;
+            height: 60vh;
+            min-height: 500px;
             display: flex;
             align-items: center;
             background-image: url('images/Photo_libre_droits/chiemseherin-village-7258991.jpg');
             background-size: cover;
             background-position: center;
+            background-attachment: fixed;
             padding-top: 6rem;
         }
 
-        .services-hero::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(90, 125, 155, 0.7);
-        }
+        /* No blue overlay - image shows naturally with text shadow for readability */
 
         .services-hero-content {
             position: relative;
             z-index: 10;
-            color: var(--white);
             text-align: center;
             max-width: 800px;
             margin: 0 auto;
+            padding: 2rem;
         }
 
         .services-hero-content h1 {
             font-size: 3.5rem;
             color: var(--white);
             margin-bottom: 1.5rem;
-            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6), 0 4px 16px rgba(0, 0, 0, 0.4);
         }
 
         .services-hero-content p {
             font-size: 1.25rem;
-            text-shadow: 0 1px 2px rgba(0, 0, 0, 0.3);
+            color: var(--white);
+            text-shadow: 0 1px 4px rgba(0, 0, 0, 0.6), 0 2px 8px rgba(0, 0, 0, 0.4);
         }
 
         /* Smooth transition from hero to content */
@@ -501,296 +495,6 @@
     </section>
 
     <!-- Services Proprietaires Section -->
-    <section id="services-proprietaires" class="services-detail-section">
-        <div class="container">
-            <div class="service-detail-header">
-                <h2>Gestion de votre bien par une conciergerie bretonne</h2>
-                <p>Nous accompagnons les proprietaires de residences secondaires, gites et maisons de caractere et les
-                    assistons dans la gestion complete de leur bien.</p>
-            </div>
-
-            <div style="background-image: url('images/Photos principales/Conciergerie Guingamp Manoir Toul An Golet 5.jpg'); background-size: cover; background-position: center; height: 350px; border-radius: var(--border-radius-lg); margin-bottom: 3rem; box-shadow: var(--shadow-md);"
-            ></div>
-
-            <h3 style="text-align: center; margin-bottom: 2rem; color: var(--primary-bg);">Un accompagnement global et
-                sur mesure</h3>
-            <div class="services-grid-detailed">
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-shield-alt"></i> Vigilance et suivi de propriete</h3>
-                    <ul>
-                        <li>Surveillance et visites regulieres</li>
-                        <li>Gestion des imprevus</li>
-                        <li>Entretien courant</li>
-                    </ul>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-gem"></i> Valorisation des biens de caractere</h3>
-                    <ul>
-                        <li>Specialistes de la pierre et du patrimoine</li>
-                        <li>Preservation et sublimation de votre bien</li>
-                    </ul>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-home"></i> Creation de gites et locations meublees</h3>
-                    <ul>
-                        <li>De l'idee a la mise en exploitation</li>
-                        <li>Conseil, amenagement, decoration et equipement</li>
-                    </ul>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-tools"></i> Entretien et gestion operationnelle</h3>
-                    <ul>
-                        <li>Coordination des equipes</li>
-                        <li>Proprete, maintenance et suivi global</li>
-                    </ul>
-                </div>
-            </div>
-
-            <h3 style="text-align: center; margin: 3rem 0 2rem; color: var(--primary-bg);">Mise en location &
-                performance</h3>
-            <div class="services-grid-detailed">
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-bullhorn"></i> Creation d'annonces performantes</h3>
-                    <ul>
-                        <li>Redaction de textes optimises</li>
-                        <li>Photos de qualite</li>
-                        <li>Mise en valeur du bien</li>
-                    </ul>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-globe"></i> Diffusion multi-plateformes</h3>
-                    <ul>
-                        <li>Selection des canaux les plus adaptes</li>
-                        <li>Maximisation de votre visibilite</li>
-                    </ul>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-chart-line"></i> Optimisation des revenus</h3>
-                    <ul>
-                        <li>Strategie tarifaire</li>
-                        <li>Ciblage clientele</li>
-                        <li>Amelioration du taux d'occupation</li>
-                    </ul>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-calendar-check"></i> Gestion des reservations et calendriers</h3>
-                    <ul>
-                        <li>Suivi rigoureux et coordination</li>
-                        <li>Prevention des doubles reservations</li>
-                    </ul>
-                </div>
-            </div>
-
-            <div style="text-align: center; margin-top: 4rem; padding: 3rem 2rem; background: linear-gradient(135deg, var(--off-white) 0%, #f8f9fa 100%); border-radius: var(--border-radius-lg); border: 1px solid rgba(0,0,0,0.05);">
-                <i class="fas fa-handshake" style="font-size: 2.5rem; color: var(--button); margin-bottom: 1.5rem; display: block;"></i>
-                <h4 style="color: var(--primary-bg); margin-bottom: 1rem; font-size: 1.5rem;">Formule complete</h4>
-                <p style="max-width: 50ch; margin: 0 auto; color: var(--text-muted);">Vous souhaitez deleguer en toute serenite ? Nous prenons en charge l'integralite de la gestion, de A a Z.</p>
-            </div>
-        </div>
-    </section>
-
-    <!-- Creation et gestion de location -->
-    <section class="services-detail-section alt">
-        <div class="container">
-            <div class="service-detail-header">
-                <h2>Creation et gestion de location saisonniere</h2>
-                <p style="font-size: 1.25rem; color: var(--text-muted);">Vous souhaitez rentabiliser votre bien ?</p>
-            </div>
-
-            <div style="background-image: url('images/Banners/Service_proprio.png'); background-size: cover; background-position: center; height: 300px; border-radius: var(--border-radius-lg); margin-bottom: 3rem; box-shadow: var(--shadow-md);"></div>
-
-            <div class="services-grid-detailed">
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-hammer"></i> Creation de gites</h3>
-                    <ul>
-                        <li>Accompagnement du projet</li>
-                        <li>Amenagement et decoration</li>
-                        <li>Positionnement marche</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-style: italic; color: var(--text-muted);">Un savoir-faire base sur
-                        une vraie experience</p>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-upload"></i> Mise en location</h3>
-                    <ul>
-                        <li>Redaction d'annonces optimisees</li>
-                        <li>Photos de qualite</li>
-                        <li>Diffusion multi-plateformes</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-style: italic; color: var(--text-muted);">Une visibilite de qualite
-                    </p>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-book"></i> Gestion des reservations</h3>
-                    <ul>
-                        <li>Gestion des calendriers</li>
-                        <li>Coordination des sejours</li>
-                        <li>Communication voyageurs</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-style: italic; color: var(--text-muted);">Optimisation des
-                        locations et satisfaction des voyageurs</p>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-headset"></i> Assistance a la gestion & suivi</h3>
-                    <ul>
-                        <li>Surveillance reguliere</li>
-                        <li>Gestion des imprevus</li>
-                        <li>Coordination des intervenants</li>
-                        <li>Entretien general</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-style: italic; color: var(--text-muted);">Votre bien est visite
-                        regulierement, chauffe, nettoye et les frais sont couverts par les locations</p>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-chart-bar"></i> Optimisation des revenus</h3>
-                    <ul>
-                        <li>Strategie tarifaire</li>
-                        <li>Amelioration du taux d'occupation</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-style: italic; color: var(--text-muted);">Une gestion complete pour
-                        un rendement optimise sans contrainte</p>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-file-alt"></i> Rapports et analyse</h3>
-                    <ul>
-                        <li>Production de rapports bi-annuels (fin ete et fin annee)</li>
-                        <li>Analyse complete</li>
-                        <li>Revision des strategies pour l'optimisation</li>
-                    </ul>
-                    <p style="margin-top: 1rem; font-style: italic; color: var(--text-muted);">Une analyse complete et
-                        professionnelle pour optimiser</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Service Vigilance -->
-    <section class="services-detail-section vigilance-section">
-        <div class="container">
-            <div class="service-detail-header">
-                <h2>Service vigilance</h2>
-                <p>Residence principale ou secondaire</p>
-            </div>
-
-            <div style="background-image: url('images/Photos principales/06102022-IMG_2573.jpg'); background-size: cover; background-position: center; height: 350px; border-radius: var(--border-radius-lg); margin-bottom: 3rem; box-shadow: var(--shadow-md);">
-            </div>
-
-            <div class="services-grid-detailed" style="max-width: 800px; margin: 0 auto;">
-                <div class="service-detail-card">
-                    <ul>
-                        <li>Visites de controle</li>
-                        <li>Inspection apres intemperies</li>
-                        <li>Presence dissuasive</li>
-                        <li>Preparation avant arrivee</li>
-                    </ul>
-                    <p style="margin-top: 1.5rem; text-align: center; font-weight: 600; color: var(--primary-bg);">Votre
-                        bien est entretenu et securise toute l'annee</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Expertise Section -->
-    <section class="expertise-section">
-        <div class="pattern-overlay"></div>
-        <div class="container">
-            <h2>Expertise des biens de caractere</h2>
-            <p>Specialises dans les maisons en pierre, longeres et demeures historiques, nous valorisons votre
-                patrimoine en respectant son authenticite tout en repondant aux standards actuels.</p>
-        </div>
-    </section>
-
-    <!-- Services Voyageurs Section -->
-    <section id="services-voyageurs" class="services-detail-section">
-        <div class="container">
-            <div class="service-detail-header">
-                <h2>Sejours de charme en Bretagne</h2>
-                <p>Nous proposons des locations de caractere et un accompagnement personnalise pour un sejour unique.</p>
-            </div>
-
-            <div style="background-image: url('images/Photos principales/Conciergerie Guingamp Manoir Toul An Golet 2.jpg'); background-size: cover; background-position: center; height: 400px; border-radius: var(--border-radius-lg); margin-bottom: 3rem; box-shadow: var(--shadow-md);">
-            </div>
-
-            <div class="services-grid-detailed">
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-star"></i> Une experience sur mesure</h3>
-                    <ul>
-                        <li>Lieux authentiques et charges d'histoire</li>
-                        <li>Confort moderne</li>
-                        <li>Accueil soigne</li>
-                    </ul>
-                </div>
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-concierge-bell"></i> Services personnalises</h3>
-                    <ul>
-                        <li>Petit-dejeuner a l'arrivee</li>
-                        <li>Courses livrees et rangees</li>
-                        <li>Pique-niques de produits locaux</li>
-                        <li>Sejours romantiques (fleurs, champagne...)</li>
-                    </ul>
-                </div>
-            </div>
-            <p style="text-align: center; margin-top: 2rem; font-style: italic; color: var(--text-muted);">Chaque sejour
-                est pense comme une experience</p>
-        </div>
-    </section>
-
-    <!-- Services Exterieurs -->
-    <section class="services-detail-section exterior-services">
-        <div class="container">
-            <div class="service-detail-header">
-                <h2>Services exterieurs & jardins</h2>
-            </div>
-
-            <div style="background-image: url('images/Photos principales/15032024-IMG_2395 2.jpg'); background-size: cover; background-position: center; height: 400px; border-radius: var(--border-radius-lg); margin-bottom: 3rem;">
-            </div>
-
-            <div class="services-grid-detailed" style="max-width: 800px; margin: 0 auto;">
-                <div class="service-detail-card">
-                    <h3><i class="fas fa-leaf"></i> Entretien et valorisation de vos exterieurs</h3>
-                    <p style="margin-bottom: 1.5rem;">Nous prenons soin de vos jardins avec une approche a la fois
-                        esthetique et fonctionnelle.</p>
-                    <ul>
-                        <li>Remise en etat</li>
-                        <li>Entretien regulier</li>
-                        <li>Amenagement</li>
-                        <li>Suivi personnalise</li>
-                    </ul>
-                    <p style="margin-top: 1.5rem; font-style: italic; color: var(--text-muted);">Un exterieur a la
-                        hauteur de votre propriete. Nous concevons des jardins a la fois esthetiques, durables et adaptes
-                        a votre mode de vie.</p>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Immobilier de Caractere -->
-    <section class="services-detail-section immobilier-section">
-        <div class="container">
-            <div class="service-detail-header">
-                <h2>Immobilier de caractere</h2>
-            </div>
-
-            <div style="background-image: url('images/Photos principales/Conciergerie Guingamp Marques Pommerit le Vicomte 12.jpg'); background-size: cover; background-position: center; height: 400px; border-radius: var(--border-radius-lg); margin-bottom: 3rem; box-shadow: var(--shadow-md);"></div>
-
-            <div class="service-detail-header">
-                <h3 style="font-size: 1.75rem;">Achat et vente de biens en Bretagne</h3>
-                <p style="font-size: 1.1rem;">Avec plus de 15 ans d'experience :</p>
-            </div>
-
-            <div class="services-grid-detailed" style="max-width: 800px; margin: 0 auto;">
-                <div class="service-detail-card">
-                    <ul>
-                        <li>Accompagnement a la vente</li>
-                        <li>Recherche de biens (chasseur immobilier)</li>
-                        <li>Conseil strategique</li>
-                    </ul>
-                    <p style="margin-top: 1.5rem; font-style: italic; color: var(--text-muted);">Un accompagnement
-                        expert pour des biens d'exception. Nous vous guidons a chaque etape, avec exigence et
-                        discretion.</p>
-                </div>
-            </div>
-        </div>
     </section>
 
     <!-- CTA Section -->
