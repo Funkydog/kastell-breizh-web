@@ -61,12 +61,7 @@
 
         /* Smooth transition from hero to content */
         .hero-transition {
-            height: 80px;
-            background: linear-gradient(to bottom, rgba(26, 43, 76, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
-            margin-top: -80px;
-            position: relative;
-            z-index: 5;
-            pointer-events: none;
+            display: none;
         }
 
         .service-choice-section {
@@ -399,9 +394,13 @@
                 <a href="faq.html">FAQ</a>
                 <a href="contact.html">Contactez nous</a>
             </nav>
+            <!-- [HIDDEN FOR PHASE 3]
             <div class="nav-actions">
                 <a href="login.html" class="btn btn-outline">Espace proprietaire</a>
             </div>
+            -->
+            <!-- Spacer to balance the mobile menu button and keep nav-links centered -->
+            <div class="nav-spacer" style="width: 150px; display: flex; justify-content: flex-end;"></div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
@@ -436,14 +435,11 @@
         </div>
     </section>
 
-    <!-- Smooth transition from hero -->
-    <div class="hero-transition"></div>
-
     <!-- Service Choices -->
     <section class="service-choice-section">
         <div class="container">
             <div class="service-choices">
-                <a href="#services-proprietaires" class="service-choice-card">
+                <a href="services-proprietaires.html" class="service-choice-card">
                     <div class="service-choice-icon">
                         <i class="fas fa-home"></i>
                     </div>
@@ -451,7 +447,7 @@
                     <p>Gestion complete de votre bien, mise en location, surveillance et optimisation de vos revenus.</p>
                     <span class="service-choice-link">Decouvrir <i class="fas fa-arrow-right"></i></span>
                 </a>
-                <a href="#services-voyageurs" class="service-choice-card">
+                <a href="services-voyageurs.html" class="service-choice-card">
                     <div class="service-choice-icon">
                         <i class="fas fa-suitcase"></i>
                     </div>
@@ -538,8 +534,8 @@
                 <div class="footer-links">
                     <h4 class="footer-title">Services</h4>
                     <ul>
-                        <li><a href="nos-services.html#services-proprietaires">Proprietaires</a></li>
-                        <li><a href="nos-services.html#services-voyageurs">Voyageurs</a></li>
+                        <li><a href="services-proprietaires.html">Proprietaires</a></li>
+                        <li><a href="services-voyageurs.html">Voyageurs</a></li>
                         <li><a href="login.html">Espace proprietaire</a></li>
                     </ul>
                 </div>

@@ -170,7 +170,7 @@
 /* ─── Property List Card ─── */
 .prop-list-card {
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     background: var(--white);
     border-radius: var(--border-radius-lg);
     overflow: hidden;
@@ -200,30 +200,24 @@
 .prop-list-image {
     position: relative;
     overflow: hidden;
-    width: 220px;
-    min-height: 220px;
+    height: 150px;
     flex-shrink: 0;
-}
-
-.prop-list-image img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
+    background-size: cover;
+    background-position: center;
     transition: transform 0.5s ease;
-    display: block;
 }
 
-.prop-list-card:hover .prop-list-image img {
-    transform: scale(1.05);
+.prop-list-card:hover .prop-list-image {
+    transform: scale(1.02);
 }
 
 .prop-list-badge {
     position: absolute;
-    top: 0.875rem;
-    left: 0.875rem;
-    padding: 0.25rem 0.65rem;
+    top: 0.75rem;
+    left: 0.75rem;
+    padding: 0.2rem 0.55rem;
     border-radius: 20px;
-    font-size: 0.7rem;
+    font-size: 0.65rem;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.3px;
@@ -235,90 +229,58 @@
 
 /* ─── Card Content ─── */
 .prop-list-content {
-    padding: 1.25rem 1.5rem;
+    padding: 1rem;
     display: flex;
     flex-direction: column;
-    justify-content: space-between;
     flex: 1;
     min-width: 0;
 }
 
-.prop-list-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    margin-bottom: 0.4rem;
-    gap: 0.75rem;
-}
-
 .prop-list-title {
-    font-size: 1.1rem;
+    font-family: 'Playfair Display', serif;
+    font-size: 1rem;
     color: var(--navy-blue);
-    margin: 0;
-    font-family: var(--font-heading);
+    margin: 0 0 0.3rem 0;
 }
-
-.prop-list-subtitle {
-    font-size: 0.78rem;
-    color: var(--text-muted);
-    margin: 0.1rem 0 0;
-}
-
-.prop-list-rating {
-    display: flex;
-    align-items: center;
-    gap: 0.25rem;
-    font-size: 0.875rem;
-    font-weight: 600;
-    color: var(--navy-blue);
-    white-space: nowrap;
-    flex-shrink: 0;
-}
-
-.prop-list-rating i { color: var(--gold); font-size: 0.8rem; }
-.prop-list-reviews { color: var(--text-muted); font-weight: 400; font-size: 0.8rem; }
 
 .prop-list-location {
-    font-size: 0.8rem;
+    font-size: 0.75rem;
     color: var(--text-muted);
     display: flex;
     align-items: center;
-    gap: 0.35rem;
+    gap: 0.3rem;
     margin-bottom: 0.6rem;
 }
 
 .prop-list-location i { color: var(--gold-dark); font-size: 0.7rem; }
 
-.prop-list-desc {
-    font-size: 0.85rem;
-    color: var(--text-muted);
-    line-height: 1.6;
-    margin-bottom: 0.875rem;
-    display: -webkit-box;
-    -webkit-line-clamp: 2;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
-}
-
-.prop-list-features {
+/* ─── Meta (rating + capacity) ─── */
+.prop-list-meta {
     display: flex;
-    flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 1rem;
     margin-bottom: 0.875rem;
+    font-size: 0.78rem;
 }
 
-.prop-feat {
+.prop-list-rating {
     display: flex;
     align-items: center;
-    gap: 0.35rem;
-    font-size: 0.75rem;
-    color: var(--slate-dark);
-    background: var(--slate-light);
-    padding: 0.2rem 0.6rem;
-    border-radius: 20px;
+    gap: 0.2rem;
+    font-weight: 600;
+    color: var(--navy-blue);
 }
 
-.prop-feat i { color: var(--gold-dark); font-size: 0.65rem; }
+.prop-list-rating i { color: var(--gold); font-size: 0.7rem; }
+.prop-list-reviews { color: var(--text-muted); font-weight: 400; }
+
+.prop-list-cap {
+    display: flex;
+    align-items: center;
+    gap: 0.2rem;
+    color: var(--text-muted);
+}
+
+.prop-list-cap i { color: var(--text-muted); font-size: 0.7rem; }
 
 /* ─── Card Footer ─── */
 .prop-list-footer {
@@ -326,59 +288,20 @@
     justify-content: space-between;
     align-items: center;
     border-top: 1px solid var(--slate-light);
-    padding-top: 0.875rem;
+    padding-top: 0.75rem;
     margin-top: auto;
-    gap: 1rem;
-    flex-wrap: wrap;
+    gap: 0.5rem;
 }
 
 .prop-list-price {
     display: flex;
     align-items: baseline;
-    gap: 0.25rem;
-    flex-wrap: wrap;
+    gap: 0.2rem;
 }
 
-.prop-list-price strong {
-    font-size: 1.25rem;
-    color: var(--navy-blue);
-    font-family: var(--font-heading);
-}
-
-.prop-cleaning {
-    font-size: 0.72rem;
-    color: var(--text-muted);
-    width: 100%;
-    margin-top: -0.15rem;
-}
-
-.prop-list-actions {
-    display: flex;
-    align-items: center;
-    gap: 0.6rem;
-    flex-shrink: 0;
-}
-
-.btn-map-focus {
-    width: 36px;
-    height: 36px;
-    border: 1.5px solid rgba(0, 0, 0, 0.12);
-    border-radius: 50%;
-    background: none;
-    cursor: pointer;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 0.85rem;
-    color: var(--navy-blue);
-    transition: var(--transition-fast);
-}
-
-.btn-map-focus:hover {
-    background: var(--navy-blue);
-    color: white;
-    border-color: var(--navy-blue);
-}
+.prop-from { font-size: 0.65rem; color: var(--text-muted); }
+.prop-list-price strong { font-size: 1.1rem; color: var(--navy-blue); }
+.prop-night { font-size: 0.72rem; color: var(--text-muted); }
 
 /* ─── Map Panel ─── */
 .map-panel {
@@ -620,12 +543,11 @@
     }
 
     .prop-list-card {
-        flex-direction: row;
+        flex-direction: column;
     }
 
     .prop-list-image {
-        width: 160px;
-        min-height: 180px;
+        height: 140px;
     }
 }
 
@@ -635,9 +557,7 @@
     }
 
     .prop-list-image {
-        width: 100%;
-        height: 200px;
-        min-height: unset;
+        height: 160px;
     }
 
     .filter-bar {
@@ -649,9 +569,11 @@
     .prop-list-footer {
         flex-direction: column;
         align-items: stretch;
+        gap: 0.75rem;
     }
 
-    .prop-list-actions {
-        justify-content: flex-end;
+    .prop-list-footer .btn {
+        width: 100%;
+        text-align: center;
     }
 }

@@ -32,22 +32,20 @@
             </a>
             <nav class="nav-links">
                 <a href="index.html">Accueil</a>
-                <div class="nav-dropdown">
-                    <a href="services-proprietaires.html">Nos services</a>
-                    <div class="dropdown-menu">
-                        <a href="services-proprietaires.html">Propriétaires</a>
-                        <a href="services-voyageurs.html">Voyageurs</a>
-                    </div>
-                </div>
+                <a href="nos-services.html">Nos services</a>
                 <a href="notre-equipe.html">Notre équipe</a>
                 <a href="properties.html">Nos logements</a>
                 <a href="places.html">La région</a>
                 <a href="faq.html">FAQ</a>
                 <a href="contact.html">Contactez nous</a>
             </nav>
+            <!-- [HIDDEN FOR PHASE 3]
             <div class="nav-actions">
                 <a href="login.html" class="btn btn-outline light">Espace propriétaire</a>
             </div>
+            -->
+            <!-- Spacer to balance the mobile menu button and keep nav-links centered -->
+            <div class="nav-spacer" style="width: 150px; display: flex; justify-content: flex-end;"></div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
@@ -62,8 +60,7 @@
             </button>
             <nav class="mobile-nav-links">
                 <a href="index.html" class="mobile-link">Accueil</a>
-                <a href="services-proprietaires.html" class="mobile-link">Services Propriétaires</a>
-                <a href="services-voyageurs.html" class="mobile-link">Services Voyageurs</a>
+                <a href="nos-services.html" class="mobile-link">Nos services</a>
                 <a href="notre-equipe.html" class="mobile-link">Notre équipe</a>
                 <a href="properties.html" class="mobile-link">Nos logements</a>
                 <a href="places.html" class="mobile-link">La région</a>
@@ -76,6 +73,7 @@
 
     <!-- Hero Section -->
     <section class="hero">
+        <div class="hero-cinematic"></div>
         <!-- Overlay removed for authentic, non-darkened appearance -->
         <div class="container hero-content">
             <p class="hero-subtitle">Conciergerie Privée en Bretagne</p>
@@ -85,12 +83,13 @@
                 confiance pour la gestion et la valorisation de biens immobiliers de caractère.
             </p>
             <div class="hero-ctas">
-                <a href="properties.html" class="btn btn-primary btn-large">Trouver votre séjour de rêve</a>
-                <a href="confier.html" class="btn btn-secondary btn-large">Confier votre bien</a>
+                <a href="#proprietes" class="btn btn-primary btn-large">Trouver votre séjour de rêve</a>
+                <a href="contact.html" class="btn btn-secondary btn-large">Confier votre bien</a>
             </div>
         </div>
 
-        <!-- Direct Reservation Widget Inline -->
+        <!-- [HIDDEN FOR FUTURE VERSION WITH BOOKING]
+        Direct Reservation Widget Inline - Hidden until booking feature is available
         <div class="booking-widget-container container">
             <form class="booking-widget" id="reservation">
                 <div class="booking-field">
@@ -127,6 +126,7 @@
                 </button>
             </form>
         </div>
+        END HIDDEN BOOKING WIDGET] -->
     </section>
 
     <!-- Nos Services Section -->
@@ -163,7 +163,7 @@
     </section>
 
     <!-- Immobilier d'Exception / Featured Accommodations -->
-    <section id="proprietes" class="featured section" style="background-color: #dddddd;">
+    <section id="proprietes" class="featured section" style="background-color: transparent;">
         <div class="container">
             <div class="section-header align-left">
                 <div class="header-content-wrapper">
@@ -200,7 +200,7 @@
                                 <strong>185 €</strong>
                                 <span class="price-unit">/nuit</span>
                             </div>
-                            <a href="property-detail.html?property=kerollivier" class="btn btn-primary btn-sm">Réserver</a>
+                            <a href="property-detail.html?property=kerollivier" class="btn btn-primary btn-sm">Détail du bien</a>
                         </div>
                     </div>
                 </div>
@@ -225,7 +225,7 @@
                                 <strong>220 €</strong>
                                 <span class="price-unit">/nuit</span>
                             </div>
-                            <a href="property-detail.html?property=saint-guy" class="btn btn-primary btn-sm">Réserver</a>
+                            <a href="property-detail.html?property=saint-guy" class="btn btn-primary btn-sm">Détail du bien</a>
                         </div>
                     </div>
                 </div>
@@ -253,7 +253,7 @@
                                 <strong>280 €</strong>
                                 <span class="price-unit">/nuit</span>
                             </div>
-                            <a href="property-detail.html?property=maison-art" class="btn btn-primary btn-sm">Réserver</a>
+                            <a href="property-detail.html?property=maison-art" class="btn btn-primary btn-sm">Détail du bien</a>
                         </div>
                     </div>
                 </div>
@@ -281,7 +281,7 @@
                                 <strong>250 €</strong>
                                 <span class="price-unit">/nuit</span>
                             </div>
-                            <a href="property-detail.html?property=pont-dorniol" class="btn btn-primary btn-sm">Réserver</a>
+                            <a href="property-detail.html?property=pont-dorniol" class="btn btn-primary btn-sm">Détail du bien</a>
                         </div>
                     </div>
                 </div>

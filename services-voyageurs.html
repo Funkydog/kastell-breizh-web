@@ -34,6 +34,30 @@
             background-attachment: fixed;
             padding-top: 6rem;
         }
+        /* Parallax reveal section - appears as continuation of hero */
+        .parallax-reveal {
+            position: relative;
+            height: 500px;
+            background-image: url("images/Photos principales/Conciergerie Guingamp Manoir Toul An Golet 2.jpg");
+            background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
+            margin-bottom: 3rem;
+            border-radius: var(--border-radius-lg);
+            overflow: hidden;
+        }
+
+        /* Gradient overlay to blend with content below */
+        .parallax-reveal::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 150px;
+            background: linear-gradient(to top, rgba(255,255,255,1) 0%, rgba(255,255,255,0) 100%);
+            pointer-events: none;
+        }
 
         /* No blue overlay - image shows naturally with text shadow for readability */
 
@@ -61,12 +85,7 @@
 
         /* Smooth transition from hero to content */
         .hero-transition {
-            height: 80px;
-            background: linear-gradient(to bottom, rgba(26, 43, 76, 0.15) 0%, rgba(255, 255, 255, 0) 100%);
-            margin-top: -80px;
-            position: relative;
-            z-index: 5;
-            pointer-events: none;
+            display: none;
         }
 
         .service-choice-section {
@@ -313,22 +332,20 @@
             </a>
             <nav class="nav-links">
                 <a href="index.html">Accueil</a>
-                <div class="nav-dropdown">
-                    <a href="services-proprietaires.html" class="active">Nos services</a>
-                    <div class="dropdown-menu">
-                        <a href="services-proprietaires.html">Proprietaires</a>
-                        <a href="services-voyageurs.html" class="active">Voyageurs</a>
-                    </div>
-                </div>
+                <a href="nos-services.html" class="active">Nos services</a>
                 <a href="notre-equipe.html">Notre equipe</a>
                 <a href="properties.html">Nos logements</a>
                 <a href="places.html">La region</a>
                 <a href="faq.html">FAQ</a>
                 <a href="contact.html">Contactez nous</a>
             </nav>
+            <!-- [HIDDEN FOR PHASE 3]
             <div class="nav-actions">
                 <a href="login.html" class="btn btn-outline">Espace proprietaire</a>
             </div>
+            -->
+            <!-- Spacer to balance the mobile menu button and keep nav-links centered -->
+            <div class="nav-spacer" style="width: 150px; display: flex; justify-content: flex-end;"></div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
@@ -343,8 +360,7 @@
             </button>
             <nav class="mobile-nav-links">
                 <a href="index.html" class="mobile-link">Accueil</a>
-                <a href="services-proprietaires.html" class="mobile-link">Services Proprietaires</a>
-                <a href="services-voyageurs.html" class="mobile-link active">Services Voyageurs</a>
+                <a href="nos-services.html" class="mobile-link active">Nos services</a>
                 <a href="notre-equipe.html" class="mobile-link">Notre equipe</a>
                 <a href="properties.html" class="mobile-link">Nos logements</a>
                 <a href="places.html" class="mobile-link">La region</a>
@@ -363,33 +379,6 @@
         </div>
     </section>
 
-    <!-- Smooth transition from hero -->
-    <div class="hero-transition"></div>
-
-    <!-- Service Choices -->
-    <section class="service-choice-section">
-        <div class="container">
-            <div class="service-choices">
-                <a href="services-proprietaires.html" class="service-choice-card">
-                    <div class="service-choice-icon">
-                        <i class="fas fa-home"></i>
-                    </div>
-                    <h3>Services Proprietaires</h3>
-                    <p>Gestion complete de votre bien, mise en location, surveillance et optimisation de vos revenus.</p>
-                    <span class="service-choice-link">Decouvrir <i class="fas fa-arrow-right"></i></span>
-                </a>
-                <a href="services-voyageurs.html" class="service-choice-card" style="border-color: var(--button);">
-                    <div class="service-choice-icon" style="background: var(--button);">
-                        <i class="fas fa-suitcase"></i>
-                    </div>
-                    <h3>Services Voyageurs</h3>
-                    <p>Sejours de charme, accueil personnalise et experiences uniques en Bretagne.</p>
-                    <span class="service-choice-link">Decouvrir <i class="fas fa-arrow-right"></i></span>
-                </a>
-            </div>
-        </div>
-    </section>
-
     <!-- Sejours de charme Section -->
     <section id="services-voyageurs" class="services-detail-section">
         <div class="container">
@@ -398,8 +387,7 @@
                 <p>Nous proposons des locations de caractere et un accompagnement personnalise pour un sejour unique.</p>
             </div>
 
-            <div style="background-image: url('images/Photos principales/Conciergerie Guingamp Manoir Toul An Golet 2.jpg'); background-size: cover; background-position: center; height: 400px; border-radius: var(--border-radius-lg); margin-bottom: 3rem; box-shadow: var(--shadow-md);">
-            </div>
+            <div class="parallax-reveal"></div>
 
             <div class="services-grid-detailed">
                 <div class="service-detail-card">

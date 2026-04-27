@@ -12,10 +12,43 @@
 
     <link rel="stylesheet" href="index.css">
     <style>
+        /* Property detail page has no hero - navbar starts scrolled with white background */
         .detail-page {
             background-color: var(--white);
             padding-top: 6rem;
             color: var(--text-main);
+        }
+
+        .detail-page .navbar {
+            background-color: var(--white);
+            padding: 1rem 0;
+            box-shadow: var(--shadow-sm);
+        }
+
+        .detail-page .navbar .logo-light {
+            display: none;
+        }
+
+        .detail-page .navbar .logo-dark {
+            display: block;
+        }
+
+        .detail-page .navbar .nav-links a {
+            color: var(--glaz);
+        }
+
+        .detail-page .navbar .btn-outline {
+            border-color: var(--glaz);
+            color: var(--glaz);
+        }
+
+        .detail-page .navbar .btn-outline:hover {
+            background-color: var(--glaz);
+            color: var(--white);
+        }
+
+        .detail-page .navbar .menu-toggle {
+            color: var(--glaz);
         }
 
         .property-header {
@@ -543,9 +576,13 @@
                 <a href="faq.html">FAQ</a>
                 <a href="contact.html">Contactez nous</a>
             </nav>
+            <!-- [HIDDEN FOR PHASE 3]
             <div class="nav-actions">
                 <a href="login.html" class="btn btn-outline">Espace propriétaire</a>
             </div>
+            -->
+            <!-- Spacer to balance the mobile menu button and keep nav-links centered -->
+            <div class="nav-spacer" style="width: 150px; display: flex; justify-content: flex-end;"></div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
@@ -628,11 +665,12 @@
 
             </div>
 
-            <!-- Right Booking Form (Sticky) -->
+            <!-- Right Booking Form (Sticky) - SIMPLIFIED FOR FUTURE VERSION -->
             <div class="booking-wrapper" id="booking">
                 <div class="booking-sidebar">
                     <div class="booking-price"><span id="property-price">-</span>€ <span>/ nuit</span></div>
 
+                    <!-- [HIDDEN FOR FUTURE VERSION WITH BOOKING]
                     <form class="booking-form" onsubmit="event.preventDefault(); submitBooking();">
 
                         <div style="display: flex; gap: 1rem;">
@@ -649,7 +687,6 @@
                         <div class="form-group">
                             <label>Voyageurs</label>
                             <select id="guests-select" required>
-                                <!-- Populated by JS -->
                             </select>
                         </div>
 
@@ -669,26 +706,19 @@
                             <h4>Services Extra (Optionnels)</h4>
                             <label class="service-checkbox">
                                 <input type="checkbox" id="service-welcome">
-                                <span><strong>Panier d'accueil Breton</strong> (+35€)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Cidre artisanal, galettes, caramel beurre salé.</span></span>
+                                <span><strong>Panier d'accueil Breton</strong> (+35€)</span>
                             </label>
-                            <label class="service-checkbox">
-                                <input type="checkbox" id="service-fridge">
-                                <span><strong>Frigo plein à l'arrivée</strong> (+50€ + courses)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Vos courses locales pré-rangées.</span></span>
-                            </label>
-                            <label class="service-checkbox">
-                                <input type="checkbox" id="service-baby">
-                                <span><strong>Kit bébé confort</strong> (Gratuit)<br><span style="color: var(--text-muted); font-size: 0.8rem;">Lit parapluie, chaise haute, baignoire.</span></span>
-                            </label>
-                        </div>
-
-                        <div class="form-group">
-                            <label>Demandes spéciales</label>
-                            <textarea rows="2" id="special-requests" placeholder="Anniversaire, demande en mariage, allergies..."></textarea>
                         </div>
 
                         <button type="submit" class="btn-reserve">Demander une réservation</button>
-                        <p style="text-align: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.85rem;">Aucun montant ne vous sera débité pour le moment.</p>
                     </form>
+                    END HIDDEN BOOKING FORM] -->
+
+                    <a href="contact.html" class="btn-reserve" style="display: block; text-align: center; text-decoration: none; line-height: 1.2;">
+                        Contactez-nous<br>
+                        <span style="font-size: 0.8rem; font-weight: 400;">Pour réserver en direct</span>
+                    </a>
+                    <p style="text-align: center; margin-top: 1rem; color: var(--text-muted); font-size: 0.85rem;">Un membre de notre équipe vous répondra dans les plus brefs délais.</p>
                 </div>
             </div>
         </div>
@@ -958,21 +988,11 @@
             });
         }
 
+        // [HIDDEN FOR FUTURE VERSION WITH BOOKING]
+        // Date inputs are hidden until booking feature is available
         function initDateInputs() {
-            const today = new Date();
-            const tomorrow = new Date(today);
-            tomorrow.setDate(tomorrow.getDate() + 1);
-
-            document.getElementById('checkin-date').min = today.toISOString().split('T')[0];
-            document.getElementById('checkout-date').min = tomorrow.toISOString().split('T')[0];
-
-            // Auto-update checkout min when checkin changes
-            document.getElementById('checkin-date').addEventListener('change', function() {
-                const checkin = new Date(this.value);
-                const nextDay = new Date(checkin);
-                nextDay.setDate(nextDay.getDate() + 1);
-                document.getElementById('checkout-date').min = nextDay.toISOString().split('T')[0];
-            });
+            // Form elements hidden - see commented booking form above
+            // Kept for future use when booking is implemented
         }
 
         // ═══════════════════════════════════════════════════════
@@ -1037,40 +1057,9 @@
         // BOOKING
         // ═══════════════════════════════════════════════════════
         function submitBooking() {
-            const checkin = document.getElementById('checkin-date').value;
-            const checkout = document.getElementById('checkout-date').value;
-            const guests = document.getElementById('guests-select').value;
-            const name = document.getElementById('contact-name').value;
-            const email = document.getElementById('contact-email').value;
-            const phone = document.getElementById('contact-phone').value;
-
-            // Calculate total
-            const start = new Date(checkin);
-            const end = new Date(checkout);
-            const nights = Math.ceil((end - start) / (1000 * 60 * 60 * 24));
-            const total = nights * currentProperty.pricePerNight + currentProperty.cleaningFee;
-
-            // Get extras
-            const extras = [];
-            if (document.getElementById('service-welcome').checked) extras.push('Panier d\'accueil');
-            if (document.getElementById('service-fridge').checked) extras.push('Frigo plein');
-            if (document.getElementById('service-baby').checked) extras.push('Kit bébé');
-
-            const message = `Demande de réservation envoyée !
-
-${currentProperty.name}
-Du ${checkin} au ${checkout} (${nights} nuits)
-${guests} voyageur(s)
-
-Montant estimé : ${total}€
-${extras.length > 0 ? 'Extras : ' + extras.join(', ') : ''}
-
-Un membre de la Kastell Team vous contactera dans les plus brefs délais pour confirmer votre réservation.`;
-
-            alert(message);
-
-            // Reset form
-            document.querySelector('.booking-form').reset();
+            // [HIDDEN FOR FUTURE VERSION WITH BOOKING]
+            // Booking form is hidden - redirect to contact page
+            window.location.href = 'contact.html';
         }
     </script>
 </body>

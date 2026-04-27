@@ -62,9 +62,13 @@
                 <a href="faq.html">FAQ</a>
                 <a href="contact.html">Contactez nous</a>
             </nav>
+            <!-- [HIDDEN FOR PHASE 3]
             <div class="nav-actions">
                 <a href="login.html" class="btn btn-outline">Espace propriétaire</a>
             </div>
+            -->
+            <!-- Spacer to balance the mobile menu button and keep nav-links centered -->
+            <div class="nav-spacer" style="width: 150px; display: flex; justify-content: flex-end;"></div>
             <button class="menu-toggle" aria-label="Menu" id="mobile-menu-btn">
                 <i class="fas fa-bars"></i>
             </button>
@@ -88,7 +92,8 @@
         </div>
     </div>
 
-    <!-- Booking Search Widget -->
+    <!-- [HIDDEN FOR FUTURE VERSION WITH BOOKING]
+    Booking Search Widget - Hidden until booking feature is available
     <div class="booking-search-wrapper" style="background: var(--white); padding: 1.5rem 0; box-shadow: var(--shadow-sm); border-bottom: 1px solid var(--grey-light);">
         <div class="container">
             <div class="booking-widget" style="display: flex; gap: 1rem; align-items: center; justify-content: center; flex-wrap: wrap; background: var(--off-white); padding: 1rem; border-radius: var(--border-radius-lg);">
@@ -114,6 +119,7 @@
             </div>
         </div>
     </div>
+    END HIDDEN BOOKING WIDGET] -->
 
     <!-- Filter Bar -->
     <div class="filter-bar" id="filter-bar">
@@ -485,43 +491,27 @@
 
         container.innerHTML = data.map(prop => `
             <article class="prop-list-card" data-id="${prop.id}" tabindex="0" role="button" aria-label="Voir ${prop.name}">
-                <div class="prop-list-image">
-                    <img src="${prop.image}" alt="${prop.name}" loading="lazy">
+                <div class="prop-list-image" style="background-image: url('${prop.image}');">
                     <span class="prop-list-badge ${prop.badgeClass}">${prop.badge}</span>
                 </div>
                 <div class="prop-list-content">
-                    <div class="prop-list-header">
-                        <div>
-                            <h3 class="prop-list-title">${prop.name}</h3>
-                            <p class="prop-list-subtitle">${prop.subtitle}</p>
-                            <p class="prop-list-location"><i class="fas fa-map-marker-alt"></i> ${prop.location}</p>
-                        </div>
-                        <div class="prop-list-rating">
-                            <i class="fas fa-star"></i>
-                            <span>${prop.rating}</span>
-                            <span class="prop-list-reviews">(${prop.reviews} avis)</span>
-                        </div>
-                    </div>
+                    <h3 class="prop-list-title">${prop.name}</h3>
+                    <p class="prop-list-location"><i class="fas fa-map-marker-alt"></i> ${prop.location}</p>
 
-                    <p class="prop-list-desc">${prop.description}</p>
-
-                    <div class="prop-list-features">
-                        ${prop.features.map(f => `<span class="prop-feat"><i class="${f.icon}"></i> ${f.label}</span>`).join('')}
+                    <div class="prop-list-meta">
+                        <span class="prop-list-rating"><i class="fas fa-star"></i> ${prop.rating} <span class="prop-list-reviews">(${prop.reviews})</span></span>
+                        <span class="prop-list-cap"><i class="fas fa-user"></i> ${prop.capacity} pers.</span>
                     </div>
 
                     <div class="prop-list-footer">
                         <div class="prop-list-price">
-                            <strong>${prop.pricePerNight} €</strong>
-                            <span class="prop-cleaning">+ ${prop.cleaningFee} € de ménage</span>
+                            <span class="prop-from">à partir de</span>
+                            <strong>${prop.pricePerNight}€</strong>
+                            <span class="prop-night">/nuit</span>
                         </div>
-                        <div class="prop-list-actions">
-                            <button class="btn-map-focus" onclick="focusOnMap('${prop.id}'); event.stopPropagation();" title="Voir sur la carte">
-                                <i class="fas fa-map-marker-alt"></i>
-                            </button>
-                            <a href="property-detail.html?property=${prop.id}" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">
-                                Réserver
-                            </a>
-                        </div>
+                        <a href="property-detail.html?property=${prop.id}" class="btn btn-primary btn-sm" onclick="event.stopPropagation();">
+                            Détail du bien
+                        </a>
                     </div>
                 </div>
             </article>
